@@ -17,7 +17,7 @@ AIControl requires some precomputed data files.
 - `xtxs.jld` (6.0MB): A pre-computed transpose(X)\*X matrix of size 441 by 441. 
 
 When you uncompress the tar.bz2 files, each requires around 6.5GB of your HDD.  
-We have subsampled version (1.4GB compressed and 4.6GB uncompressed) for those who need smaller data.
+We have a subsampled version (1.4GB compressed and 4.6GB uncompressed) for those who need smaller data.
 
 ## Paper
 We have a paper in BioRxiv evaluating and comparing the performance of AIControl to other peak callers.  
