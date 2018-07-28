@@ -1,8 +1,9 @@
 module AIControl
-    using DataFrames
     using Distributions
     using JLD
     using CSV
+    using DataFrames
+    using GZip
 
     include("./ReferenceContigs.jl")
     include("./BamReader.jl")
