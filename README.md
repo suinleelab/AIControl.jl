@@ -26,7 +26,7 @@ We have a paper in BioRxiv evaluating and comparing the performance of AIControl
 ## How to use
 
 **1. Map your FASTQ file from ChIP-seq to the `hg38` assembly from UCSC.**  
-   We have tested our pipeline with `bowtie2`. You can download genome data from here(http://hgdownload.soe.ucsc.edu/goldenPath/hg38/bigZips/hg38.fa.gz)  
+   We have tested our pipeline with `bowtie2`. You can download genome data from [here](http://hgdownload.soe.ucsc.edu/goldenPath/hg38/bigZips/hg38.fa.gz)  
    
 **2. Sort your bam file in lexicographical order.**  
    If you went through step 1 with the UCSC hg38 assembly, sorting with `samtools sort` will do its job.  
