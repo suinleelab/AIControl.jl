@@ -31,7 +31,13 @@ We have a paper in BioRxiv evaluating and comparing the performance of AIControl
    `bowtie2 -x hg38 -q -p 10 -U ERR231591.fastq -S ERR231591.sam`
    
 **2. Sort your bam file in lexicographical order.**  
-   If you went through step 1 with the UCSC hg38 assembly, sorting with `samtools sort` will do its job.  
+   If you went through step 1 with the UCSC hg38 assembly, sorting with `samtools sort` will do its job. 
+     
+   If your reference assemly is different, you will get errors from our pipeline. One way to avoid this problem is to extract orignally fastq and remap with bowtie2 using UCSC hg38 assembly. `bedtools` provide a way to extract a fastq file from your bam file.  
+   `bedtools bamtofastq [OPTIONS] -i <BAM> -fq <FASTQ>`  
+   
+   If your reference assembly is ordered differently (e.g. the ones from ENCODE portal website is aligned hg38 with different ordering of chromosome),  
+   
    
 **3. Download data files and locate them in the right places.**  
 
