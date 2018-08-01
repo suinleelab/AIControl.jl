@@ -2,6 +2,16 @@
 
 ![alt text](images/concept.png)
 
+*Figure 1: (a) Comparison of AIControl to other peak calling algorithms. (left) AIControl
+learns appropriate combinations of publicly available control ChIP-seq datasets to impute background
+noise distributions at a fine scale. (right) Other peak calling algorithms use only one
+control dataset, so they must use a broader region (typically within 5,000-10,000 bps) to estimate
+background distributions. (bottom) The learned fine scale Poisson (background) distributions are
+then used to identify binding activities across the genome. (b) An overview of the AIControl
+approach. A single control dataset may not capture all sources of background noise. AIControl
+more rigorously removes background ChIP-seq noise by using a large number of publicly available
+control ChIP-seq datasets*
+
 ## Required libraries for AIControl
 AIControl module is coded in **Julia 0.6**.
 
