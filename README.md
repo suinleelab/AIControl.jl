@@ -53,8 +53,7 @@ When you extracted, all files together requires XGB.
 If you really want to reduce the data size, we have a version where we remove duplicate reads.
 
 ## Paper
-We have a paper in BioRxiv evaluating and comparing the performance of AIControl to other peak callers in various metrics and settings.  
-**AIControl:  Replacing matched control experiments with machine learning improves ChIP-seq peak identification** ([BioRxiv](https://www.biorxiv.org/content/early/2018/03/08/278762?rss=1))
+We have a paper in BioRxiv evaluating and comparing the performance of AIControl to other peak callers in various metrics and settings. **AIControl:  Replacing matched control experiments with machine learning improves ChIP-seq peak identification** ([BioRxiv](https://www.biorxiv.org/content/early/2018/03/08/278762?rss=1))
 
 ## How to use
 
