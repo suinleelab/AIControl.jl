@@ -18,8 +18,6 @@ AIControl module is coded in **Julia 0.6**.
 Following modules are required.
 Use `Pkg.add()` to install libraries.
 - Pkg.add("DataFrames")
-
-
 - Pkg.add("JLD")
 - Pkg.add("Distributions")
 - Pkg.add("CSV")
@@ -41,7 +39,9 @@ We have a paper in BioRxiv evaluating and comparing the performance of AIControl
 
 **1. Map your FASTQ file from ChIP-seq to the `hg38` assembly from UCSC.**  
    We have tested our pipeline with `bowtie2`. You can download the genome assembly data from [here](http://hgdownload.soe.ucsc.edu/goldenPath/hg38/bigZips/hg38.fa.gz)  
-   *Example command:*  
+   *Example command:*
+   
+   
    `bowtie2 -x hg38 -q -p 10 -U ERR231591.fastq -S ERR231591.sam`  
    
 **2. Convert the resulting sam file into a bam format.**  
