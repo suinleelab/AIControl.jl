@@ -34,8 +34,6 @@ Using these files will recreate the main results of the paper.
 compressed binned (100bps) signals of forward reads for all 440 Input signals.
 - `reverse.data100.dup.tar.bz2` (2.3GB):  
 compressed binned (100bps) signals of reverse reads for all 440 Input signals.
-- `xtxs.dup.jld` (6.0MB):  
-A pre-computed transpose(X)\*X matrix of size 441 by 441. 
 
 When you extracted, all files together requires XGB. 
 
@@ -45,8 +43,6 @@ We also have a subsampled version, which is validated to have comperable perform
 compressed binned (100bps) signals of forward reads for all 440 Input signals.
 - `reverse.data100.reduced.dup.tar.bz2` (2.3GB):  
 compressed binned (100bps) signals of reverse reads for all 440 Input signals.
-- `xtxs.reduced.dup.jld` (6.0MB):  
-A pre-computed transpose(X)\*X matrix of size 275 by 275. 
 
 When you extracted, all files together requires XGB. 
 
@@ -57,23 +53,37 @@ We have a paper in BioRxiv evaluating and comparing the performance of AIControl
 
 ## How to use
 
-**1. Map your FASTQ file from ChIP-seq to the `hg38` assembly from UCSC.**  
-   We have tested our pipeline with `bowtie2`. You can download the genome assembly data from [here](http://hgdownload.soe.ucsc.edu/goldenPath/hg38/bigZips/hg38.fa.gz)  
-   *Example command:*\n
-   `bowtie2 -x hg38 -q -p 10 -U ERR231591.fastq -S ERR231591.sam`  
+**1. Map your FASTQ file from ChIP-seq to the `hg38` assembly from the UCSC database.**  
+   We have validated our pipeline with `bowtie2`. You can download the genome assembly data from [here](http://hgdownload.soe.ucsc.edu/goldenPath/hg38/bigZips/hg38.fa.gz). They are also available through our Google Drive.
+   *Example command:*  
+   `bowtie2 -x hg38 -q -p 10 -U example.fastq -S example.sam`  
    
 **2. Convert the resulting sam file into a bam format.**  
 *Example command:*  
-`samtools view -Sb ERR231591.sam > ERR231591.bam`  
+`samtools view -Sb example.sam > example.bam`  
    
-**3. Sort your bam file in lexicographical order.**  
-   If you went through step 1 with the UCSC hg38 assembly, sorting with `samtools sort` will do its job.  
+**3. Sort the bam file in lexicographical order.**  
+   If you go through step 1 with the UCSC hg38 assembly, sorting with `samtools sort` will do its job.  
    *Example command:*  
-   `samtools sort -o ERR231591.bam.sorted ERR231591.bam`  
+   `samtools sort -o example.bam.sorted example.bam`  
    
-   Sometimes your bam file is mapped to hg38, but to a slightly differet version or different ordering of chromosomes (a.k.a. non-lexicographic). For example, if you download a bam file directly from ENCODE portal, this is unfortunately the case. A recommended way of avoiding this problem is to extract a fastq file from your bam file, go back to step 1, and remap it with bowtie2 using the UCSC hg38 assembly. `bedtools` provide a way to generate a fastq file from your bam file.
+   Sometimes your bam file is mapped to hg38, but to a slightly differet version or different ordering of chromosomes (a.k.a. non-lexicographic). For example, if you download a bam file directly from ENCODE portal, it is mapped to a slightly different version of hg38. A recommended way of avoiding this problem is to extract a fastq file from your bam file, go back to step 1, and remap it with bowtie2 using the UCSC hg38 assembly. `bedtools` provide a way to generate a fastq file from your bam file.
    *Example command:*  
-   `bedtools bamtofastq [OPTIONS] -i <BAM> -fq <FASTQ>`  
+   `bedtools bamtofastq  -i example.bam -fq example.fastq`  
    
 **4. Download data files and locate them in the right places.**  
+As stated above, AIControl requires you to download precomputed data files. Please download and extract them to "./data" folder.  
+
+**5. Run AIControl as julia script.**
+Simply do `julia aicontrol.jl [example.bam.sorted] [output_prefix]`.  
+Currently we accept two flags. 
+- `-reduced`: indicates that you are using the subsampled version of control files.
+- `-nodup`: indicates that you are running without duplicate reads.
+
+## Simple trouble shooting
+- You are using Julia 0.6 and above.
+- You downloaded necessary files for `-reduced` or `-nodup` if you are running with those flags.
+- You sorted the input bam files according to the UCSC hg38 assembly.  
+
+If you have questions, please e-mail to hiranumn at cs dot washington do edu.
 
