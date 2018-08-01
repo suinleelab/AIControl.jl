@@ -1,5 +1,7 @@
 # AIControl
 
+![alt text](images/concept.png)
+
 ## Required libraries for AIControl
 AIControl module is coded in **Julia 0.6**.
 
