@@ -26,7 +26,7 @@ Use `Pkg.add()` to install libraries.
 - Pkg.add("CSV")
 
 ## Required data files
-AIControl uses mass amount of public Input ChIP-seq data and some precomputed data files. We have done our best to compress them so that you only need to download about 7GB (obviously dependent on how many control files you want to use), and up to 15GB of free disk space to extract them. All files are shared through Google Drive. These files need to be opened to the "./data" folder. 
+AIControl uses mass amount of public Input ChIP-seq data and some precomputed data files. We have done our best to compress them so that you only need to download about 7GB (obviously dependent on how many control files you want to use), and up to 15GB of free disk space to extract them. All files are shared through Google Drive. **These files need to be opened to the "./data" folder.**
 
 ### For 440 ENCODE controls with duplicate reads
 Using these files will recreate the main results of the paper. 
