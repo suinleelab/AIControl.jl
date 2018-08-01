@@ -74,7 +74,7 @@ We have a paper in BioRxiv evaluating and comparing the performance of AIControl
 **4. Download data files and locate them in the right places.**  
 As stated above, AIControl requires you to download precomputed data files. Please download and extract them to "./data" folder.  
 
-**5. Run AIControl as julia script.**
+**5. Run AIControl as julia script.**  
 Simply do `julia aicontrol.jl [example.bam.sorted] [output_prefix]`.  
 Currently we accept two flags. 
 - `-reduced`: indicates that you are using the subsampled version of control files.
