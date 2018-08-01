@@ -26,13 +26,16 @@ Use `Pkg.add()` to install libraries.
 - Pkg.add("CSV")
 
 ## Required data files
-AIControl uses mass amount of public Input ChIP-seq data and some precomputed data files. We have done our best to compress them so that you only need to download about 7GB (obviously dependent on how many control files you want to use), and up to 15GB of free disk space to extract them.
+AIControl uses mass amount of public Input ChIP-seq data and some precomputed data files. We have done our best to compress them so that you only need to download about 7GB (obviously dependent on how many control files you want to use), and up to 15GB of free disk space to extract them. All files are shared through Google Drive. 
 
 ### For 440 ENCODE controls with duplicate reads
 Using these files will recreate the main result of the paper. 
-- `forward.data100.dup.tar.bz2` (2.3GB): compressed binned (100bps) signals of forward reads for all 440 Input signals.
-- `reverse.data100.dup.tar.bz2` (2.3GB): compressed binned (100bps) signals of reverse reads for all 440 Input signals.
-- `xtxs.jld` (6.0MB): A pre-computed transpose(X)\*X matrix of size 441 by 441. 
+- `forward.data100.dup.tar.bz2` (2.3GB):   
+compressed binned (100bps) signals of forward reads for all 440 Input signals.
+- `reverse.data100.dup.tar.bz2` (2.3GB):  
+compressed binned (100bps) signals of reverse reads for all 440 Input signals.
+- `xtxs.dup.jld` (6.0MB):  
+A pre-computed transpose(X)\*X matrix of size 441 by 441. 
 
 When you uncompress the tar.bz2 files, each requires around 6.5GB of your HDD.  
 We have a subsampled version (1.4GB compressed and 4.6GB uncompressed) for those who need smaller data.
