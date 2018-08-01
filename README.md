@@ -15,9 +15,10 @@ more rigorously removes background ChIP-seq noise by using a large number of pub
 control ChIP-seq datasets*
 
 ## Required libraries for AIControl
-AIControl module is coded in **Julia 0.6**.
 
-Following modules are required.
+AIControl module is coded in **Julia 0.6.4**.
+
+Before you start, make sure your have the following required modules.
 Use `Pkg.add()` to install libraries.
 - Pkg.add("DataFrames")
 - Pkg.add("JLD")
