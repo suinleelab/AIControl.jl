@@ -1,5 +1,7 @@
 # AIControl
 
+AIControl removes need of performing Input/control exeperiments for ChIP-seq assays by imputing them from public data.
+
 ![alt text](images/concept.png)
 
 *Figure 1: (a) Comparison of AIControl to other peak calling algorithms. (left) AIControl
