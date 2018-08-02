@@ -37,12 +37,12 @@ compressed binned (100bps) signals of reverse reads for all 440 Input signals.
 
 When you extracted, all files together requires XGB. 
 
-### For 274 ENCODE controls with duplicate reads
+### For 273 ENCODE controls with duplicate reads
 We also have a subsampled version, which is validated to have comperable performance. 
 - `forward.data100.reduced.dup.tar.bz2` (2.3GB):   
-compressed binned (100bps) signals of forward reads for all 440 Input signals.
+compressed binned (100bps) signals of forward reads for all 273 Input signals.
 - `reverse.data100.reduced.dup.tar.bz2` (2.3GB):  
-compressed binned (100bps) signals of reverse reads for all 440 Input signals.
+compressed binned (100bps) signals of reverse reads for all 273 Input signals.
 
 When you extracted, all files together requires XGB. 
 
