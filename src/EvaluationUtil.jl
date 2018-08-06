@@ -1,4 +1,4 @@
-export load_narrowpeak, filterPreds, combinePeaks, binarizePeaks
+export load_narrowpeak, filterPreds, combinePeaks, binarizePeaks, window_bed_file
 
 function load_narrowpeak(stream, contigs, index; binSize=1000, loadp=true, mlogt=false, verbose=0)
     # Get number of bins
@@ -46,8 +46,31 @@ function load_narrowpeak(stream, contigs, index; binSize=1000, loadp=true, mlogt
     end
     close(stream)
     
-    assert(sum(binValues) == sum([i>0 for i in pValues]))
+    #assert(sum(binValues) == sum([i>0 for i in pValues]))
     binValues, pValues
+end
+
+function window_bed_file(stream, contigs; binSize=1000)
+    numBins = ceil(Int64, sum(contigs.sizes) / binSize)
+    chrOffsets = Dict{String,Int64}()
+    for i in 1:contigs.count
+        chrOffsets[contigs.names[i]] = contigs.offsets[i]
+    end
+
+    # mark all bins that are touched with 1
+    binValues = falses(numBins)
+    for line in eachline(stream)
+        parts = split(line, '\t')
+        if haskey(chrOffsets, parts[1])
+            startPos = ceil(Int64, (chrOffsets[parts[1]]+parse(Int64, parts[2]))/binSize)
+            endPos = ceil(Int64, (chrOffsets[parts[1]]+parse(Int64, parts[3]))/binSize)
+            for i in startPos:endPos
+                binValues[i] = true
+            end
+        end
+    end
+
+    binValues
 end
 
 # Get top x predictions with its truth values.
