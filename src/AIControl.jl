@@ -14,4 +14,5 @@ module AIControl
     include("./Utils.jl")
     include("./PeakWriter.jl")
     include("./PeakCaller.jl")
+    include("./EvaluationUtil.jl")
 end
