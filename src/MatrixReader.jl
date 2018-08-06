@@ -82,6 +82,7 @@ type MatrixReader
     fileStream
     expsize::Int
     maxnum::Int
+    binsize::Int
     datatype::DataType
     blocksize::Int
     data::Array{Int64, 2}
@@ -108,7 +109,7 @@ function MatrixReader(fileName::String, blocksize; buffsize=10000000)
     end
     
     _buffsize = buffsize # This is 10Mb of buffer size for default
-    mr = MatrixReader(f, _expsize, _maxnum, dt, blocksize, zeros(Int64, (blocksize, _expsize)), 0, _buffsize+1, _buffsize, zeros(dt, _buffsize))
+    mr = MatrixReader(f, _expsize, _maxnum, _maxnum, dt, blocksize, zeros(Int64, (blocksize, _expsize)), 0, _buffsize+1, _buffsize, zeros(dt, _buffsize))
 end
 
 close(mr::MatrixReader) = close(mr.fileStream)
