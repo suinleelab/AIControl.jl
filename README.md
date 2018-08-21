@@ -89,7 +89,7 @@ Currently we accept two flags.
 
 ## Simple trouble shooting
 - You are using Julia 0.6 and above.
-- You downloaded necessary files for `-reduced` or `-nodup` if you are running with those flags.
+- You downloaded necessary files for `--reduced` or `--dup` if you are running with those flags.
 - You sorted the input bam files according to the UCSC hg38 assembly.  
 
 If you have questions, please e-mail to hiranumn at cs dot washington do edu.
