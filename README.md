@@ -81,7 +81,7 @@ As stated above, AIControl requires you to download precomputed data files. Plea
 Here is a sample command  
 `julia aicontrolScript.jl test.bam --ctrlfolder=/scratch/hiranumn/data --xtxfolder=./data --name=test`
 
-Do `julia aicontrolScript.jl --help` for help.
+Do `julia aicontrolScript.jl --help` or `-h` for help.
 
 Currently we accept two flags. 
 - `--reduced`: indicates that you are using the subsampled version of control files.
