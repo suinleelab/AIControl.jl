@@ -1,6 +1,6 @@
 # AIControl
 
-AIControl removes need of performing Input/control exeperiments for ChIP-seq assays by imputing them from public data.
+AIControl makes ChIP-seq assays **easier**, **cheaper**, and **more accurate** by imputing background data from mass control data available in public.
 
 ![alt text](images/concept.png)
 
