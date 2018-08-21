@@ -75,12 +75,14 @@ We have a paper in BioRxiv evaluating and comparing the performance of AIControl
 As stated above, AIControl requires you to download precomputed data files. Please download and extract them to "./data" folder.  
 
 **5. Run AIControl as julia script.**  
-Simply do  
-`julia aicontrol.jl [example.bam.sorted] [output_prefix]`
+Here is a sample command  
+`julia aicontrolScript.jl test.bam --ctrlfolder=/scratch/hiranumn/data --xtxfolder=./data --name=test`
+
+Do `julia aicontrolScript.jl --help` for help.
 
 Currently we accept two flags. 
-- `-reduced`: indicates that you are using the subsampled version of control files.
-- `-nodup`: indicates that you are running without duplicate reads.
+- `--reduced`: indicates that you are using the subsampled version of control files.
+- `--dup`: indicates that you will run it with duplicate reads.
 
 ## Simple trouble shooting
 - You are using Julia 0.6 and above.
