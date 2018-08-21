@@ -51,18 +51,18 @@ We also have versions where duplicates are not removed (indicated with `.dup`, a
 ## Paper
 We have an accompanying paper in BioRxiv evaluating and comparing the performance of AIControl to other peak callers in various metrics and settings. **AIControl: Replacing matched control experiments with machine learning improves ChIP-seq peak identification** ([BioRxiv](https://www.biorxiv.org/content/early/2018/03/08/278762?rss=1))
 
-## How to use
+## How to use AIControl (step by step)
 
-**1. Map your FASTQ file from ChIP-seq to the `hg38` assembly from the UCSC database.**  
-   We have validated our pipeline with `bowtie2`. You can download the genome assembly data from [here](http://hgdownload.soe.ucsc.edu/goldenPath/hg38/bigZips/hg38.fa.gz). They are also available through our Google Drive.
+**Step 1: Map your FASTQ file from ChIP-seq to the `hg38` assembly from the UCSC database.**  
+   We have validated our pipeline with `bowtie2`. You can download the genome assembly data from [here](http://hgdownload.soe.ucsc.edu/goldenPath/hg38/bigZips/hg38.fa.gz). In case you need the exact reference database that we used for bowtie2, they are available through our [Google Drive](https://drive.google.com/open?id=1Xh6Fjah1LoRMmbaJA7_FzxYcbqmpNUPZ) as a zip file named `bowtie2ref.zip`. 
    *Example command:*  
    `bowtie2 -x hg38 -q -p 10 -U example.fastq -S example.sam`  
    
-**2. Convert the resulting sam file into a bam format.**  
+**Step 2: Convert the resulting sam file into a bam format.**  
 *Example command:*  
 `samtools view -Sb example.sam > example.bam`  
    
-**3. Sort the bam file in lexicographical order.**  
+**Step 3: Sort the bam file in lexicographical order.**  
    If you go through step 1 with the UCSC hg38 assembly, sorting with `samtools sort` will do its job.  
    *Example command:*  
    `samtools sort -o example.bam.sorted example.bam`  
