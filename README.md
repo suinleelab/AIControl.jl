@@ -30,32 +30,26 @@ Then, you can simplely install AIControl module by typing
 - `Pkg.clone("https://github.com/hiranumn/AIControl.git")`
 
 ## Data files required for AIControl
-AIControl uses a mass amount of public control data for ChIP-seq (roughly 450 chip-seq runs). We have done our best to compress them so that you only need to download about **7GB** (can be smaller with the `--reduced` option). These files require approximately **15GB** of free disk space to unfold. You can unfold them to anywhere you want as long as you specify the location with the `--ctrlfolder` option. **The default location is `./data`**
+AIControl uses a mass amount of public control data for ChIP-seq (roughly 450 chip-seq runs). We have done our best to compress them so that you only need to download about **6.3GB** (can be smaller with the `--reduced` option). These files require approximately **13GB** of free disk space to unfold. You can unfold them to anywhere you want as long as you specify the location with the `--ctrlfolder` option. **The default location is `./data`**
 
-**[Here](https://drive.google.com/open?id=1Xh6Fjah1LoRMmbaJA7_FzxYcbqmpNUPZ) is a link to a Google Drive folder that contains all compressed data.**
+**[Here](https://drive.google.com/open?id=1Xh6Fjah1LoRMmbaJA7_FzxYcbqmpNUPZ) is a link to a Google Drive folder that contains all compressed data.** The link contains 8 files and you need to download different files depending on which option you are planning to run with.
 
-### For 440 ENCODE controls with non-duplicate reads
+### Option 1: with 440 ENCODE controls with non-duplicate reads
 Using these files will recreate the main results of the paper. 
-- `forward.data100.dup.tar.bz2` (2.3GB):   
-compressed binned (100bps) signals of forward reads for all 440 Input signals.
-- `reverse.data100.dup.tar.bz2` (2.3GB):  
-compressed binned (100bps) signals of reverse reads for all 440 Input signals.
+- `forward.data100.nodup.tar.bz2` (2.3GB):   
+- `reverse.data100.nodup.tar.bz2` (2.3GB):  
+When extracted, both files together occupy approximately 13GB of space. 
 
-When you extracted, both files together require about 14GB of space. 
-
-### For 273 ENCODE controls with non-duplicate reads
+### Option 2: with 273 ENCODE controls with non-duplicate reads
 We also have a subsampled version, which is validated to have comperable performance. 
-- `forward.data100.reduced.dup.tar.bz2` (2.3GB):   
-compressed binned (100bps) signals of forward reads for all 273 Input signals.
-- `reverse.data100.reduced.dup.tar.bz2` (2.3GB):  
-compressed binned (100bps) signals of reverse reads for all 273 Input signals.
+- `forward.data100.reduced.nodup.tar.bz2` (1.5GB):   
+- `reverse.data100.reduced.nodup.tar.bz2` (1.5GB):  
+When extracted, both files together occupy approximately 8GB of space. 
 
-When you extracted, both files together require about 8GB of space. 
-
-We also have a version where duplicates are not removed (can be used with the `--dup` option).
+We also have versions where duplicates are not removed (indicated with `.dup`, and used with the `--dup` option).
 
 ## Paper
-We have a paper in BioRxiv evaluating and comparing the performance of AIControl to other peak callers in various metrics and settings. **AIControl:  Replacing matched control experiments with machine learning improves ChIP-seq peak identification** ([BioRxiv](https://www.biorxiv.org/content/early/2018/03/08/278762?rss=1))
+We have an accompanying paper in BioRxiv evaluating and comparing the performance of AIControl to other peak callers in various metrics and settings. **AIControl: Replacing matched control experiments with machine learning improves ChIP-seq peak identification** ([BioRxiv](https://www.biorxiv.org/content/early/2018/03/08/278762?rss=1))
 
 ## How to use
 
