@@ -29,7 +29,9 @@ You can simple install AIControl package by typing
 - `Pkg.clone("https://github.com/hiranumn/AIControl.git")`
 
 ## Required data files
-AIControl uses mass amount of public Input ChIP-seq data and some precomputed data files. We have done our best to compress them so that you only need to download about 7GB (obviously dependent on how many control files you want to use), and up to 15GB of free disk space to extract them. All files are shared through Google Drive. **These files need to be opened to the "./data" folder** (or you can speicify different folder using `--ctrlfolder` option). 
+AIControl uses mass amount of public Input ChIP-seq data and some precomputed data files. We have done our best to compress them so that you only need to download about 7GB (dependent on how many control files you want to use, could be smaller), and up to 15GB of free disk space to unfold them. All files are shared through Google Drive. **These files need to be opened to the "./data" folder** (or you can speicify different folder using `--ctrlfolder` option). 
+
+**[Here](https://drive.google.com/open?id=1Xh6Fjah1LoRMmbaJA7_FzxYcbqmpNUPZ) is a link to a Google Drive folder that contains all compressed data.**
 
 ### For 440 ENCODE controls with non-duplicate reads
 Using these files will recreate the main results of the paper. 
