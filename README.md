@@ -54,25 +54,25 @@ We have an accompanying paper in BioRxiv evaluating and comparing the performanc
 ## How to use AIControl (step by step)
 
 **Step 1: Map your FASTQ file from ChIP-seq to the `hg38` assembly from the UCSC database.**  
-   We have validated our pipeline with `bowtie2`. You can download the genome assembly data from [here](http://hgdownload.soe.ucsc.edu/goldenPath/hg38/bigZips/hg38.fa.gz). In case you need the exact reference database that we used for bowtie2, they are available through our [Google Drive](https://drive.google.com/open?id=1Xh6Fjah1LoRMmbaJA7_FzxYcbqmpNUPZ) as a zip file named `bowtie2ref.zip`. 
-   *Example command:*  
-   `bowtie2 -x hg38 -q -p 10 -U example.fastq -S example.sam`  
+   We have validated our pipeline with `bowtie2`. You can download the genome assembly data from [here](http://hgdownload.soe.ucsc.edu/goldenPath/hg38/bigZips/hg38.fa.gz). In case you need the exact reference database that we used for bowtie2, they are available through our [Google Drive](https://drive.google.com/open?id=1Xh6Fjah1LoRMmbaJA7_FzxYcbqmpNUPZ) as a zip file named `bowtie2ref.zip`.  
+*Example command:*  
+`bowtie2 -x hg38 -q -p 10 -U example.fastq -S example.sam`  
    
 **Step 2: Convert the resulting sam file into a bam format.**  
 *Example command:*  
 `samtools view -Sb example.sam > example.bam`  
    
 **Step 3: Sort the bam file in lexicographical order.**  
-   If you go through step 1 with the UCSC hg38 assembly, sorting with `samtools sort` will do its job.  
-   *Example command:*  
-   `samtools sort -o example.bam.sorted example.bam`  
+If you go through step 1 with the UCSC hg38 assembly, sorting with `samtools sort` will do its job.  
+*Example command:*  
+`samtools sort -o example.bam.sorted example.bam`  
    
-   Sometimes your bam file is mapped to hg38, but to a slightly differet version or different ordering of chromosomes (a.k.a. non-lexicographic). For example, if you download a bam file directly from ENCODE portal, it is mapped to a slightly different version of hg38. A recommended way of avoiding this problem is to extract a fastq file from your bam file, go back to step 1, and remap it with bowtie2 using the UCSC hg38 assembly. `bedtools` provide a way to generate a fastq file from your bam file.
-   *Example command:*  
-   `bedtools bamtofastq  -i example.bam -fq example.fastq`  
+Sometimes your bam file is mapped to hg38, but to a slightly differet version or different ordering of chromosomes (a.k.a. non-lexicographic). For instance, if you download a bam file directly from the ENCODE website, it is mapped to a slightly different version of hg38. A recommended way of resolving this issue is to extract a fastq file from your bam file, go back to step 1, and remap it with bowtie2 using the UCSC hg38 assembly. `bedtools` provides a way to generate a fastq file from your bam file. `samtools sort` does not quite do its job here sadly.
+*Example command:*  
+`bedtools bamtofastq  -i example.bam -fq example.fastq`  
    
 **4. Download data files and locate them in the right places.**  
-As stated above, AIControl requires you to download precomputed data files. Please download and extract them to "./data" folder.  
+As stated, AIControl requires you to download precomputed data files. Please download and extract them to the `./data` folder, or otherwise specify the location with `--ctrlfolder` option.   
 
 **5. Run AIControl as julia script.**  
 Here is a sample command  
@@ -80,14 +80,19 @@ Here is a sample command
 
 Do `julia aicontrolScript.jl --help` or `-h` for help.
 
-Currently we accept two flags. 
-- `--reduced`: indicates that you are using the subsampled version of control files.
-- `--dup`: indicates that you will run it with duplicate reads.
+Currently we accept the following flags. 
+
+- `--dup`: using duplicate reads \[default:false\]
+- `--reduced`: using subsampled control datasets \[default:false\]
+- `--xtxfolder=[path]`: path to a folder with xtx.jld \[default:./data\]
+- `--ctrlfolder=[path]`: path to a control folder \[default:./data\]
+- `--name=[string]`: prefix for output files \[default:bamfile_prefix\]
+- `--p=[float]`: pvalue threshold \[default:0.15\]
 
 ## Simple trouble shooting
 - You are using Julia 0.6 and above.
 - You downloaded necessary files for `--reduced` or `--dup` if you are running with those flags.
-- You sorted the input bam files according to the UCSC hg38 assembly.  
+- You sorted the input bam files according to the UCSC hg38 assembly as specified in Step 3.  
 
 If you have questions, please e-mail to hiranumn at cs dot washington do edu.
 
