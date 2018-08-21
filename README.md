@@ -15,7 +15,7 @@ approach. A single control dataset may not capture all sources of background noi
 more rigorously removes background ChIP-seq noise by using a large number of publicly available
 control ChIP-seq datasets*
 
-## Required libraries for AIControl
+## Julia modules required for AIControl
 
 AIControl module is coded in **Julia 0.6.4**.
 
@@ -26,11 +26,11 @@ Use `Pkg.add()` to install libraries.
 - Pkg.add("Distributions")
 - Pkg.add("CSV")
 
-You can simple install AIControl package by typing 
+Then, you can simplely install AIControl module by typing 
 - `Pkg.clone("https://github.com/hiranumn/AIControl.git")`
 
-## Required data files
-AIControl uses mass amount of public Input ChIP-seq data and some precomputed data files. We have done our best to compress them so that you only need to download about 7GB (dependent on how many control files you want to use, could be smaller), and up to 15GB of free disk space to unfold them. All files are shared through Google Drive. **These files need to be opened to the "./data" folder** (or you can speicify different folder using `--ctrlfolder` option). 
+## Data files required for AIControl
+AIControl uses a mass amount of public control data for ChIP-seq (roughly 450 chip-seq runs). We have done our best to compress them so that you only need to download about **7GB** (can be smaller with the `--reduced` option). These files require approximately **15GB** of free disk space to unfold. You can unfold them to anywhere you want as long as you specify the location with the `--ctrlfolder` option. **The default location is `./data`**
 
 **[Here](https://drive.google.com/open?id=1Xh6Fjah1LoRMmbaJA7_FzxYcbqmpNUPZ) is a link to a Google Drive folder that contains all compressed data.**
 
