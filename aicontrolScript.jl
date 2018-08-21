@@ -7,11 +7,10 @@ function printUsage()
     println("\t\t --reduced: using subsampled control datasets [default:false]")
     println("\t\t --xtxfolder=[path]: path to a folder with xtx.jld [default:./data]")
     println("\t\t --ctrlfolder=[path]: path to a control folder [default:./data]")
-    println("\t\t --contigs=[path]: path to a contig file [default:./aic.contig]")
     println("\t\t --name=[string]: prefix for output files [default:bamfile_prefix]")
     println("\t\t --p=[float]: pvalue threshold [default:0.15]")
     println("")
-    println("Example: julia aicontrolScript.jl test.bam --dup --reduced --datafolder=/scratch --contigs=/scratch/aic.contig --name=test")
+    println("Example: julia aicontrolScript.jl test.bam --dup --reduced --ctrlfolder=/scratch --name=test")
 end
 
 if "--help" in ARGS || "--h" in ARGS || length(ARGS)==0
@@ -71,6 +70,7 @@ try
         xtxfolder = split(temp[1], "=")[2]
     end
     
+    # This option is currently not necessary...
     contigpath = "./aic.contig"
     temp = filter(x->contains(x, "--contig"), ARGS)
     if length(temp)>0
@@ -97,7 +97,6 @@ println("prefix: ", name)
 println("p-value (-log10)    : ", mlog10p)
 println("path to control data: ", ctrlfolder)
 println("path to other data  : ", xtxfolder)
-println("path to contig file : ", contigpath)
 println("=========================================")
 
 #check for file existance
