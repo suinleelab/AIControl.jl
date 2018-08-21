@@ -25,28 +25,31 @@ Use `Pkg.add()` to install libraries.
 - Pkg.add("Distributions")
 - Pkg.add("CSV")
 
+You can simple install AIControl package by doing
+- `Pkg.clone("https://github.com/hiranumn/AIControl.git")
+
 ## Required data files
 AIControl uses mass amount of public Input ChIP-seq data and some precomputed data files. We have done our best to compress them so that you only need to download about 7GB (obviously dependent on how many control files you want to use), and up to 15GB of free disk space to extract them. All files are shared through Google Drive. **These files need to be opened to the "./data" folder.**
 
-### For 440 ENCODE controls with duplicate reads
+### For 440 ENCODE controls with non-duplicate reads
 Using these files will recreate the main results of the paper. 
 - `forward.data100.dup.tar.bz2` (2.3GB):   
 compressed binned (100bps) signals of forward reads for all 440 Input signals.
 - `reverse.data100.dup.tar.bz2` (2.3GB):  
 compressed binned (100bps) signals of reverse reads for all 440 Input signals.
 
-When you extracted, all files together requires XGB. 
+When you extracted, both files together require about 14GB of space. 
 
-### For 273 ENCODE controls with duplicate reads
+### For 273 ENCODE controls with non-duplicate reads
 We also have a subsampled version, which is validated to have comperable performance. 
 - `forward.data100.reduced.dup.tar.bz2` (2.3GB):   
 compressed binned (100bps) signals of forward reads for all 273 Input signals.
 - `reverse.data100.reduced.dup.tar.bz2` (2.3GB):  
 compressed binned (100bps) signals of reverse reads for all 273 Input signals.
 
-When you extracted, all files together requires XGB. 
+When you extracted, both files together require about 8GB of space. 
 
-If you really want to reduce the data size, we have a version where we remove duplicate reads.
+We also have a version where duplicates are not removed (can be used with the `--dup` option).
 
 ## Paper
 We have a paper in BioRxiv evaluating and comparing the performance of AIControl to other peak callers in various metrics and settings. **AIControl:  Replacing matched control experiments with machine learning improves ChIP-seq peak identification** ([BioRxiv](https://www.biorxiv.org/content/early/2018/03/08/278762?rss=1))
