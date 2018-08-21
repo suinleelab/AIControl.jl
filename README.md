@@ -2,6 +2,7 @@
 
 AIControl makes ChIP-seq assays **easier**, **cheaper**, and **more accurate** by imputing background data from mass control data available in public.
 
+Here is an overview of AIControl framework form our paper. 
 ![alt text](images/concept.png)
 
 *Figure 1: (a) Comparison of AIControl to other peak calling algorithms. (left) AIControl
