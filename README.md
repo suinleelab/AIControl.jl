@@ -21,10 +21,10 @@ AIControl module is coded in **Julia 0.6.4**.
 
 Before you start, make sure your have the following required modules.
 Use `Pkg.add()` to install libraries.
-- Pkg.add("DataFrames")
-- Pkg.add("JLD")
-- Pkg.add("Distributions")
-- Pkg.add("CSV")
+- `Pkg.add("DataFrames")`
+- `Pkg.add("JLD")`
+- `Pkg.add("Distributions")`
+- `Pkg.add("CSV")`
 
 Then, you can simplely install AIControl module by typing 
 - `Pkg.clone("https://github.com/hiranumn/AIControl.git")`
