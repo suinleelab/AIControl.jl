@@ -80,7 +80,7 @@ Here is a sample command
 
 Do `julia aicontrolScript.jl --help` or `-h` for help.
 
-Currently we accept the following flags. 
+We currently support the following flags. 
 
 - `--dup`: using duplicate reads \[default:false\]
 - `--reduced`: using subsampled control datasets \[default:false\]
