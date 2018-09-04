@@ -1,4 +1,4 @@
-# AIControl
+# AIControl.jl
 
 AIControl makes ChIP-seq assays **easier**, **cheaper**, and **more accurate** by imputing background data from mass control data available in public.
 
