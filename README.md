@@ -15,6 +15,18 @@ approach. A single control dataset may not capture all sources of background noi
 more rigorously removes background ChIP-seq noise by using a large number of publicly available
 control ChIP-seq datasets*
 
+## Installing utility softwares
+These external softwares are required to run AIControl pipeline from a `.fastq` file to a `narrowpeak` file.
+- bowtie2
+- samtools
+- bedtools
+
+The recommended way of installing these softwares is to use `conda`.
+Install `annaconda` and run the following commands.
+- ` conda install -c bioconda bowtie2 `
+- ` conda install -c bioconda samtools `
+- ` conda install -c bioconda bedtools `
+
 ## Julia modules required for AIControl
 
 AIControl module is coded in **Julia 0.6.4**.
