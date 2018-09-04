@@ -16,12 +16,13 @@ more rigorously removes background ChIP-seq noise by using a large number of pub
 control ChIP-seq datasets*
 
 ## Installing utility softwares
-These external softwares are required to run AIControl pipeline from a `.fastq` file to a `narrowpeak` file.
+These external softwares are required to run AIControl pipeline from a `.fastq` file to a `.narrowpeak` file.
 - bowtie2
 - samtools
 - bedtools
 
-The recommended way of installing these softwares is to use `conda`.
+The recommended way of installing these softwares is to use `conda`.  
+Download annaconda Python distribution from [here](https://anaconda.org/anaconda/python).  
 Install `annaconda` and run the following commands.
 - ` conda install -c bioconda bowtie2 `
 - ` conda install -c bioconda samtools `
@@ -29,7 +30,8 @@ Install `annaconda` and run the following commands.
 
 ## Julia modules required for AIControl
 
-AIControl module is coded in **Julia 0.6.4**.
+AIControl module is coded in **Julia 1.0 and 0.7**.  
+You can download Julia from [here](https://julialang.org/).  
 
 Before you start, make sure your have the following required modules.
 Use `Pkg.add()` to install libraries.
@@ -47,7 +49,7 @@ AIControl uses a mass amount of public control data for ChIP-seq (roughly 450 ch
 **[Here](https://drive.google.com/open?id=1Xh6Fjah1LoRMmbaJA7_FzxYcbqmpNUPZ) is a link to a Google Drive folder that contains all compressed data.** The link contains 8 files and you need to download different files depending on which option you are planning to run with.
 
 ### Option 1: with 440 ENCODE controls with non-duplicate reads
-Using these files will recreate the main results of the paper. 
+**Using these files will recreate the main results of the paper.**  
 - `forward.data100.nodup.tar.bz2` (2.3GB):   
 - `reverse.data100.nodup.tar.bz2` (2.3GB):  
 When extracted, both files together occupy approximately 13GB of space. 
