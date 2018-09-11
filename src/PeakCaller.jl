@@ -79,7 +79,7 @@ end
 # JLD.save("ENCFF000YRS.jld", "w1-f", w_f[1], "w2-f", w_f[2], "w1-r", w_r[1], "w2-r", w_r[2])
 #########################################################################################################
 
-function computeBeta(mr::MatrixReader, br::BinnedReader, direction::String; num_chroms=0, verbose=0, mask=[], xtxfile="../data/xtx.jld")
+function computeBeta(mr::MatrixReader, br::BinnedReader, direction::String; binsize=100, num_chroms=0, verbose=0, mask=[], xtxfile="../data/xtx.jld")
     
     ##############################
     # Use all chroms for default #
@@ -87,7 +87,7 @@ function computeBeta(mr::MatrixReader, br::BinnedReader, direction::String; num_
     if num_chroms > length(ReferenceContigs_hg38.sizes) || num_chroms < 1
         num_chroms = length(ReferenceContigs_hg38.sizes)
     end
-    training_limit = Int(ceil(sum(ReferenceContigs_hg38.sizes[1:num_chroms])/mr.binsize))
+    training_limit = Int(ceil(sum(ReferenceContigs_hg38.sizes[1:num_chroms])/binsize))
     
     ###########################################
     # Prepare matrices for weight calculation #
@@ -153,7 +153,7 @@ end
 # JLD.save("ENCFF000YRS_fit.jld", "fit-f", ff, "fit-r", fr)
 ###############################################################################
 
-function computeFits(mr::MatrixReader, weightfile::String, direction::String; num_chroms=0, verbose=0, mask=[])
+function computeFits(mr::MatrixReader, weightfile::String, direction::String; binsize=100, num_chroms=0, verbose=0, mask=[])
     
     ##############################
     # Use all chroms for default #
@@ -161,7 +161,7 @@ function computeFits(mr::MatrixReader, weightfile::String, direction::String; nu
     if num_chroms > length(ReferenceContigs_hg38.sizes) || num_chroms < 1
         num_chroms = length(ReferenceContigs_hg38.sizes)
     end
-    training_limit = Int(ceil(sum(ReferenceContigs_hg38.sizes[1:num_chroms])/mr.binsize))
+    training_limit = Int(ceil(sum(ReferenceContigs_hg38.sizes[1:num_chroms])/binsize))
     
     
     weight1 = JLD.load(weightfile)["w1-$(direction)"]
