@@ -9,7 +9,7 @@ export computeXtX, computeBeta, computeFits, estimateD, callPeaks, generatePeakF
 # JLD.save("../data/xtxs.jld", "XtX1-f", out[1], "XtX2-f", out[2], "XtX1-r", out1[1], "XtX2-r", out1[2])
 #########################################################################################################
 
-function computeXtX(mr::MatrixReader; num_chroms=0, verbose=0)
+function computeXtX(mr::MatrixReader; num_chroms=0, verbose=0, binsize=100)
     
     ##############################
     # Use all chroms for default #
@@ -17,7 +17,7 @@ function computeXtX(mr::MatrixReader; num_chroms=0, verbose=0)
     if num_chroms > length(ReferenceContigs_hg38.sizes) || num_chroms < 1
         num_chroms = length(ReferenceContigs_hg38.sizes)
     end
-    training_limit = Int(ceil(sum(ReferenceContigs_hg38.sizes[1:num_chroms])/mr.binsize))
+    training_limit = Int(ceil(sum(ReferenceContigs_hg38.sizes[1:num_chroms])/binsize))
     
     ################
     # Compute XtXs #
