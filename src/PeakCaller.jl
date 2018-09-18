@@ -27,7 +27,7 @@ function computeXtX(mr::MatrixReader; num_chroms=0, verbose=0, binsize=100)
     
     advance!(mr)
     count = 0
-    while !eof(mr) && count < training_limit
+    while !eof(mr) && count*mr.blocksize < training_limit
         
         # compute
         ctrl = convert(Array{Float64,2}, addConstColumn(mr.data)')
