@@ -108,8 +108,8 @@ function computeBeta(mr::MatrixReader, br::BinnedReader, direction::String; bins
     ###################
         
     count = 0
-    for target in denseblocks([br], mr.blocksize, constantColumn=false, loop=false)
-        if count > training_limit break end
+    for target in denseblocks([br], mr.blocksize, constantColumn=false, loop=true)
+        if count*mr.blocksize > training_limit break end
         
         # load control
         advance!(mr)
@@ -172,12 +172,12 @@ function computeFits(mr::MatrixReader, weightfile::String, direction::String; bi
     ##########################
     regression_fit = zeros(Float16, training_limit)
      
+    advance!(mr)   
     count = 0
     binpos = 0
-    while !eof(mr) && count < training_limit
+    while !eof(mr) && count*mr.blocksize < training_limit
         
         # get data
-        advance!(mr)   
         ctrl = convert(Array{Float64,2}, addConstColumn(mr.data)')
         if length(mask)>0 ctrl = ctrl[mask, :] end
         
@@ -201,6 +201,7 @@ function computeFits(mr::MatrixReader, weightfile::String, direction::String; bi
             println(count, ":", training_limit)
         end
         
+        advance!(mr)   
         # update
         count += 1
     end
