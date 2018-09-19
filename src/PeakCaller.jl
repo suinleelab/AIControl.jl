@@ -109,6 +109,9 @@ function computeBeta(mr::MatrixReader, br::BinnedReader, direction::String; bins
         
     count = 0
     for target in denseblocks([br], mr.blocksize, constantColumn=false, loop=true)
+        
+        # update
+        count += 1
         if count*mr.blocksize > training_limit break end
         
         # load control
@@ -127,9 +130,6 @@ function computeBeta(mr::MatrixReader, br::BinnedReader, direction::String; bins
         if verbose>0 && count % (verbose) == 0
             println(count, ":", training_limit)
         end
-        
-        # update
-        count += 1
     end
     
     beta1 = inv(XtX1 + 0.00001*eye(size(XtX1)[1]))*Xty1
