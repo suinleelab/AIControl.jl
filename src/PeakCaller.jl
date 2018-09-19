@@ -172,7 +172,7 @@ function computeFits(mr::MatrixReader, weightfile::String, direction::String; bi
     ##########################
     regression_fit = zeros(Float16, training_limit)
      
-    advance!(mr)    @hiranumn hiranumn fixed the little discrepancy in weight calc
+    advance!(mr) 
 
     count = 0
     binpos = 0
