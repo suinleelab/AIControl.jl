@@ -172,7 +172,8 @@ function computeFits(mr::MatrixReader, weightfile::String, direction::String; bi
     ##########################
     regression_fit = zeros(Float16, training_limit)
      
-    advance!(mr)   
+    advance!(mr)    @hiranumn hiranumn fixed the little discrepancy in weight calc
+
     count = 0
     binpos = 0
     while !eof(mr) && count*mr.blocksize < training_limit
@@ -312,8 +313,8 @@ function generatePeakFile(pfile::String, name::String; th=1.5, binsize=100)
     # get signals for each direction
     saved_data = JLD.load(pfile)
     forward_p = saved_data["p-f"]
-    reverse_p = saved_data["fold-f"]
-    folds_f = saved_data["p-r"]
+    reverse_p = saved_data["p-r"]
+    folds_f = saved_data["fold-f"]
     folds_r = saved_data["fold-r"]
     offset = saved_data["offset"]
     
@@ -334,14 +335,17 @@ function generatePeakFile(pfile::String, name::String; th=1.5, binsize=100)
         try
             if reverse_p[i] < pvals[i-reverse_offset] 
                 pvals[i-reverse_offset] = reverse_p[i]
+            end
+            if folds_r[i] < folds[i-reverse_offset] 
                 folds[i-reverse_offset] = folds_r[i]
             end
         end
     end
+
     
     #Get peaks to write on files
     processed_peaks = sortPeaks(pvals, folds, th)
-    pw = PeakWriter(open("$(name).peaks", "w"), ReferenceContigs_hg38)
+    pw = PeakWriter(open("$(name).narrowPeak", "w"), ReferenceContigs_hg38)
     written = []
     for p in processed_peaks
         push!(written, writePeak(pw, 100, Int(p[1]), Int(p[2]), p[3], p[4]))
