@@ -134,7 +134,7 @@ function weights_masker(expID::String, mode::Int, clist; metadata::String="../da
     end
 
     # some assertion
-    assert(length(ignorelist) >= length(mask)-sum(mask))
+    #assert(length(ignorelist) >= length(mask)-sum(mask))
 
     if constant
         push!(mask, true)
