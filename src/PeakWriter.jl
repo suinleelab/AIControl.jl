@@ -1,5 +1,5 @@
 import Base: close
-export PeakWriter, close, writePeak, sortPeaks
+export PeakWriter, close, writePeak, sortPeaks, PeakWriter_unfused, WritePeak_unfused
 
 type PeakWriter
     #a output stream object to write to
@@ -102,4 +102,36 @@ function sortPeaks(pvals, folds, th::Float64)
     end
         
     peaks
+end
+
+type PeakWriter_unfused
+    #a output stream object to write to
+    Outstream
+    contigs::ReferenceContigs
+    cur_ref::Int64
+    id::Int64
+end
+
+function PeakWriter_unfused(output_stream, contigs)
+    sw = PeakWriter_unfused(output_stream, contigs, 1, 1)
+    sw
+end
+
+function WritePeak_unfused(sw::PeakWriter_unfused, binSize::Int64, binPosStart::Int64, binPosEnd::Int64, pval, fold; prescision=3)
+    startPos = binSize*(binPosStart-1)+1
+    endPos = binSize*binPosEnd
+    
+    while startPos > sw.contigs.offsets[sw.cur_ref]+sw.contigs.sizes[sw.cur_ref]
+        sw.cur_ref += 1
+    end
+    
+    chr = sw.contigs.names[sw.cur_ref]
+    startPos = startPos-sw.contigs.offsets[sw.cur_ref]
+    endPos = endPos-sw.contigs.offsets[sw.cur_ref]
+    peakname = "peak_$(sw.id)"
+    score = fold
+    
+    output = "$(chr)\t$(startPos)\t$(endPos)\t$(peakname)\t$(round(score,prescision))\t.\t$(round(fold,prescision))\t$(round(pval,prescision))\t-1\t-1"
+
+    println(sw.Outstream, output) 
 end
