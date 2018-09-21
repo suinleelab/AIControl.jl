@@ -129,6 +129,7 @@ function WritePeak_unfused(sw::PeakWriter_unfused, binSize::Int64, binPosStart::
     startPos = startPos-sw.contigs.offsets[sw.cur_ref]
     endPos = endPos-sw.contigs.offsets[sw.cur_ref]
     peakname = "peak_$(sw.id)"
+    sw.id += 1
     score = fold
     
     output = "$(chr)\t$(startPos)\t$(endPos)\t$(peakname)\t$(round(score,prescision))\t.\t$(round(fold,prescision))\t$(round(pval,prescision))\t-1\t-1"
