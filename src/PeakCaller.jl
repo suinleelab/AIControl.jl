@@ -1,4 +1,4 @@
-export computeXtX, computeBeta, computeFits, estimateD, callPeaks, generatePeakFile
+export computeXtX, computeBeta, computeFits, estimateD, callPeaks, generatePeakFile, generateUnfusedPeakFile
 
 #########################################################################################################
 # Computes XtX for linear regression
@@ -352,4 +352,52 @@ function generatePeakFile(pfile::String, name::String; th=1.5, binsize=100)
     end
     close(pw)
     written
+end
+
+
+function generateUnfusedPeakFile(pfile::String, name::String; th=1.5, binsize=100)
+    
+    # Data loading
+    saved_data = JLD.load(pfile)
+    forward_p = saved_data["p-f"]
+    reverse_p = saved_data["p-r"]
+    folds_f = saved_data["fold-f"]
+    folds_r = saved_data["fold-r"]
+    offset = saved_data["offset"]
+        
+    pvals = zeros(Float32, Int(ceil(sum(ReferenceContigs_hg38.sizes)/binsize)))
+    folds = zeros(Float32, Int(ceil(sum(ReferenceContigs_hg38.sizes)/binsize)))
+    
+    forward_offset = Int(ceil(offset/2))
+    reverse_offset = Int(floor(offset/2))
+    
+    for i in 1:length(forward_p)
+        try
+            pvals[i+forward_offset] = forward_p[i]
+            folds[i+forward_offset] = folds_f[i]
+        end
+    end
+    
+    for i in 1:length(reverse_p)
+        try
+            if reverse_p[i] < pvals[i-reverse_offset] 
+                pvals[i-reverse_offset] = reverse_p[i]
+            end
+            if folds_r[i] < folds[i-reverse_offset] 
+                folds[i-reverse_offset] = folds_r[i]
+            end
+        end
+    end
+    
+    fout = open("$(name).unfused.narrowPeak","w")
+    pw = PeakWriter_unfused(fout, ReferenceContigs_hg38)
+    for i in 1:length(pvals)
+        #This version of the code will assign pval to individual bins.
+        pval = pvals[i]
+        if pval >= th
+            WritePeak_unfused(pw, 100, i, i, pval, folds[i]) 
+        end
+    end
+    close(fout)
+    pvals
 end
