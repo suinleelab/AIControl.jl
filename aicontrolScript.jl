@@ -153,6 +153,8 @@ if progress < 1
         w = computeBeta(_mr, _br, args[3], verbose=verbosity, xtxfile=args[4])
     end
     println("Computing weights ...")
+    
+    println("$(xtxfolder)/xtxs$(fullstring)$(dupstring).jld")
 
     outcome = pmap(wrapper2, [["$(ctrlfolder)/forward.data100$(fullstring)$(dupstring)","$(name).fbin100","f", "$(xtxfolder)/xtxs$(fullstring)$(dupstring).jld"],["$(ctrlfolder)/reverse.data100$(fullstring)$(dupstring)","$(name).rbin100","r", "$(xtxfolder)/xtxs$(fullstring)$(dupstring).jld"]])
 
@@ -208,7 +210,7 @@ end
 # Write peaks #
 ###############
 println("Writing peaks out ...")
-test = generatePeakFile("$(name).jld", String("$(name)"), th=mlog10p)
+test = generateUnfusedPeakFile("$(name).jld", String("$(name)"), th=mlog10p)
 
 println("Done. Peaks written to $(name).peaks")
 
