@@ -5,7 +5,7 @@ function printUsage()
     println("julia aicontrolScript.jl [bamfile] [option1] [option2] ...")
     println("\t\t --dup: using duplicate reads [default:false]")
     println("\t\t --reduced: using subsampled control datasets [default:false]")
-    println("\t\t --xtxfolder=[path]: path to a folder with xtx.jld [default:./data]")
+    println("\t\t --xtxfolder=[path]: path to a folder with xtx.jld2 [default:./data]")
     println("\t\t --ctrlfolder=[path]: path to a control folder [default:./data]")
     println("\t\t --name=[string]: prefix for output files [default:bamfile_prefix]")
     println("\t\t --p=[float]: pvalue threshold [default:0.15]")
@@ -70,19 +70,10 @@ try
         xtxfolder = split(temp[1], "=")[2]
     end
     
-    # This option is currently not necessary...
-    contigpath = "./aic.contig"
-    temp = filter(x->contains(x, "--contig"), ARGS)
+    temp = filter(x->contains(x, "--p"), ARGS)
     if length(temp)>0
-        contigpath = split(temp[1], "=")[2]
-    end
-    
-    try
-        temp = filter(x->contains(x, "--p"), ARGS)
-        if length(temp)>0
-            pthreshold = float(split(temp[1], "=")[2])
-            mlog10p = -1*log10(pthreshold)
-        end
+        pthreshold = float(split(temp[1], "=")[2])
+        mlog10p = -1*log10(pthreshold)
     end
     
 catch
@@ -100,28 +91,31 @@ println("path to other data  : ", xtxfolder)
 println("=========================================")
 
 #check for file existance
-if !isfile("$(xtxfolder)/xtxs$(fullstring)$(dupstring).jld")
-    println("xtx.jld file missing.")
+if !isfile("$(xtxfolder)/xtxs$(fullstring)$(dupstring).jld2")
+    println("$(xtxfolder)/xtxs$(fullstring)$(dupstring).jld2 file missing.")
     quit()
 end
 
 if !isfile("$(ctrlfolder)/forward.data100$(fullstring)$(dupstring)")
-    println("forward.data100$(fullstring)$(dupstring) missing.")
+    println("$(ctrlfolder)/forward.data100$(fullstring)$(dupstring) missing.")
     quit()
 end
 
 if !isfile("$(ctrlfolder)/reverse.data100$(fullstring)$(dupstring)")
-    println("forward.data100$(fullstring)$(dupstring) missing.")
+    println("$(ctrlfolder)/reverse.data100$(fullstring)$(dupstring) missing.")
     quit()
 end 
 
+using Distributed
+using JLD2
+using FileIO
 addprocs(2)
 @everywhere using AIControl
 
 # Checking progress
 progress = 0
-if isfile("$(name).jld")
-    tempdata = JLD.load("$(name).jld")
+if isfile("$(name).jld2")
+    tempdata = load("$(name).jld2")
     if "offset" in keys(tempdata)
         progress = 4
     elseif "fold-r" in keys(tempdata)
@@ -147,35 +141,38 @@ end
 if progress < 1
     # Computing weights
     @everywhere function wrapper2(args)
-        verbosity = 100
+        verbosity = 1000
         _mr = MatrixReader(args[1], 10000)
         _br = BinnedReader(args[2])
         w = computeBeta(_mr, _br, args[3], verbose=verbosity, xtxfile=args[4])
     end
     println("Computing weights ...")
-    
-    println("$(xtxfolder)/xtxs$(fullstring)$(dupstring).jld")
 
-    outcome = pmap(wrapper2, [["$(ctrlfolder)/forward.data100$(fullstring)$(dupstring)","$(name).fbin100","f", "$(xtxfolder)/xtxs$(fullstring)$(dupstring).jld"],["$(ctrlfolder)/reverse.data100$(fullstring)$(dupstring)","$(name).rbin100","r", "$(xtxfolder)/xtxs$(fullstring)$(dupstring).jld"]])
+    outcome = pmap(wrapper2, [["$(ctrlfolder)/forward.data100$(fullstring)$(dupstring)","$(name).fbin100","f", "$(xtxfolder)/xtxs$(fullstring)$(dupstring).jld2"],["$(ctrlfolder)/reverse.data100$(fullstring)$(dupstring)","$(name).rbin100","r", "$(xtxfolder)/xtxs$(fullstring)$(dupstring).jld2"]])
 
-    JLD.save("$(name).jld", "w1-f", outcome[1][1], "w2-f",  outcome[1][2], "w1-r",  outcome[2][1], "w2-r",  outcome[2][2])
+    tempdata = Dict()
+    tempdata["w1-f"] = outcome[1][1]
+    tempdata["w2-f"] = outcome[1][2]
+    tempdata["w1-r"] = outcome[2][1]
+    tempdata["w2-r"] = outcome[2][2] 
+    save("$(name).jld2", tempdata)
 end
 
 if progress < 2
     # Computing fits
     @everywhere function wrapper3(args)
-        verbosity = 100
+        verbosity = 1000
         _mr = MatrixReader(args[1], 10000)
         f = computeFits(_mr, args[3], args[2], verbose=verbosity)
     end
     println("Computing fits ...")
 
-    outcome = pmap(wrapper3, [["$(ctrlfolder)/forward.data100$(fullstring)$(dupstring)","f", "$(name).jld"],["$(ctrlfolder)/reverse.data100$(fullstring)$(dupstring)","r", "$(name).jld"]])
+    outcome = pmap(wrapper3, [["$(ctrlfolder)/forward.data100$(fullstring)$(dupstring)","f", "$(name).jld2"],["$(ctrlfolder)/reverse.data100$(fullstring)$(dupstring)","r", "$(name).jld2"]])
 
-    tempdata = JLD.load("$(name).jld")
+    tempdata = load("$(name).jld2")
     tempdata["fit-f"] = outcome[1]
     tempdata["fit-r"] = outcome[2]
-    JLD.save("$(name).jld", tempdata)
+    save("$(name).jld2", tempdata)
 end
 
 if progress < 3
@@ -187,32 +184,32 @@ if progress < 3
     end
     println("Calling peaks ...")
 
-    outcome = pmap(wrapper4, [["$(name).fbin100","f", "$(name).jld"],["$(name).rbin100","r", "$(name).jld"]])
+    outcome = pmap(wrapper4, [["$(name).fbin100","f", "$(name).jld2"],["$(name).rbin100","r", "$(name).jld2"]])
 
-    tempdata = JLD.load("$(name).jld")
+    tempdata = load("$(name).jld2")
     tempdata["p-f"] = outcome[1][1]
     tempdata["fold-f"] = outcome[1][2]
     tempdata["p-r"] = outcome[2][1]
     tempdata["fold-r"] = outcome[2][2]
-    JLD.save("$(name).jld", tempdata)
+    save("$(name).jld2", tempdata)
 end
 
 if progress < 4
     # Learning offset
     println("Estimating peak distance ...")
     offset = estimateD("$(name).fbin100", "$(name).rbin100")
-    tempdata = JLD.load("$(name).jld")
+    tempdata = load("$(name).jld2")
     tempdata["offset"] = offset
-    JLD.save("$(name).jld", tempdata)
+    save("$(name).jld2", tempdata)
 end
 
 ###############
 # Write peaks #
 ###############
 println("Writing peaks out ...")
-test = generateUnfusedPeakFile("$(name).jld", String("$(name)"), th=mlog10p)
+test = generatePeakFile("$(name).jld2", String("$(name)"), th=mlog10p)
 
-println("Done. Peaks written to $(name).peaks")
+println("Done. Peaks written to $(name).narrowPeak")
 
 
 
