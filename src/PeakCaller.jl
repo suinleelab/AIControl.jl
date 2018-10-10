@@ -92,11 +92,11 @@ function computeBeta(mr::MatrixReader, br::BinnedReader, direction::String; bins
     ###########################################
     # Prepare matrices for weight calculation #
     ###########################################
-    XtX1 = JLD.load(xtxfile)["XtX1-$(direction)"]
-    XtX2 = JLD.load(xtxfile)["XtX2-$(direction)"]
+    XtX1 = load(xtxfile)["XtX1-$(direction)"]
+    XtX2 = load(xtxfile)["XtX2-$(direction)"]
     if length(mask)>0
         # mask input if necessary
-        assert(mr.expsize+1==length(mask))
+        @assert mr.expsize+1==length(mask)
         XtX1 = filter2d(XtX1, mask, mask)
         XtX2 = filter2d(XtX2, mask, mask)
     end
@@ -164,8 +164,8 @@ function computeFits(mr::MatrixReader, weightfile::String, direction::String; bi
     training_limit = Int(ceil(sum(ReferenceContigs_hg38.sizes[1:num_chroms])/binsize))
     
     
-    weight1 = JLD.load(weightfile)["w1-$(direction)"]
-    weight2 = JLD.load(weightfile)["w2-$(direction)"]
+    weight1 = load(weightfile)["w1-$(direction)"]
+    weight2 = load(weightfile)["w2-$(direction)"]
     
     ##########################
     # Compute regression fit #
@@ -194,6 +194,7 @@ function computeFits(mr::MatrixReader, weightfile::String, direction::String; bi
             binpos +=1
             try 
                 regression_fit[binpos] = pred[j]
+            catch
             end
         end   
         
@@ -240,8 +241,8 @@ function estimateD(forwardtarget, reversetarget; binsize=100)
     d = []
     for i in 0:4
         f = vcat([0 for j in  1:i], targetf[1:end-i])
-        assert(f!=targetr)
-        assert(length(f)==length(targetr))
+        @assert f!=targetr
+        @assert length(f)==length(targetr)
         push!(d, sum(abs.(f-targetr)))
     end
     indmin(d)-1
@@ -262,7 +263,7 @@ function callPeaks(br::BinnedReader, fitfile::String, direction::String; num_chr
         advance!(br)
     end
     close(br)
-    regfit = JLD.load(fitfile)["fit-$(direction)"]
+    regfit = load(fitfile)["fit-$(direction)"]
     
     if verbose>0 println("loaded.") end
     
@@ -311,7 +312,7 @@ function generatePeakFile(pfile::String, name::String; th=1.5, binsize=100)
     folds = zeros(Float32, Int(ceil(sum(ReferenceContigs_hg38.sizes)/binsize)))
     
     # get signals for each direction
-    saved_data = JLD.load(pfile)
+    saved_data = load(pfile)
     forward_p = saved_data["p-f"]
     reverse_p = saved_data["p-r"]
     folds_f = saved_data["fold-f"]
@@ -327,6 +328,7 @@ function generatePeakFile(pfile::String, name::String; th=1.5, binsize=100)
         try
             pvals[i+forward_offset] = forward_p[i]
             folds[i+forward_offset] = folds_f[i]
+        catch
         end
     end
     
@@ -339,6 +341,7 @@ function generatePeakFile(pfile::String, name::String; th=1.5, binsize=100)
             if folds_r[i] < folds[i-reverse_offset] 
                 folds[i-reverse_offset] = folds_r[i]
             end
+        catch
         end
     end
 
@@ -358,7 +361,7 @@ end
 function generateUnfusedPeakFile(pfile::String, name::String; th=1.5, binsize=100)
     
     # Data loading
-    saved_data = JLD.load(pfile)
+    saved_data = load(pfile)
     forward_p = saved_data["p-f"]
     reverse_p = saved_data["p-r"]
     folds_f = saved_data["fold-f"]
@@ -375,6 +378,7 @@ function generateUnfusedPeakFile(pfile::String, name::String; th=1.5, binsize=10
         try
             pvals[i+forward_offset] = forward_p[i]
             folds[i+forward_offset] = folds_f[i]
+        catch
         end
     end
     
@@ -386,6 +390,7 @@ function generateUnfusedPeakFile(pfile::String, name::String; th=1.5, binsize=10
             if folds_r[i] < folds[i-reverse_offset] 
                 folds[i-reverse_offset] = folds_r[i]
             end
+        catch
         end
     end
     
