@@ -3,7 +3,7 @@ using GZip
 import Base: eof, close, position
 export BamReader, close, value, eof, advance!, eachposition
 
-type BamReader
+mutable struct BamReader
     bamStream
     readOrientation #useReverseReads::Bool
     done::Bool
@@ -15,7 +15,7 @@ function BamReader(bamFileName::String, readOrientation, contigs)
     f = GZip.open(bamFileName)
 
     # make sure this is a BAM file
-    code = read(f, UInt8, 4)
+    code = read!(f, Array{UInt8}(undef, 4))
     @assert code == b"BAM\1"
 
     # get through the header data
@@ -27,7 +27,7 @@ function BamReader(bamFileName::String, readOrientation, contigs)
     @assert n_ref == contigs.count
     for j in 1:n_ref
         l_name = read(f, Int32)
-        refName = convert(String, read(f, UInt8, l_name)[1:end-1]) # ignore the null terminator
+        refName = String(read(f, Array{UInt8}(undef, l_name))[1:end-1]) # ignore the null terminator
         l_ref = read(f, Int32)
         @assert l_ref == contigs.sizes[j]
         @assert refName == contigs.names[j]
@@ -51,7 +51,7 @@ function advance!(r::BamReader)
             return
         end
 
-        buf = Array{Int32}(5) # [block_size, refID, pos, bin_mq_nl, flag_nc]
+        buf = Array{Int32}(undef, 5) # [block_size, refID, pos, bin_mq_nl, flag_nc]
         gzread(f, pointer(buf), 20)
         block_size = buf[1]
         refID = buf[2] + 1 # the reference contig this read maps to
@@ -73,7 +73,7 @@ end
 
 # here we want to update the reader
 eachposition(r::BamReader) = BamReaderIterator(r)
-immutable BamReaderIterator
+struct BamReaderIterator
 	reader::BamReader
 end
 Base.start(it::BamReaderIterator) = it.reader.position
