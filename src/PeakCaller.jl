@@ -128,12 +128,17 @@ function computeBeta(mr::MatrixReader, br::BinnedReader, direction::String; bins
         
         # report progress
         if verbose>0 && count % (verbose) == 0
-            println(count, ":", training_limit)
+	        if direction=="f"
+                println(count*mr.blocksize, ":", training_limit, " (forward)")
+	        else
+	            println(count*mr.blocksize, ":", training_limit, " (reverse)")
+	        end
         end
     end
     
-    beta1 = inv(XtX1 + 0.00001*eye(size(XtX1)[1]))*Xty1
-    beta2 = inv(XtX2 + 0.00001*eye(size(XtX2)[1]))*Xty2
+    m = size(XtX1)[1]
+    beta1 = inv(XtX1 + 0.00001*Matrix(1.0I, m, m))*Xty1
+    beta2 = inv(XtX2 + 0.00001*Matrix(1.0I, m, m))*Xty2
     
     beta1, beta2
 end
@@ -200,7 +205,11 @@ function computeFits(mr::MatrixReader, weightfile::String, direction::String; bi
         
         # report progress
         if verbose>0 && count % (verbose) == 0
-            println(count, ":", training_limit)
+	        if direction=="f"
+                println(count*mr.blocksize, ":", training_limit, " (forward)")
+	        else
+	            println(count*mr.blocksize, ":", training_limit, " (reverse)")
+	        end
         end
         
         advance!(mr)   
