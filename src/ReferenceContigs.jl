@@ -1,6 +1,6 @@
 export ReferenceContigs, ReferenceContigs_hg38
 
-type ReferenceContigs
+mutable struct ReferenceContigs
     count::Int64
     names::Array{String}
     sizes::Array{Int64}
