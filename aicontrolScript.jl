@@ -43,42 +43,42 @@ mlog10p = 1.5
 try
     ## parsing arguments
     if "--dup" in ARGS
-        isDup = true
-        dupstring = ".dup"
+        global isDup = true
+        global dupstring = ".dup"
     end
 
     if "--reduced" in ARGS
-        isFull = false
-        fullstring = ".reduced"
+        global isFull = false
+        global fullstring = ".reduced"
     end
 
-    name = split(split(bamfilepath, "/")[end], ".")[1]
-    temp = filter(x->contains(x, "--name"), ARGS)
+    global name = split(split(bamfilepath, "/")[end], ".")[1]
+    temp = filter(x->occursin("--name", x), ARGS)
     if length(temp)>0
-        name = split(temp[1], "=")[2]
+        global name = split(temp[1], "=")[2]
     end
     
-    ctrlfolder = "./data"
-    temp = filter(x->contains(x, "--ctrlfolder"), ARGS)
+    global ctrlfolder = "./data"
+    temp = filter(x->occursin("--ctrlfolder", x), ARGS)
     if length(temp)>0
-        ctrlfolder = split(temp[1], "=")[2]
+        global ctrlfolder = split(temp[1], "=")[2]
     end
     
-    xtxfolder = "./data"
-    temp = filter(x->contains(x, "--xtxfolder"), ARGS)
+    global xtxfolder = "./data"
+    temp = filter(x->occursin("--xtxfolder", x), ARGS)
     if length(temp)>0
-        xtxfolder = split(temp[1], "=")[2]
+        global xtxfolder = split(temp[1], "=")[2]
     end
     
-    temp = filter(x->contains(x, "--p"), ARGS)
+    temp = filter(x->occursin("--p", x), ARGS)
     if length(temp)>0
         pthreshold = float(split(temp[1], "=")[2])
-        mlog10p = -1*log10(pthreshold)
+        global mlog10p = -1*log10(pthreshold)
     end
     
 catch
     printUsage()
-    exit()
+    quit()
 end
 
 println("============PARAMETERS====================")
