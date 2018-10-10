@@ -5,6 +5,7 @@ function printUsage()
     println("julia aicontrolScript.jl [bamfile] [option1] [option2] ...")
     println("\t\t --dup: using duplicate reads [default:false]")
     println("\t\t --reduced: using subsampled control datasets [default:false]")
+    println("\t\t --fused: fusing consecutive peaks [default:false]")
     println("\t\t --xtxfolder=[path]: path to a folder with xtx.jld2 [default:./data]")
     println("\t\t --ctrlfolder=[path]: path to a control folder [default:./data]")
     println("\t\t --name=[string]: prefix for output files [default:bamfile_prefix]")
@@ -33,6 +34,8 @@ dupstring = ".nodup"
 isFull = true
 fullstring = ""
 
+isFused = false
+
 name = ""
 xtxfolder = ""
 ctrlfolder = ""
@@ -46,7 +49,12 @@ try
         global isDup = true
         global dupstring = ".dup"
     end
-
+    
+    ## parsing arguments
+    if "--fused" in ARGS
+        global isFused = true
+    end
+    
     if "--reduced" in ARGS
         global isFull = false
         global fullstring = ".reduced"
@@ -207,7 +215,11 @@ end
 # Write peaks #
 ###############
 println("Writing peaks out ...")
-test = generatePeakFile("$(name).jld2", String("$(name)"), th=mlog10p)
+if !fused
+    test = generatePeakUnfusedFile("$(name).jld2", String("$(name)"), th=mlog10p)
+else
+    test = generatePeakFile("$(name).jld2", String("$(name)"), th=mlog10p)
+ebd
 
 println("Done. Peaks written to $(name).narrowPeak")
 
