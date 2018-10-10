@@ -15,7 +15,7 @@ end
 
 if "--help" in ARGS || "--h" in ARGS || length(ARGS)==0
     printUsage()
-    quit()
+    exit()
 end
 
 ## check for file existance
@@ -24,7 +24,7 @@ if !isfile(bamfilepath)
     println("Input bam file does not exist.")
     println()
     printUsage()
-    quit()
+    exit()
 end
 
 isDup = false
@@ -78,7 +78,7 @@ try
     
 catch
     printUsage()
-    quit()
+    exit()
 end
 
 println("============PARAMETERS====================")
@@ -93,17 +93,17 @@ println("=========================================")
 #check for file existance
 if !isfile("$(xtxfolder)/xtxs$(fullstring)$(dupstring).jld2")
     println("$(xtxfolder)/xtxs$(fullstring)$(dupstring).jld2 file missing.")
-    quit()
+    exit()
 end
 
 if !isfile("$(ctrlfolder)/forward.data100$(fullstring)$(dupstring)")
     println("$(ctrlfolder)/forward.data100$(fullstring)$(dupstring) missing.")
-    quit()
+    exit()
 end
 
 if !isfile("$(ctrlfolder)/reverse.data100$(fullstring)$(dupstring)")
     println("$(ctrlfolder)/reverse.data100$(fullstring)$(dupstring) missing.")
-    quit()
+    exit()
 end 
 
 using Distributed
