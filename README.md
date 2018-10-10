@@ -34,7 +34,7 @@ Before you start, make sure your have the following required packages installed.
 - `using Pkg`
 - `Pkg.add("JLD2")`
 - `Pkg.add("FileIO")`
-- `Pkg.clone("https://github.com/suinleelab/AIControl.jl.git")`
+- `Pkg.clone("https://github.com/hiranumn/AIControl.jl.git")`
 
 ## Data files required for AIControl
 AIControl uses a massive amount of public control data for ChIP-seq (roughly 450 chip-seq runs). We have done our best to compress them so that you only need to download about **4.6GB** (can be smaller with the `--reduced` option). These files require approximately **13GB** of free disk space to unfold. You can unfold them to anywhere you want as long as you specify the location with the `--ctrlfolder` option. **The default location is `./data`**
@@ -48,7 +48,7 @@ AIControl uses a massive amount of public control data for ChIP-seq (roughly 450
 When extracted, both files together occupy approximately 13GB of space. 
 
 ### Option 2: with 273 ENCODE controls with non-duplicate reads
-We also have a subsampled version, which is validated to have comparable performance. 
+We also have a subsampled version. Control datasets are selected to cover all possible combinations of (celltype, lab, control type). Figure S12 shows slightly decreased but comparable performance with full control. 
 - `forward.data100.reduced.nodup.tar.bz2` (1.5GB):   
 - `reverse.data100.reduced.nodup.tar.bz2` (1.5GB):  
 When extracted, both files together occupy approximately 8GB of space. 
