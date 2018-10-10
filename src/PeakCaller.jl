@@ -394,7 +394,7 @@ function generateUnfusedPeakFile(pfile::String, name::String; th=1.5, binsize=10
         end
     end
     
-    fout = open("$(name).unfused.narrowPeak","w")
+    fout = open("$(name).narrowPeak","w")
     pw = PeakWriter_unfused(fout, ReferenceContigs_hg38)
     for i in 1:length(pvals)
         #This version of the code will assign pval to individual bins.
