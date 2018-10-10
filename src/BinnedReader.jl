@@ -1,7 +1,7 @@
 import Base: eof, close
 export BinnedReader, close, position, value, eof, advance!, write_binned
 
-type BinnedReader
+mutable struct BinnedReader
     fileStream
     pair::Array{UInt32}
 end
