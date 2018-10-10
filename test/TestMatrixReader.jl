@@ -58,7 +58,7 @@ for itr in 1:10000
     #################
     x1 = vcat(t1, t2)
     new = vcat(m1, m2, m3, m4, m5, m6, m7, m8)
-    assert(new == x1)
+    @assert new == x1
     if itr%1000 == 0
         println(itr," test passed. ", size(x1), ":", sum(x1))
     end
@@ -109,7 +109,7 @@ for itr in 1:10000
     #################
     x1 = vcat(t1, t2)
     new = vcat(m1, m2, m3, m4, m5, m6, m7, m8)
-    assert(new == x1)
+    @assert new == x1
     if itr%1000 == 0
         println(itr," test passed. ", size(x1), ":", sum(x1))
     end
