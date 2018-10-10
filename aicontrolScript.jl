@@ -92,6 +92,7 @@ end
 println("============PARAMETERS====================")
 println("isDup : ", isDup)
 println("isFull: ", isFull)
+println("isFused: ", isFused)
 println("prefix: ", name)
 println("p-value (-log10)    : ", mlog10p)
 println("path to control data: ", ctrlfolder)
@@ -219,7 +220,7 @@ if !fused
     test = generatePeakUnfusedFile("$(name).jld2", String("$(name)"), th=mlog10p)
 else
     test = generatePeakFile("$(name).jld2", String("$(name)"), th=mlog10p)
-ebd
+end
 
 println("Done. Peaks written to $(name).narrowPeak")
 
