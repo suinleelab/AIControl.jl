@@ -217,7 +217,7 @@ end
 ###############
 println("Writing peaks out ...")
 if !isFused
-    test = generatePeakUnfusedFile("$(name).jld2", String("$(name)"), th=mlog10p)
+    test = generateUnfusedPeakFile("$(name).jld2", String("$(name)"), th=mlog10p)
 else
     test = generatePeakFile("$(name).jld2", String("$(name)"), th=mlog10p)
 end
