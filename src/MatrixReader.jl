@@ -1,7 +1,8 @@
-import Base: eof, close, mean
+import Base: eof, close
+import Statistics: mean
 export MatrixWriter, close, writeMatrix, MatrixReader, value, eof, advance!, mean, cor, cov
 
-type MatrixWriter
+mutable struct MatrixWriter
     fileStream
     zerocount::Int
     maxnum::Int ##Somewhat of unused number
@@ -77,7 +78,7 @@ function writeMatrix(mw::MatrixWriter, matrix::Array{Int64,2})
     end
 end
 
-type MatrixReader
+mutable struct MatrixReader
     # For basic matrix reading
     fileStream
     expsize::Int
@@ -98,9 +99,9 @@ function MatrixReader(fileName::String, blocksize; buffsize=10000000)
     f = open(fileName)
     
     # These are read as header of file.
-    _expsize = read(f, UInt16, 1)[1]
-    _maxnum = read(f, UInt16, 1)[1] 
-    _datatype = read(f, UInt16, 1)[1]
+    _expsize = Int(read!(f, Array{UInt16}(undef, 1))[1])
+    _maxnum = Int(read!(f, Array{UInt16}(undef, 1))[1])
+    _datatype = Int(read!(f, Array{UInt16}(undef, 1))[1])
     
     if _datatype == 0
         dt = UInt8
