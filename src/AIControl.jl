@@ -1,9 +1,12 @@
 module AIControl
     using Distributions
-    using JLD
+    using JLD2
+    using FileIO
     using CSV
     using DataFrames
     using GZip
+    using Statistics
+    using LinearAlgebra
 
     include("./ReferenceContigs.jl")
     include("./BamReader.jl")
