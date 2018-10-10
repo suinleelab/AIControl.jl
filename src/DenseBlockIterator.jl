@@ -1,6 +1,6 @@
 export denseblocks
 
-type DenseBlockIterator
+mutable struct DenseBlockIterator
     readers::Array{Any}
     blockSize::Int64
     blockWidth::Int64
@@ -15,7 +15,7 @@ function denseblocks(readers, blockSize::Int64; constantColumn=false, loop=false
     blockWidth = constantColumn ? length(readers) + 1 : length(readers)
     block = ones(Float64, blockSize, blockWidth)
     if constantColumn
-        block[:,end] = 1.0
+        block[:,end] .= 1.0
     end
     DenseBlockIterator(readers, blockSize, blockWidth, block, 0, false, constantColumn, loop)
 end
@@ -26,9 +26,9 @@ Base.done(it::DenseBlockIterator, nil) = it.done && !it.loop # never done with a
 function Base.next(it::DenseBlockIterator, nil)
     
     if it.constantColumn
-        it.block[:,1:end-1] = 0.0
+        it.block[:,1:end-1] .= 0.0
     else
-        it.block[:,:] = 0.0
+        it.block[:,:] .= 0.0
     end
 
     # Fill in the block
