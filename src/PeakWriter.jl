@@ -1,7 +1,7 @@
 import Base: close
 export PeakWriter, close, writePeak, sortPeaks, PeakWriter_unfused, WritePeak_unfused
 
-type PeakWriter
+mutable struct PeakWriter
     #a output stream object to write to
     outstream
     contigs::ReferenceContigs
@@ -20,7 +20,7 @@ close(pw::PeakWriter) = close(pw.outstream)
 function writePeak(pw::PeakWriter, binSize::Int64, binPosStart::Int64, binPosEnd::Int64, pval, fold; prescision=2)
     
     # Some assertion to prevent misuse.
-    assert(pw.lastpos < binPosStart)
+    @assert pw.lastpos<binPosStart
     
     # Get the starting position and ending position
     startPos = binSize*(binPosStart-1)+1
@@ -42,7 +42,7 @@ function writePeak(pw::PeakWriter, binSize::Int64, binPosStart::Int64, binPosEnd
     score = minimum([1000, fold])
     
     # Write it to file
-    output = "$(chr)\t$(startPos)\t$(endPos)\t$(peakname)\t$(round(score,prescision))\t.\t$(round(fold,prescision))\t$(round(pval,prescision))\t-1\t-1"
+    output = "$(chr)\t$(startPos)\t$(endPos)\t$(peakname)\t$(round(score,digits=prescision))\t.\t$(round(fold,digits=prescision))\t$(round(pval,digits=prescision))\t-1\t-1"
     println(pw.outstream, output)
     
     # Update some data
@@ -104,7 +104,7 @@ function sortPeaks(pvals, folds, th::Float64)
     peaks
 end
 
-type PeakWriter_unfused
+mutable struct PeakWriter_unfused
     #a output stream object to write to
     Outstream
     contigs::ReferenceContigs
