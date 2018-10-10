@@ -1,7 +1,7 @@
 import Base: eof, close
 export BinningMap, close, value, position, eof, advance!
 
-type BinningMap
+mutable struct BinningMap
     reader::BamReader
     binSize::Int64
     position::Int64
