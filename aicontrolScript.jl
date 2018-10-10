@@ -78,7 +78,7 @@ try
     
 catch
     printUsage()
-    quit()
+    exit()
 end
 
 println("============PARAMETERS====================")
