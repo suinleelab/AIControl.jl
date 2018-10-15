@@ -39,7 +39,10 @@ Before you start, make sure your have the following required packages installed.
 ## Data files required for AIControl
 AIControl uses a massive amount of public control data for ChIP-seq (roughly 450 chip-seq runs). We have done our best to compress them so that you only need to download about **4.6GB** (can be smaller with the `--reduced` option). These files require approximately **13GB** of free disk space to unfold. You can unfold them to anywhere you want as long as you specify the location with the `--ctrlfolder` option. **The default location is `./data`**
 
-**[Here](https://drive.google.com/open?id=1Xh6Fjah1LoRMmbaJA7_FzxYcbqmpNUPZ) is a link to a Google Drive folder that contains all compressed data.** The link contains 8 files and you need to download different files depending on which option you are planning to run with.
+**[Here](https://drive.google.com/open?id=1Xh6Fjah1LoRMmbaJA7_FzxYcbqmpNUPZ) is a link to a Google Drive folder that contains all compressed data.** The link contains the following files:
+- Pairs of files that you need to download depending on which option you are planning to run with.
+- Peaks for other peak callers used for evaluation in the accompanying paper.
+- ``bowtie2" reference files.
 
 ### Option 1: with 440 ENCODE controls with non-duplicate reads
 **Using these files will recreate the main results of the paper.**  
