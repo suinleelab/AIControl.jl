@@ -42,7 +42,7 @@ AIControl uses a massive amount of public control data for ChIP-seq (roughly 450
 **[Here](https://drive.google.com/open?id=1Xh6Fjah1LoRMmbaJA7_FzxYcbqmpNUPZ) is a link to a Google Drive folder that contains all compressed data.** The link contains the following files:
 - Pairs of files that you need to download depending on which option you are planning to run with.
 - Peaks for other peak callers used for evaluation in the accompanying paper.
-- ``bowtie2" reference files.
+- `bowtie2` reference files.
 
 ### Option 1: with 440 ENCODE controls with non-duplicate reads
 **Using these files will recreate the main results of the paper.**  
