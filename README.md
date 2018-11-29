@@ -101,6 +101,10 @@ We currently support the following flags.
 Make sure that:
 - You are using Julia 0.7.
 - You downloaded necessary files for `--reduced` or `--dup` if you are running with those flags.
-- You sorted the input bam files according to the UCSC hg38 assembly as specified in Step 3.  
+- You sorted the input bam files according to the UCSC hg38 assembly as specified in Step 3.
+
+We have tested this implementation on:
+- macOS Sierra (2.5GHz Intel Core i5 & 8GB RAM)
+- Ubuntu 18.04 
 
 If you have questions, please e-mail to hiranumn at cs dot washington do edu.
