@@ -254,7 +254,7 @@ function estimateD(forwardtarget, reversetarget; binsize=100)
         @assert length(f)==length(targetr)
         push!(d, sum(abs.(f-targetr)))
     end
-    indmin(d)-1
+    argmin(d)-1
 end
 
 # Calls peak for both forward and reverse strands
