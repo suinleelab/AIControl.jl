@@ -83,7 +83,7 @@ Sometimes your bam file is mapped to hg38, but to a slightly differet version or
 As stated, AIControl requires you to download precomputed data files. Please download and extract them to the `./data` folder, or otherwise specify the location with `--ctrlfolder` option. Make sure to untar the files.    
 
 **Step 5: Run AIControl as julia script.**  
-Here is a sample command  
+You are almost there. If you clone this repo, you will find a julia script `aicontrolScript.jl` that uses AIControl functions to identifiy locations of peaks. Here is a sample command you can use.  
 `julia aicontrolScript.jl example.bam.sorted --ctrlfolder=/scratch/hiranumn/data --name=test`
 
 Do `julia aicontrolScript.jl --help` or `-h` for help.
