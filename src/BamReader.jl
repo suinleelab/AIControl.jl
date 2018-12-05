@@ -72,14 +72,14 @@ function advance!(r::BamReader)
 end
 
 # here we want to update the reader
-eachposition(r::BamReader) = BamReaderIterator(r)
-struct BamReaderIterator
-	reader::BamReader
-end
-Base.start(it::BamReaderIterator) = it.reader.position
-Base.done(it::BamReaderIterator, position) = position == -1
-function Base.next(it::BamReaderIterator, position)
-	pos = it.reader.position
-	advance!(it.reader)
-	pos,it.reader.position
-end
+#eachposition(r::BamReader) = BamReaderIterator(r)
+#struct BamReaderIterator
+#	reader::BamReader
+#end
+#Base.start(it::BamReaderIterator) = it.reader.position
+#Base.done(it::BamReaderIterator, position) = position == -1
+#function Base.next(it::BamReaderIterator, position)
+#	pos = it.reader.position
+#	advance!(it.reader)
+#	pos,it.reader.position
+#end
