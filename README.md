@@ -15,6 +15,8 @@ approach. A single control dataset may not capture all sources of background noi
 more rigorously removes background ChIP-seq noise by using a large number of publicly available
 control ChIP-seq datasets*
 
+%## Update
+
 ## Installing utility softwares
 These external softwares are required to run AIControl pipeline from a `.fastq` file to a `.narrowpeak` file.
 - bowtie2
