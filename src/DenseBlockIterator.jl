@@ -20,10 +20,12 @@ function denseblocks(readers, blockSize::Int64; constantColumn=false, loop=false
     DenseBlockIterator(readers, blockSize, blockWidth, block, 0, false, constantColumn, loop)
 end
 
-Base.start(it::DenseBlockIterator) = 0
-Base.done(it::DenseBlockIterator, nil) = it.done && !it.loop # never done with a constant column
+#Depricated for Julia 1.0
+#Base.start(it::DenseBlockIterator) = 0
+#Base.done(it::DenseBlockIterator, nil) = it.done && !it.loop # never done with a constant column
 
-function Base.next(it::DenseBlockIterator, nil)
+#function Base.next(it::DenseBlockIterator, nil)
+function next(it::DenseBlockIterator, nil)
     
     if it.constantColumn
         it.block[:,1:end-1] .= 0.0
@@ -57,5 +59,13 @@ function Base.next(it::DenseBlockIterator, nil)
     # update the offset
     it.offset += it.blockSize
 
-    it.block,nothing
+    it.block, 0
+end
+
+function Base.iterate(it::DenseBlockIterator, state=0)
+    if it.done && !it.loop
+        return nothing
+    else
+        return next(it, state)
+    end
 end
