@@ -16,7 +16,7 @@ more rigorously removes background ChIP-seq noise by using a large number of pub
 control ChIP-seq datasets*
 
 ## Update
-- Cleared all deprecations. Now work with both Julia 0.7 and 1.0 (12/07/2018). 
+- Cleared all deprecations. AIControl now works with both Julia 0.7 and 1.0 (12/07/2018). 
 
 ## Installing utility softwares
 These external softwares are required to run AIControl pipeline from a `.fastq` file to a `.narrowpeak` file.
