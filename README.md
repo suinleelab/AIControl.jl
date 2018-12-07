@@ -15,7 +15,8 @@ approach. A single control dataset may not capture all sources of background noi
 more rigorously removes background ChIP-seq noise by using a large number of publicly available
 control ChIP-seq datasets*
 
-%## Update
+## Update
+- Cleared all deprecations. Now work with both Julia 0.7 and 1.0 (12/07/2018). 
 
 ## Installing utility softwares
 These external softwares are required to run AIControl pipeline from a `.fastq` file to a `.narrowpeak` file.
@@ -30,7 +31,7 @@ The recommended way of installing these softwares is to use `conda`. Download an
 
 ## Julia modules required for AIControl
 
-AIControl module is coded in **Julia 0.7**. You can download Julia from [here](https://julialang.org/).  
+AIControl module is coded in **Julia 1.0 and 0.7**. You can download Julia from [here](https://julialang.org/).  
 
 Before you start, make sure your have the following required packages installed. The easiest way to do this is to open `julia` and start typing in following commands. 
 - `using Pkg`
@@ -101,7 +102,7 @@ We currently support the following flags.
 
 ## Simple trouble shooting
 Make sure that:
-- You are using Julia 0.7.
+- You are using Julia 1.0 or 0.7.
 - You downloaded necessary files for `--reduced` or `--dup` if you are running with those flags.
 - You sorted the input bam files according to the UCSC hg38 assembly as specified in Step 3.
 
