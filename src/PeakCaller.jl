@@ -280,7 +280,7 @@ function callPeaks(br::BinnedReader, fitfile::String, direction::String; num_chr
     close(br)
     regfit = load(fitfile)["fit-$(direction)"]
     
-    if verbose>0 println("loaded peak signals.") end
+    if verbose>0 println("Loaded peak signals.") end
     
     # Do smoothing if necessary
     if smoothing
