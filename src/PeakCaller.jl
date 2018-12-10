@@ -280,7 +280,7 @@ function callPeaks(br::BinnedReader, fitfile::String, direction::String; num_chr
     close(br)
     regfit = load(fitfile)["fit-$(direction)"]
     
-    if verbose>0 println("loaded.") end
+    if verbose>0 println("loaded peak signals.") end
     
     # Do smoothing if necessary
     if smoothing
@@ -290,7 +290,7 @@ function callPeaks(br::BinnedReader, fitfile::String, direction::String; num_chr
     end
     m = mean(target)
     
-    if verbose>0 println("smoothed.") end
+    #if verbose>0 println("smoothed.") end
     
     # Recording vector
     pvals = zeros(Float32, Int(ceil(sum(ReferenceContigs_hg38.sizes[1:num_chroms])/binsize)))
