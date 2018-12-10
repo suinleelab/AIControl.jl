@@ -209,7 +209,7 @@ function computeFits(mr::MatrixReader, weightfile::String, direction::String; bi
         # report progress
 	if verbose>0 && (count+1) % (verbose) == 0
         	progress = Int(floor(((count+1)*mr.blocksize/training_limit)*1000))/10
-        	printString = "$(progress)% completed ($(((count+1)*mr.blocksize)/$(training_limit))"
+        	printString = "$(progress)% completed ($((count+1)*mr.blocksize)/$(training_limit))"
         	if direction=="f"
             		printString = printString*" on forward signals."
         	else
@@ -318,7 +318,7 @@ function callPeaks(br::BinnedReader, fitfile::String, direction::String; num_chr
 	# report progress
 	if verbose>0 && (i/10000) % (verbose) == 0
         	progress = Int(floor((i/training_limit)*1000))/10
-        	printString = "$(progress)% completed ($((i)/$(training_limit))"
+        	printString = "$(progress)% completed ($(i)/$(training_limit))"
         	if direction=="f"
             		printString = printString*" on forward signals."
         	else
