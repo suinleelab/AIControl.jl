@@ -125,15 +125,18 @@ function computeBeta(mr::MatrixReader, br::BinnedReader, direction::String; bins
         else
             Xty2 .+= ctrl*target
         end
-        
+		
         # report progress
-        if verbose>0 && count % (verbose) == 0
-	        if direction=="f"
-                println(count*mr.blocksize, ":", training_limit, " (forward)")
-	        else
-	            println(count*mr.blocksize, ":", training_limit, " (reverse)")
-	        end
-        end
+	if verbose>0 && count % (verbose) == 0
+        	progress = Int(floor((count*mr.blocksize/training_limit)*1000))/10
+        	printString = "$(progress)% completed ($(count*mr.blocksize)/$(training_limit))"
+        	if direction=="f"
+            		printString = printString*" on forward signals."
+        	else
+            		printString = printString*" on reverse signals."
+        	end
+        	println(printString)
+    	end
     end
     
     m = size(XtX1)[1]
@@ -204,13 +207,16 @@ function computeFits(mr::MatrixReader, weightfile::String, direction::String; bi
         end   
         
         # report progress
-        if verbose>0 && count % (verbose) == 0
-	        if direction=="f"
-                println(count*mr.blocksize, ":", training_limit, " (forward)")
-	        else
-	            println(count*mr.blocksize, ":", training_limit, " (reverse)")
-	        end
-        end
+	if verbose>0 && (count+1) % (verbose) == 0
+        	progress = Int(floor(((count+1)*mr.blocksize/training_limit)*1000))/10
+        	printString = "$(progress)% completed ($(((count+1)*mr.blocksize)/$(training_limit))"
+        	if direction=="f"
+            		printString = printString*" on forward signals."
+        	else
+            		printString = printString*" on reverse signals."
+        	end
+        	println(printString)
+    	end
         
         advance!(mr)   
         # update
@@ -308,6 +314,19 @@ function callPeaks(br::BinnedReader, fitfile::String, direction::String; num_chr
         pvals[i] = pval
         folds[i] = fold
         lambdas[i] = lambda
+		
+	# report progress
+	if verbose>0 && (i/10000) % (verbose) == 0
+        	progress = Int(floor((i/training_limit)*1000))/10
+        	printString = "$(progress)% completed ($((i)/$(training_limit))"
+        	if direction=="f"
+            		printString = printString*" on forward signals."
+        	else
+            		printString = printString*" on reverse signals."
+        	end
+        	println(printString)
+    	end
+		
     end
     
     pvals, folds, target, lambdas
