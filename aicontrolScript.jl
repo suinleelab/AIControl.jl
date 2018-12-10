@@ -11,7 +11,7 @@ function printUsage()
     println("\t\t --name=[string]: prefix for output files [default:bamfile_prefix]")
     println("\t\t --p=[float]: pvalue threshold [default:0.15]")
     println("")
-    println("Example: julia aicontrolScript.jl test.bam --dup --reduced --ctrlfolder=/scratch --name=test")
+    println("Example: julia aicontrolScript.jl test.bam --ctrlfolder=/scratch --name=test")
 end
 
 if "--help" in ARGS || "--h" in ARGS || length(ARGS)==0
@@ -102,16 +102,19 @@ println("=========================================")
 #check for file existance
 if !isfile("$(xtxfolder)/xtxs$(fullstring)$(dupstring).jld2")
     println("$(xtxfolder)/xtxs$(fullstring)$(dupstring).jld2 file missing.")
+    printUsage()
     exit()
 end
 
 if !isfile("$(ctrlfolder)/forward.data100$(fullstring)$(dupstring)")
     println("$(ctrlfolder)/forward.data100$(fullstring)$(dupstring) missing.")
+    printUsage()
     exit()
 end
 
 if !isfile("$(ctrlfolder)/reverse.data100$(fullstring)$(dupstring)")
     println("$(ctrlfolder)/reverse.data100$(fullstring)$(dupstring) missing.")
+    printUsage()
     exit()
 end 
 
