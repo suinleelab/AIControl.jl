@@ -150,7 +150,7 @@ end
 if progress < 1
     # Computing weights
     @everywhere function wrapper2(args)
-        verbosity = 1000
+        verbosity = 100
         _mr = MatrixReader(args[1], 10000)
         _br = BinnedReader(args[2])
         w = computeBeta(_mr, _br, args[3], verbose=verbosity, xtxfile=args[4])
@@ -170,7 +170,7 @@ end
 if progress < 2
     # Computing fits
     @everywhere function wrapper3(args)
-        verbosity = 1000
+        verbosity = 100
         _mr = MatrixReader(args[1], 10000)
         f = computeFits(_mr, args[3], args[2], verbose=verbosity)
     end
@@ -187,8 +187,9 @@ end
 if progress < 3
     # Calling peaks
     @everywhere function wrapper4(args)
+        verbosity = 100
         _br = BinnedReader(args[1])
-        p, fold, t, l = callPeaks(_br, args[3], args[2], verbose=0)
+        p, fold, t, l = callPeaks(_br, args[3], args[2], verbose=verbosity)
         p, fold
     end
     println("Calling peaks ...")
