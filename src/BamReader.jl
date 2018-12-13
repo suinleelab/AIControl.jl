@@ -24,13 +24,21 @@ function BamReader(bamFileName::String, readOrientation, contigs)
 
     # make sure the contigs match our reference
     n_ref = read(f, Int32)
-    @assert n_ref == contigs.count
+    if !(n_ref == contigs.count)
+        println("Your bam files is not aligned to the UCSC hg38 genome.")
+        println("See the step 3.1 at https://github.com/hiranumn/AIControl.jl to realign your genome")
+        println("to the specific version of hg38 using bowtie2.")
+    end
+        
     for j in 1:n_ref
         l_name = read(f, Int32)
         refName = String(read(f, Array{UInt8}(undef, l_name))[1:end-1]) # ignore the null terminator
         l_ref = read(f, Int32)
-        @assert l_ref == contigs.sizes[j]
-        @assert refName == contigs.names[j]
+        if !(l_ref == contigs.sizes[j]) or !(refName == contigs.names[j])
+            println("Your bam files is not aligned to the UCSC hg38 genome.")
+            println("See the step 3.1 at https://github.com/hiranumn/AIControl.jl to realign your genome")
+            println("to the specific version of hg38 using bowtie2.")
+        end
     end
 
     r = BamReader(f, readOrientation, false, 1, contigs)
