@@ -102,18 +102,21 @@ println("=========================================")
 #check for file existance
 if !isfile("$(xtxfolder)/xtxs$(fullstring)$(dupstring).jld2")
     println("$(xtxfolder)/xtxs$(fullstring)$(dupstring).jld2 file missing.")
+    println("Please specify it by --xtxfolder=[path to the folder with xtx files]")
     printUsage()
     exit()
 end
 
 if !isfile("$(ctrlfolder)/forward.data100$(fullstring)$(dupstring)")
     println("$(ctrlfolder)/forward.data100$(fullstring)$(dupstring) missing.")
+    println("Please specify it by --ctrlfolder=[path to the folder with downloaded control files]")
     printUsage()
     exit()
 end
 
 if !isfile("$(ctrlfolder)/reverse.data100$(fullstring)$(dupstring)")
     println("$(ctrlfolder)/reverse.data100$(fullstring)$(dupstring) missing.")
+    println("Please specify it by --ctrlfolder=[path to the folder with downloaded control files]")
     printUsage()
     exit()
 end 
