@@ -17,6 +17,7 @@ control ChIP-seq datasets*
 
 ## Update
 - Cleared all deprecations. AIControl now works with both Julia 1.0 and 0.7 (12/07/2018). 
+- Updated some error messages (12/13/2018)
 
 ## Installing utility softwares
 These external softwares are required to run AIControl pipeline from a `.fastq` file to a `.narrowpeak` file.
