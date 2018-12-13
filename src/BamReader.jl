@@ -28,6 +28,7 @@ function BamReader(bamFileName::String, readOrientation, contigs)
         println("Your bam files is not aligned to the UCSC hg38 genome.")
         println("See the step 3.1 at https://github.com/hiranumn/AIControl.jl to realign your genome")
         println("to the specific version of hg38 using bowtie2.")
+        exit()
     end
         
     for j in 1:n_ref
@@ -38,6 +39,7 @@ function BamReader(bamFileName::String, readOrientation, contigs)
             println("Your bam files is not aligned to the UCSC hg38 genome.")
             println("See the step 3.1 at https://github.com/hiranumn/AIControl.jl to realign your genome")
             println("to the specific version of hg38 using bowtie2.")
+            exit()
         end
     end
 
