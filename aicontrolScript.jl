@@ -108,9 +108,9 @@ if !isfile("$(xtxfolder)/xtxs$(fullstring)$(dupstring).jld2")
 end
 
 if !isfile("$(ctrlfolder)/forward.data100$(fullstring)$(dupstring)")
-    println("$(ctrlfolder)/forward.data100$(fullstring)$(dupstring) missing.")
-    println("Please specify its location by --ctrlfolder=[path to the folder]")
-    println("Please read step4 at https://github.com/hiranumn/AIControl.jl")
+    println(stderr,"$(ctrlfolder)/forward.data100$(fullstring)$(dupstring) missing.")
+    println(stderr,"Please specify its location by --ctrlfolder=[path to the folder]")
+    println(stderr,"Please read step4 at https://github.com/hiranumn/AIControl.jl")
     printUsage()
     exit()
 end
