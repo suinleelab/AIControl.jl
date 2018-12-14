@@ -22,8 +22,7 @@ end
 ## check for file existance
 bamfilepath = ARGS[1]
 if !isfile(bamfilepath)
-    println("Input bam file does not exist.")
-    println()
+    println(stderr, "Input bam file does not exist.")
     printUsage()
     exit()
 end
@@ -101,24 +100,24 @@ println("=========================================")
 
 #check for file existance
 if !isfile("$(xtxfolder)/xtxs$(fullstring)$(dupstring).jld2")
-    println("$(xtxfolder)/xtxs$(fullstring)$(dupstring).jld2 file missing.")
-    println("Please specify its location by --xtxfolder=[path to the folder]")
+    println(stderr, "$(xtxfolder)/xtxs$(fullstring)$(dupstring).jld2 file missing.")
+    println(stderr, "Please specify its location by --xtxfolder=[path to the folder]")
     printUsage()
     exit()
 end
 
 if !isfile("$(ctrlfolder)/forward.data100$(fullstring)$(dupstring)")
-    println(stderr,"$(ctrlfolder)/forward.data100$(fullstring)$(dupstring) missing.")
-    println(stderr,"Please specify its location by --ctrlfolder=[path to the folder]")
-    println(stderr,"Please read step4 at https://github.com/hiranumn/AIControl.jl")
+    println(stderr, "$(ctrlfolder)/forward.data100$(fullstring)$(dupstring) missing.")
+    println(stderr, "Please specify its location by --ctrlfolder=[path to the folder]")
+    println(stderr, "Please read step4 at https://github.com/hiranumn/AIControl.jl")
     printUsage()
     exit()
 end
 
 if !isfile("$(ctrlfolder)/reverse.data100$(fullstring)$(dupstring)")
     println(stderr, "$(ctrlfolder)/reverse.data100$(fullstring)$(dupstring) missing.")
-    println("Please specify its location by --ctrlfolder=[path to the folder]")
-    println("Please read step4 at https://github.com/hiranumn/AIControl.jl")
+    println(stderr, "Please specify its location by --ctrlfolder=[path to the folder]")
+    println(stderr, "Please read step4 at https://github.com/hiranumn/AIControl.jl")
     printUsage()
     exit()
 end 
