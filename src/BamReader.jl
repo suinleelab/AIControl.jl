@@ -35,7 +35,7 @@ function BamReader(bamFileName::String, readOrientation, contigs)
         l_name = read(f, Int32)
         refName = String(read(f, Array{UInt8}(undef, l_name))[1:end-1]) # ignore the null terminator
         l_ref = read(f, Int32)
-        if !(l_ref == contigs.sizes[j]) or !(refName == contigs.names[j])
+        if !(l_ref == contigs.sizes[j]) || !(refName == contigs.names[j])
             println("Your bam files is not aligned to the UCSC hg38 genome.")
             println("See the step 3.1 at https://github.com/hiranumn/AIControl.jl to realign your genome")
             println("to the specific version of hg38 using bowtie2.")
