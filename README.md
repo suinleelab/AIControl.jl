@@ -27,7 +27,7 @@ You may need these external softwares for running the AIControl pipeline from a 
 
 ## Julia modules required for AIControl
 
-AIControl module is coded in **Julia 1.0 and 0.7**. You can download Julia from [here](https://julialang.org/).  
+AIControl module is coded in **Julia 1.0**. You can download Julia from [here](https://julialang.org/).  
 
 Before you start, make sure your have the following required packages installed. The easiest way to do this is to open `julia` and start typing in following commands. 
 - `using Pkg`
