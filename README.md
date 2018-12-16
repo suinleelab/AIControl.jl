@@ -16,19 +16,14 @@ more rigorously removes background ChIP-seq noise by using a large number of pub
 control ChIP-seq datasets*
 
 ## Update
-- Cleared all deprecations. AIControl now works with both Julia 1.0 and 0.7 (12/07/2018). 
+- Cleared all deprecations. AIControl now works with Julia 1.0  (12/07/2018). 
 - Updated some error messages (12/13/2018)
 
 ## Installing utility softwares
-These external softwares are required to run AIControl pipeline from a `.fastq` file to a `.narrowpeak` file.
-- bowtie2
-- samtools
-- bedtools
-
-The recommended way of installing these softwares is to use `conda`. Download anaconda Python distribution from [here](https://anaconda.org/anaconda/python). Install `anaconda` and run the following commands.
-- ` conda install -c bioconda bowtie2 `
-- ` conda install -c bioconda samtools `
-- ` conda install -c bioconda bedtools `
+You may need these external softwares for running the AIControl pipeline from a `.fastq` file to a `.narrowpeak` file.  The recommended way of installing these softwares is to use `conda`. Download anaconda Python distribution from [here](https://anaconda.org/anaconda/python). Install `anaconda` and run the following commands.
+- bowtie2: ` conda install -c bioconda bowtie2 ` for aligning your raw ChIP-seq output to the hg38 genome
+- samtools: ` conda install -c bioconda samtools ` for sorting alinged bam files
+- bedtools: ` conda install -c bioconda bedtools ` for converting bam files back to fastq files
 
 ## Julia modules required for AIControl
 
