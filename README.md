@@ -65,7 +65,7 @@ If you go through step 1 with the UCSC hg38 assembly, sorting with `samtools sor
 `samtools sort -o example.bam.sorted example.bam`  
 
 **Step 3.1: If your bam is aligned against different hg38 ...**  
-Sometimes your bam file is mapped to hg38, but to a slightly differet version or different ordering of chromosomes (a.k.a. non-lexicographic). For instance, if you download a bam file directly from the ENCODE website, it is mapped to a slightly different chromosome ordering of hg38. A recommended way of resolving this issue is to extract a fastq file from your bam file, go back to step 1, and remap it with bowtie2 using the UCSC hg38 assembly. `bedtools` provides a way to generate a fastq file from your bam file. `samtools sort` does not quite sort chromosmes in lexicogrphic order sadly.
+Unlike other peaking callers, the core idea of AIControl is to leverage all available control datasets. This requires all data (your target and public control datasets) to be mapped to the exact same reference genome. Our control datasets are mapped to the hg38 from [the UCSC repository](http://hgdownload.soe.ucsc.edu/goldenPath/hg38/bigZips/hg38.fa.gz). Sometimes your bam file is mapped to the hg38 genome, but to a slightly differet version or different ordering of chromosomes (a.k.a. non-lexicographic). For instance, if you download a bam file directly from the ENCODE website, it is mapped to a slightly different chromosome ordering of hg38. A recommended way of resolving this issue is to extract a fastq file from your bam file, go back to step 1, and remap it with bowtie2 using the UCSC hg38 assembly. `bedtools` provides a way to generate a `.fastq` file from your `.bam` file.
 *Example command:*  
 `bedtools bamtofastq  -i example.bam -fq example.fastq`  
    
@@ -89,12 +89,13 @@ We currently support the following flags.
 
 ## Simple trouble shooting
 Make sure that:
-- You are using Julia 1.0 or 0.7.
+- You are using Julia 1.0.
 - You downloaded necessary files for `--reduced` or `--dup` if you are running with those flags.
-- You sorted the input bam files according to the UCSC hg38 assembly as specified in Step 3.
+- You sorted the input bam files according to the UCSC hg38 assembly as specified in Step 1 (and 3.1).
 
-We have tested this implementation on:
+## We have tested our implementation on:
 - macOS Sierra (2.5GHz Intel Core i5 & 8GB RAM)
 - Ubuntu 18.04 
+- Windows 8.0
 
-If you have questions, please e-mail to hiranumn at cs dot washington do edu.
+If you have any question, please e-mail to hiranumn at cs dot washington dot edu.
