@@ -39,7 +39,7 @@ Before you start, make sure your have the following required packages installed.
 - `Pkg.clone("https://github.com/hiranumn/AIControl.jl.git")`
 
 ## Data files required for AIControl
-AIControl uses a massive amount of public control data for ChIP-seq (roughly 450 chip-seq runs). We have done our best to compress them so that you only need to download about **4.6GB** (can be smaller with the `--reduced` option). These files require approximately **13GB** of free disk space to unfold. You can unfold them to anywhere you want as long as you specify the location with the `--ctrlfolder` option. **The default location is `./data`** **[Here](https://drive.google.com/open?id=1Xh6Fjah1LoRMmbaJA7_FzxYcbqmpNUPZ) is a link to a Google Drive folder that contains all compressed data.** Please download the following two data files. Use `tar xvjf file.tar.bz2` to untar. 
+AIControl uses a massive amount of public control data for ChIP-seq (roughly 450 chip-seq runs). We have done our best to compress them so that you only need to download about **4.6GB** (can be smaller with the `--reduced` option). These files require approximately **13GB** of free disk space to unfold. You can unfold them to anywhere you want as long as you specify the location with the `--ctrlfolder` option. **The default location is `./data`.** **[Here](https://drive.google.com/open?id=1Xh6Fjah1LoRMmbaJA7_FzxYcbqmpNUPZ) is a link to a Google Drive folder that contains all compressed data.** Please download the following two data files. Use `tar xvjf file.tar.bz2` to untar. 
 - `forward.data100.nodup.tar.bz2` (2.3GB):   
 - `reverse.data100.nodup.tar.bz2` (2.3GB):  
 
