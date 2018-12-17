@@ -20,7 +20,7 @@ control ChIP-seq datasets*
 - Updated some error messages  to better direct users (12/13/2018).
 
 ## System recommendation
-We recommend that users run AIControl on Unix based systems such as **mac OS** or **Ubuntu**. While it is not impossible to run these on the Windows machines, we believe that it is far easier for you to set the pipeline up in Unix based systems. 
+We recommend that users run AIControl on Unix based systems such as **mac OS** or **Ubuntu**. While it is not impossible to run these on the Windows machines, we believe that it is far easier for you to set the pipeline up in the Unix based systems. 
 
 ## Installing utility softwares
 AIControl expects a sorted `.bam` file as an input and outputs a `.narrowpeak` file. Typically, for a brand new ChIP-seq experiment, you would start with a `.fastq` file, and you will need some external softwares for converting the `.fastq` file to a sorted `.bam` file. Here, we provide a list of such external softwares. The recommended way of installing these softwares is to use package management systems, such as `conda`. Please download anaconda Python distribution from [here](https://anaconda.org/anaconda/python). Install `anaconda` and run the following commands.
