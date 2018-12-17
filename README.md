@@ -68,6 +68,8 @@ If you go through step 1 with the UCSC hg38 assembly, sorting with `samtools sor
 Unlike other peak callers, the core idea of AIControl is to leverage all available control datasets. This requires all data (your target and public control datasets) to be mapped to the exact same reference genome. Our control datasets are mapped to the hg38 from [the UCSC repository](http://hgdownload.soe.ucsc.edu/goldenPath/hg38/bigZips/hg38.fa.gz). Sometimes your bam file is mapped to the hg38 genome, but to a slightly differet version or different ordering of chromosomes (a.k.a. non-lexicographic). For instance, if you download a bam file directly from the ENCODE website, it is mapped to a slightly different chromosome ordering of hg38. A recommended way of resolving this issue is to extract a fastq file from your bam file, go back to step 1, and remap it with bowtie2 using the UCSC hg38 assembly. `bedtools` provides a way to generate a `.fastq` file from your `.bam` file.  
 *Example command:*  
 `bedtools bamtofastq  -i example.bam -fq example.fastq`  
+
+We will regularly update the control data when a new major version of the genome becomes available; however, updating the model for all versions with small changes to the existing version is not realistic.
    
 **Step 4: Download data files and locate them in the right places.**  
 As stated, AIControl requires you to download precomputed data files. Please download and extract them to the `./data` folder, or otherwise specify the location with `--ctrlfolder` option. Make sure to untar the files.    
