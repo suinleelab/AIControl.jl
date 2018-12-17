@@ -69,7 +69,7 @@ Unlike other peak callers, the core idea of AIControl is to leverage all availab
 *Example command:*  
 `bedtools bamtofastq  -i example.bam -fq example.fastq`  
 
-We will regularly update the control data when a new major version of the genome becomes available; however, updating the model for all versions with small changes to the existing version is not realistic.
+We will regularly update the control data when a new major version of the genome becomes available; however, covering for all versions with small changes to the existing version is not realistic.
    
 **Step 4: Download data files and locate them in the right places.**  
 As stated, AIControl requires you to download precomputed data files. Please download and extract them to the `./data` folder, or otherwise specify the location with `--ctrlfolder` option. Make sure to untar the files.    
