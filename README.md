@@ -16,14 +16,17 @@ more rigorously removes background ChIP-seq noise by using a large number of pub
 control ChIP-seq datasets*
 
 ## Update
-- Cleared all deprecations. AIControl now works with Julia 1.0  (12/07/2018). 
-- Updated some error messages (12/13/2018)
+- Cleared all deprecations. AIControl now works with Julia 1.0  (12/14/2018). 
+- Updated some error messages  to better direct users (12/13/2018).
+
+## System recommendation
+We recommend that users run AIControl on Unix based systems such as **mac OS** or **Ubuntu**. While it is not impossible to run these on the Windows machines, we believe that it is far easier for you to set the pipeline up in Unix based systems. 
 
 ## Installing utility softwares
-You may need these external softwares for running the AIControl pipeline from a `.fastq` file to a `.narrowpeak` file.  The recommended way of installing these softwares is to use `conda`. Download anaconda Python distribution from [here](https://anaconda.org/anaconda/python). Install `anaconda` and run the following commands.
-- bowtie2: ` conda install -c bioconda bowtie2 ` for aligning your raw ChIP-seq output to the hg38 genome
-- samtools: ` conda install -c bioconda samtools ` for sorting alinged bam files
-- bedtools: ` conda install -c bioconda bedtools ` for converting bam files back to fastq files
+AIControl expects a sorted `.bam` file as an input and outputs a `.narrowpeak` file. Typically, for a brand new ChIP-seq experiment, you would start with a `.fastq` file, and you will need some external softwares for converting the `.fastq` file to a sorted `.bam` file. Here, we provide a list of such external softwares. The recommended way of installing these softwares is to use package management systems, such as `conda`. Please download anaconda Python distribution from [here](https://anaconda.org/anaconda/python). Install `anaconda` and run the following commands.
+- **bowtie2**: ` conda install -c bioconda bowtie2 ` for aligning a `.fastq` file to the hg38 genome
+- **samtools**: ` conda install -c bioconda samtools ` for sorting an alinged bam file
+- **bedtools**: ` conda install -c bioconda bedtools ` for converting a bam file back to a fastq file (OPTIONAL for Step 3.1)
 
 ## Julia modules required for AIControl
 
