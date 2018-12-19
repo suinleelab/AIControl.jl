@@ -59,6 +59,7 @@ We have validated our pipeline with `bowtie2`. You can download the genome assem
 Unlike other peak callers, the core idea of AIControl is to leverage all available control datasets. This requires all data (your target and public control datasets) to be mapped to the exact same reference genome. Our control datasets are currently mapped to the hg38 assembly from [the UCSC repository]. **So please make sure that your data is also mapped to the same assembly**. Otherwise, our pipeline will report an error.
    
 **Step 2: Convert the resulting sam file into a bam format.**  
+
 *Example command:*  
 `samtools view -Sb example.sam > example.bam`  
    
@@ -68,8 +69,8 @@ If you go through step 1 with the UCSC hg38 assembly, sorting with `samtools sor
 *Example command:*  
 `samtools sort -o example.bam.sorted example.bam`  
 
-**Step 3.1: If your bam is aligned against different hg38 ...**  
- Our control datasets are mapped to the hg38 from [the UCSC repository](http://hgdownload.soe.ucsc.edu/goldenPath/hg38/bigZips/hg38.fa.gz). Sometimes your bam file is mapped to the hg38 genome, but to a slightly differet version or different ordering of chromosomes (a.k.a. non-lexicographic). For instance, if you download a bam file directly from the ENCODE website, it is mapped to a slightly different chromosome ordering of hg38. A recommended way of resolving this issue is to extract a fastq file from your bam file, go back to step 1, and remap it with bowtie2 using the UCSC hg38 assembly. `bedtools` provides a way to generate a `.fastq` file from your `.bam` file.  
+**Step 3.1: If AIControl reports an error for a mismatch of genome assembly**  
+You are likely here, because the AIControl script raised an error. The error is most likely caused by a mismatch of genome assembly that your dataset and control datasets are mapped to. Our control datasets are mapped to the hg38 from [the UCSC repository](http://hgdownload.soe.ucsc.edu/goldenPath/hg38/bigZips/hg38.fa.gz). On the other hand, your bam file is probably mapped to a slightly differet version of the hg38 assembly or different ordering of chromosomes (a.k.a. non-lexicographic). For instance, if you download a bam file directly from the ENCODE website, it is mapped to a slightly different chromosome ordering of hg38. A recommended way of resolving this issue is to extract a fastq file from your bam file, go back to step 1, and remap it with bowtie2 using the UCSC hg38 assembly. `bedtools` provides a way to generate a `.fastq` file from your `.bam` file.  
  
 *Example command:*  
 `bedtools bamtofastq  -i example.bam -fq example.fastq`  
