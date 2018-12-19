@@ -16,11 +16,11 @@ more rigorously removes background ChIP-seq noise by using a large number of pub
 control ChIP-seq datasets*
 
 ## Update
-- Cleared all deprecations. AIControl now works with Julia 1.0  (12/14/2018). 
-- Updated some error messages  to better direct users (12/13/2018).
+- (12/14/2018) Cleared all deprecations. AIControl now works with Julia 1.0. Please delete the precompiled cache from the previous versions of AIControl. You may do so by deleting the `.julia` folder. 
+- (12/14/2018) Updated some error messages to better direct users (12/13/2018).
 
 ## System recommendation
-We recommend that users run AIControl on Unix based systems such as **mac OS** or **Ubuntu**. While it is not impossible to run these on the Windows machines, we believe that it is far easier for you to set the pipeline up in the Unix based systems. 
+We recommend that users run AIControl on Unix based systems such as **mac OS** or **Ubuntu**. While we tested and validated on most systems, we believe that it is easier for you to set the AIControl pipeline up on the **Unix based systems**.
 
 ## Installing utility softwares
 AIControl expects a sorted `.bam` file as an input and outputs a `.narrowpeak` file. Typically, for a brand new ChIP-seq experiment, you would start with a `.fastq` file, and you will need some external softwares for converting the `.fastq` file to a sorted `.bam` file. Here, we provide a list of such external softwares. The recommended way of installing these softwares is to use package management systems, such as `conda`. Please download anaconda Python distribution from [here](https://anaconda.org/anaconda/python). Install `anaconda` and run the following commands.
@@ -51,9 +51,11 @@ We have an accompanying paper in BioRxiv evaluating and comparing the performanc
 ## How to use AIControl (step by step)
 
 **Step 1: Map your FASTQ file from ChIP-seq to the `hg38` assembly from the UCSC database.**  
-   We have validated our pipeline with `bowtie2`. You can download the genome assembly data from [the UCSC repository](http://hgdownload.soe.ucsc.edu/goldenPath/hg38/bigZips/hg38.fa.gz). In case you need the exact reference database that we used for bowtie2, they are available through our [Google Drive](https://drive.google.com/open?id=1Xh6Fjah1LoRMmbaJA7_FzxYcbqmpNUPZ) as a zip file named `bowtie2ref.zip`.  
+We have validated our pipeline with `bowtie2`. You can download the genome assembly data from [the UCSC repository](http://hgdownload.soe.ucsc.edu/goldenPath/hg38/bigZips/hg38.fa.gz). In case you need the exact reference database that we used for bowtie2, they are available through our [Google Drive](https://drive.google.com/open?id=1Xh6Fjah1LoRMmbaJA7_FzxYcbqmpNUPZ) as a zip file named `bowtie2ref.zip`.  
 *Example command:*  
 `bowtie2 -x bowtie2ref/hg38 -q -p 10 -U example.fastq -S example.sam`  
+
+Unlike other peak callers, the core idea of AIControl is to leverage all available control datasets. This requires all data (your target and public control datasets) to be mapped to the exact same reference genome. Our control datasets are currently mapped to the hg38 assembly from [the UCSC repository]. **So please make sure that your data is also mapped to the same assembly**. Otherwise, our pipeline will report an error.
    
 **Step 2: Convert the resulting sam file into a bam format.**  
 *Example command:*  
@@ -65,7 +67,7 @@ If you go through step 1 with the UCSC hg38 assembly, sorting with `samtools sor
 `samtools sort -o example.bam.sorted example.bam`  
 
 **Step 3.1: If your bam is aligned against different hg38 ...**  
-Unlike other peak callers, the core idea of AIControl is to leverage all available control datasets. This requires all data (your target and public control datasets) to be mapped to the exact same reference genome. Our control datasets are mapped to the hg38 from [the UCSC repository](http://hgdownload.soe.ucsc.edu/goldenPath/hg38/bigZips/hg38.fa.gz). Sometimes your bam file is mapped to the hg38 genome, but to a slightly differet version or different ordering of chromosomes (a.k.a. non-lexicographic). For instance, if you download a bam file directly from the ENCODE website, it is mapped to a slightly different chromosome ordering of hg38. A recommended way of resolving this issue is to extract a fastq file from your bam file, go back to step 1, and remap it with bowtie2 using the UCSC hg38 assembly. `bedtools` provides a way to generate a `.fastq` file from your `.bam` file.  
+ Our control datasets are mapped to the hg38 from [the UCSC repository](http://hgdownload.soe.ucsc.edu/goldenPath/hg38/bigZips/hg38.fa.gz). Sometimes your bam file is mapped to the hg38 genome, but to a slightly differet version or different ordering of chromosomes (a.k.a. non-lexicographic). For instance, if you download a bam file directly from the ENCODE website, it is mapped to a slightly different chromosome ordering of hg38. A recommended way of resolving this issue is to extract a fastq file from your bam file, go back to step 1, and remap it with bowtie2 using the UCSC hg38 assembly. `bedtools` provides a way to generate a `.fastq` file from your `.bam` file.  
 *Example command:*  
 `bedtools bamtofastq  -i example.bam -fq example.fastq`  
 
