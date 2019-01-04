@@ -6,7 +6,7 @@ function printUsage()
     println("\t\t --dup: using duplicate reads [default:false]")
     println("\t\t --reduced: using subsampled control datasets [default:false]")
     println("\t\t --fused: fusing consecutive peaks [default:false]")
-    println("\t\t --xtxfolder=[path]: path to a folder with xtx.jld2 [default:./data]")
+    #println("\t\t --xtxfolder=[path]: path to a folder with xtx.jld2 [default:./data]")
     println("\t\t --ctrlfolder=[path]: path to a control folder [default:./data]")
     println("\t\t --name=[string]: prefix for output files [default:bamfile_prefix]")
     println("\t\t --p=[float]: pvalue threshold [default:0.15]")
@@ -36,7 +36,7 @@ fullstring = ""
 isFused = false
 
 name = ""
-xtxfolder = ""
+#xtxfolder = ""
 ctrlfolder = ""
 contigpath = ""
 
@@ -49,7 +49,6 @@ try
         global dupstring = ".dup"
     end
     
-    ## parsing arguments
     if "--fused" in ARGS
         global isFused = true
     end
@@ -71,12 +70,6 @@ try
         global ctrlfolder = split(temp[1], "=")[2]
     end
     
-    global xtxfolder = "./data"
-    temp = filter(x->occursin("--xtxfolder", x), ARGS)
-    if length(temp)>0
-        global xtxfolder = split(temp[1], "=")[2]
-    end
-    
     temp = filter(x->occursin("--p", x), ARGS)
     if length(temp)>0
         pthreshold = float(split(temp[1], "=")[2])
@@ -95,16 +88,10 @@ println("isFused: ", isFused)
 println("prefix: ", name)
 println("p-value (-log10)    : ", mlog10p)
 println("path to control data: ", ctrlfolder)
-println("path to other data  : ", xtxfolder)
+#println("path to other data  : ", xtxfolder)
 println("=========================================")
 
 #check for file existance
-if !isfile("$(xtxfolder)/xtxs$(fullstring)$(dupstring).jld2")
-    println(stderr, "$(xtxfolder)/xtxs$(fullstring)$(dupstring).jld2 file missing.")
-    println(stderr, "Please specify its location by --xtxfolder=[path to the folder]")
-    printUsage()
-    exit()
-end
 
 if !isfile("$(ctrlfolder)/forward.data100$(fullstring)$(dupstring)")
     println(stderr, "$(ctrlfolder)/forward.data100$(fullstring)$(dupstring) missing.")
@@ -164,7 +151,7 @@ if progress < 1
     end
     println("Computing weights ...")
 
-    outcome = pmap(wrapper2, [["$(ctrlfolder)/forward.data100$(fullstring)$(dupstring)","$(name).fbin100","f", "$(xtxfolder)/xtxs$(fullstring)$(dupstring).jld2"],["$(ctrlfolder)/reverse.data100$(fullstring)$(dupstring)","$(name).rbin100","r", "$(xtxfolder)/xtxs$(fullstring)$(dupstring).jld2"]])
+    outcome = pmap(wrapper2, [["$(ctrlfolder)/forward.data100$(fullstring)$(dupstring)","$(name).fbin100","f", "xtxs$(fullstring)$(dupstring).jld2"],["$(ctrlfolder)/reverse.data100$(fullstring)$(dupstring)","$(name).rbin100","r", "$xtxs$(fullstring)$(dupstring).jld2"]])
 
     tempdata = Dict()
     tempdata["w1-f"] = outcome[1][1]

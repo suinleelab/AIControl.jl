@@ -81,9 +81,6 @@ end
 
 function computeBeta(mr::MatrixReader, br::BinnedReader, direction::String; binsize=100, num_chroms=0, verbose=0, mask=[], xtxfile="../data/xtx.jld")
 
-    datapath = joinpath(@__DIR__, "..", "data")
-    println(datapath)
-
     ##############################
     # Use all chroms for default #
     ##############################
@@ -95,8 +92,9 @@ function computeBeta(mr::MatrixReader, br::BinnedReader, direction::String; bins
     ###########################################
     # Prepare matrices for weight calculation #
     ###########################################
-    XtX1 = load(xtxfile)["XtX1-$(direction)"]
-    XtX2 = load(xtxfile)["XtX2-$(direction)"]
+    datapath = joinpath(@__DIR__, "..", "data")
+    XtX1 = load(joinpath(datapath, xtxfile))["XtX1-$(direction)"]
+    XtX2 = load(joinpath(datapath, xtxfile))["XtX2-$(direction)"]
     if length(mask)>0
         # mask input if necessary
         @assert mr.expsize+1==length(mask)
