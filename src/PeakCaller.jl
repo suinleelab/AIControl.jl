@@ -80,7 +80,10 @@ end
 #########################################################################################################
 
 function computeBeta(mr::MatrixReader, br::BinnedReader, direction::String; binsize=100, num_chroms=0, verbose=0, mask=[], xtxfile="../data/xtx.jld")
-    
+
+    datapath = joinpath(@__DIR__, "..", "data")
+    println(datapath)
+
     ##############################
     # Use all chroms for default #
     ##############################
