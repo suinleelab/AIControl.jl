@@ -151,7 +151,7 @@ if progress < 1
     end
     println("Computing weights ...")
 
-    outcome = pmap(wrapper2, [["$(ctrlfolder)/forward.data100$(fullstring)$(dupstring)","$(name).fbin100","f", "xtxs$(fullstring)$(dupstring).jld2"],["$(ctrlfolder)/reverse.data100$(fullstring)$(dupstring)","$(name).rbin100","r", "$xtxs$(fullstring)$(dupstring).jld2"]])
+    outcome = pmap(wrapper2, [["$(ctrlfolder)/forward.data100$(fullstring)$(dupstring)","$(name).fbin100","f", "xtxs$(fullstring)$(dupstring).jld2"],["$(ctrlfolder)/reverse.data100$(fullstring)$(dupstring)","$(name).rbin100","r", "xtxs$(fullstring)$(dupstring).jld2"]])
 
     tempdata = Dict()
     tempdata["w1-f"] = outcome[1][1]
