@@ -1,3 +1,5 @@
+#!/usr/bin/env julia
+
 ## help statement
 
 function printUsage()
