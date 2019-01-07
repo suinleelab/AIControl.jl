@@ -23,15 +23,16 @@ control ChIP-seq datasets*
 - (1/7/2019) Made AIControl Pkg3 compatible for Julia 1.0.3
 
 ## Installation 
-AIControl can be used on any **Linux** or **macOS** machine. While we tested and validated that AIControl works on **Windows** machines, we believe that it is easier for you to set up the AIControl pipeline on the Unix based systems. Running AIControl on a `.fastq` file to get a `.narrowPeak` file requires the following sets of programs and packages installed. We will explain how to install them in sections below.
+AIControl can be used on any **Linux** or **macOS** machine. While we tested and validated that AIControl works on **Windows** machines, we believe that it is easier for you to set up the AIControl pipeline on the Unix based systems. Running AIControl on a `.fastq` file to get a `.narrowPeak` file requires the following sets of programs and packages installed.  We will explain how to install them in sections below.
 - Julia (Julia 1.0 and above)
 - bowtie2: aligning a `.fastq` file to the hg38 genome
 - samtools: sorting an alinged bam file
 - bedtools: for converting a bam file back to a fastq file (OPTIONAL for Step 3.1)
+AIControl expects a sorted `.bam` file as an input and outputs a `.narrowpeak` file. Typically, for a brand new ChIP-seq experiment, you start with a `.fastq` file, and you will need some external softwares for converting the `.fastq` file to a sorted `.bam` file. 
 
 ### 1. Installing Julia 1.0 for a Linux machine
-The commands below will install julia 1.0.3 on a linux machine. Please change the file names accordingly.
-You can download julia [here](https://julialang.org/downloads/)
+The commands below will install julia 1.0.3 on a linux machine. Please change the file names accordingly.  
+You can download julia [here](https://julialang.org/downloads/). **Note that the current conda version of julia has a problem locating libLLVM.so in some environments. We highly recommend avoiding it for now**
 ```
 cd
 wget https://julialang-s3.julialang.org/bin/linux/x64/1.0/julia-1.0.3-linux-x86_64.tar.gz
@@ -41,13 +42,13 @@ source .bashrc
 ```
 
 ### 2. Installing Julia Packages
-Run the following command for installing required julia packages.
+The command below will install required julia packages and AIControl.
 ```
 julia -e 'using Pkg; Pkg.add(["FileIO", "JLD2"]); Pkg.add(PackageSpec(url = "https://github.com/hiranumn/AIControl.jl"))'
 ```
 
-### 3. Installing utility softwares with miniconda
-AIControl expects a sorted `.bam` file as an input and outputs a `.narrowpeak` file. Typically, for a brand new ChIP-seq experiment, you would start with a `.fastq` file, and you will need some external softwares for converting the `.fastq` file to a sorted `.bam` file. Here, we provide a list of such external softwares. The recommended way of installing these softwares is to use package management systems, such as `conda`. Please download and install miniconda from [here](https://conda.io/miniconda.html). Run the following command to the softwares.
+### 3. Installing external softwares with miniconda
+Please download and install miniconda from [here](https://conda.io/miniconda.html). The command below will install required external softwares using conda package management system.
 ```
 conda install -c bioconda bowtie2 samtools bedtools
 ```
