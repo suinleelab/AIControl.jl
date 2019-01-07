@@ -2,7 +2,6 @@
 
 [![Build Status](https://travis-ci.org/hiranumn/AIControl.jl.svg?branch=master)](https://travis-ci.org/hiranumn/AIControl.jl)
 
-
 AIControl makes ChIP-seq assays **easier**, **cheaper**, and **more accurate** by imputing background data from mass control data available in public.
 
 Here is an overview of AIControl framework from our paper. 
@@ -24,14 +23,15 @@ control ChIP-seq datasets*
 - (1/7/2019) Made AIControl Pkg3 compatible for Julia 1.0.3
 
 ## Installation 
-AIControl can be used on any **Linux** or **macOS** machine. While we tested and validated on **Windows** machines, we believe that it is easier for you to set the AIControl pipeline up on the Unix based systems. Running AIControl on a `.fastq` file to get a `.narrowPeak` file requires the following sets of programs and packages installed. We will explain how to install them in sections below.
+AIControl can be used on any **Linux** or **macOS** machine. While we tested and validated that AIControl works on **Windows** machines, we believe that it is easier for you to set up the AIControl pipeline on the Unix based systems. Running AIControl on a `.fastq` file to get a `.narrowPeak` file requires the following sets of programs and packages installed. We will explain how to install them in sections below.
 - Julia (Julia 1.0 and above)
 - bowtie2: aligning a `.fastq` file to the hg38 genome
 - samtools: sorting an alinged bam file
 - bedtools: for converting a bam file back to a fastq file (OPTIONAL for Step 3.1)
 
-### 1. Installing Julia 1.0
-Run the following sequence of commands will install julia-1.0.3.  
+### 1. Installing Julia 1.0 for a Linux machine
+The commands below will install julia 1.0.3 on a linux machine. Please change the file names accordingly.
+You can download julia [here](https://julialang.org/downloads/)
 ```
 cd
 wget https://julialang-s3.julialang.org/bin/linux/x64/1.0/julia-1.0.3-linux-x86_64.tar.gz
