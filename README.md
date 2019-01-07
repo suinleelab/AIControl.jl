@@ -28,6 +28,7 @@ AIControl can be used on any **Linux** or **macOS** machine. While we tested and
 - bowtie2: aligning a `.fastq` file to the hg38 genome
 - samtools: sorting an alinged bam file
 - bedtools: for converting a bam file back to a fastq file (OPTIONAL for Step 3.1)
+
 AIControl expects a sorted `.bam` file as an input and outputs a `.narrowpeak` file. Typically, for a brand new ChIP-seq experiment, you start with a `.fastq` file, and you will need some external softwares for converting the `.fastq` file to a sorted `.bam` file. 
 
 ### 1. Installing Julia 1.0 for a Linux machine
