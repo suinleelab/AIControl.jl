@@ -18,12 +18,26 @@ approach. A single control dataset may not capture all sources of background noi
 more rigorously removes background ChIP-seq noise by using a large number of publicly available
 control ChIP-seq datasets*
 
-## Update
+## Major Updates
 - (12/14/2018) Cleared all deprecations. AIControl now works with Julia 1.0. Please delete the precompiled cache from the previous versions of AIControl. You may do so by deleting the `.julia` folder. 
 - (12/15/2018) Updated some error messages to better direct users (12/13/2018).
+- (1/7/2019) Made AIControl Pkg3 compatible for Julia 1.0.3
 
-## System recommendation
-We recommend that users run AIControl on Unix based systems such as **mac OS** or **Ubuntu**. While we tested and validated on most systems, we believe that it is easier for you to set the AIControl pipeline up on the **Unix based systems**.
+## Installation 
+AIControl can be used on any **Linux** or **macOS** machine. While we tested and validated on **Windows** machines, we believe that it is easier for you to set the AIControl pipeline up on the Unix based systems. Running AIControl on a `.fastq` file to get a `.narrowPeak` file requires the following sets of programs and packages installed. We will explain how to install them in sections below.
+- Julia (Julia 0.7 and above)
+- bowtie2 
+- samtools
+- bedtools
+
+## Installing Julia
+```
+cd
+wget https://julialang-s3.julialang.org/bin/linux/x64/1.0/julia-1.0.3-linux-x86_64.tar.gz
+tar xvzf julia-1.0.3-linux-x86_64.tar.gz
+echo  'export PATH=$PATH:~/julia-1.0.3/bin' >> ~/.bashrc
+source .bashrc
+```
 
 ## Installing utility softwares
 AIControl expects a sorted `.bam` file as an input and outputs a `.narrowpeak` file. Typically, for a brand new ChIP-seq experiment, you would start with a `.fastq` file, and you will need some external softwares for converting the `.fastq` file to a sorted `.bam` file. Here, we provide a list of such external softwares. The recommended way of installing these softwares is to use package management systems, such as `conda`. Please download anaconda Python distribution from [here](https://anaconda.org/anaconda/python). Install `anaconda` and run the following commands.
