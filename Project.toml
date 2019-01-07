@@ -1,0 +1,6 @@
+name = "AIControl"
+uuid = "3868d828-178d-56af-83e1-d523478a73cd"
+authors = ["hiranumn@gmail.com <hiranumn@gmail.com>"]
+version = "0.0.1"
+
+[deps]
