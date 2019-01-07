@@ -30,8 +30,8 @@ AIControl can be used on any **Linux** or **macOS** machine. While we tested and
 - samtools: sorting an alinged bam file
 - bedtools: for converting a bam file back to a fastq file (OPTIONAL for Step 3.1)
 
-### Installing Julia 1.0
-Executing the folowing sequence of commands will install julia-1.0.3.  
+### 1. Installing Julia 1.0
+Run the following sequence of commands will install julia-1.0.3.  
 ```
 cd
 wget https://julialang-s3.julialang.org/bin/linux/x64/1.0/julia-1.0.3-linux-x86_64.tar.gz
@@ -40,11 +40,17 @@ echo  'export PATH=$PATH:~/julia-1.0.3/bin' >> ~/.bashrc
 source .bashrc
 ```
 
-## Installing utility softwares
-AIControl expects a sorted `.bam` file as an input and outputs a `.narrowpeak` file. Typically, for a brand new ChIP-seq experiment, you would start with a `.fastq` file, and you will need some external softwares for converting the `.fastq` file to a sorted `.bam` file. Here, we provide a list of such external softwares. The recommended way of installing these softwares is to use package management systems, such as `conda`. Please download anaconda Python distribution from [here](https://anaconda.org/anaconda/python). Install `anaconda` and run the following commands.
-- **bowtie2**: ` conda install -c bioconda bowtie2 ` for aligning a `.fastq` file to the hg38 genome
-- **samtools**: ` conda install -c bioconda samtools ` for sorting an alinged bam file
-- **bedtools**: ` conda install -c bioconda bedtools ` for converting a bam file back to a fastq file (OPTIONAL for Step 3.1)
+### 2. Installing Julia Packages
+Run the following command for installing required julia packages.
+```
+julia -e 'using Pkg; Pkg.add(["FileIO", "JLD2"]); Pkg.add(PackageSpec(url = "https://github.com/hiranumn/AIControl.jl"))'
+```
+
+### 3. Installing utility softwares with miniconda
+AIControl expects a sorted `.bam` file as an input and outputs a `.narrowpeak` file. Typically, for a brand new ChIP-seq experiment, you would start with a `.fastq` file, and you will need some external softwares for converting the `.fastq` file to a sorted `.bam` file. Here, we provide a list of such external softwares. The recommended way of installing these softwares is to use package management systems, such as `conda`. Please download and install miniconda from [here](https://conda.io/miniconda.html). Run the following command to the softwares.
+```
+conda install -c bioconda bowtie2 samtools bedtools
+```
 
 ## Julia modules required for AIControl
 
