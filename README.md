@@ -25,12 +25,13 @@ control ChIP-seq datasets*
 
 ## Installation 
 AIControl can be used on any **Linux** or **macOS** machine. While we tested and validated on **Windows** machines, we believe that it is easier for you to set the AIControl pipeline up on the Unix based systems. Running AIControl on a `.fastq` file to get a `.narrowPeak` file requires the following sets of programs and packages installed. We will explain how to install them in sections below.
-- Julia (Julia 0.7 and above)
-- bowtie2 
-- samtools
-- bedtools
+- Julia (Julia 1.0 and above)
+- bowtie2: aligning a `.fastq` file to the hg38 genome
+- samtools: sorting an alinged bam file
+- bedtools: for converting a bam file back to a fastq file (OPTIONAL for Step 3.1)
 
-## Installing Julia
+### Installing Julia 1.0
+Executing the folowing sequence of commands will install julia-1.0.3.  
 ```
 cd
 wget https://julialang-s3.julialang.org/bin/linux/x64/1.0/julia-1.0.3-linux-x86_64.tar.gz
