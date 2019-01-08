@@ -133,7 +133,7 @@ Make sure that:
 - You downloaded necessary control files for `--reduced` or `--dup` if you are running with those flags.
 - You sorted the input bam files according to the UCSC hg38 assembly as specified in Step 1 (and 3.1).
 
-## We have tested our implementation on:
+## We have tested our implementation on ...
 - macOS Sierra (2.5GHz Intel Core i5 & 8GB RAM)
 - Ubuntu 18.04 
 - Windows 8.0
