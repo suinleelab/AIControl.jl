@@ -105,7 +105,7 @@ bedtools bamtofastq  -i example.bam -fq example.fastq
 We will regularly update the control data when a new major version of the genome becomes available; however, covering for all versions with small changes to the existing version is not realistic.
    
 ### Step 4: Download the AIControl julia script.
-The following command will download the AIControl julia script and make it executable.
+The following command will download the AIControl julia script and make it executable. You can also find it within this github repository.
 ```
 wget https://github.com/hiranumn/AIControl.jl/raw/master/aicontrolScript.jl
 chmod +x aicontrolScript.jl
