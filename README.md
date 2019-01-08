@@ -65,49 +65,46 @@ We have an accompanying paper in BioRxiv evaluating and comparing the performanc
 
 ## Running AIControl (step by step)
 
-###Step 1: Map your FASTQ file from ChIP-seq to the `hg38` assembly from the UCSC database. 
+### Step 1: Map your FASTQ file from ChIP-seq to the `hg38` assembly from the UCSC database. 
 We have validated our pipeline with `bowtie2`. You can download the genome assembly data from [the UCSC repository](http://hgdownload.soe.ucsc.edu/goldenPath/hg38/bigZips/hg38.fa.gz). In case you need the exact reference database that we used for bowtie2, they are available through our [Google Drive](https://drive.google.com/open?id=1Xh6Fjah1LoRMmbaJA7_FzxYcbqmpNUPZ) as a zip file named `bowtie2ref.zip`.  
-
 ```
 bowtie2 -x bowtie2ref/hg38 -q -p 10 -U example.fastq -S example.sam
 ````  
 
 Unlike other peak callers, the core idea of AIControl is to leverage all available control datasets. This requires all data (your target and public control datasets) to be mapped to the exact same reference genome. Our control datasets are currently mapped to the hg38 assembly from [the UCSC repository]. **So please make sure that your data is also mapped to the same assembly**. Otherwise, our pipeline will report an error.
    
-**Step 2: Convert the resulting sam file into a bam format.**  
-
-*Example command:*  
-`samtools view -Sb example.sam > example.bam`  
+### Step 2: Convert the resulting sam file into a bam format.  
+```
+samtools view -Sb example.sam > example.bam
+```  
    
-**Step 3: Sort the bam file in lexicographical order.**  
-If you go through step 1 with the UCSC hg38 assembly, sorting with `samtools sort` will do its job.  
+### Step 3: Sort the bam file in lexicographical order.
+```
+samtools sort -o example.bam.sorted example.bam
+```  
 
-*Example command:*  
-`samtools sort -o example.bam.sorted example.bam`  
-
-**Step 3.1: If AIControl reports an error for a mismatch of genome assembly**  
+### Step 3.1: If AIControl reports an error for a mismatch of genome assembly.
 You are likely here, because the AIControl script raised an error. The error is most likely caused by a mismatch of genome assembly that your dataset and control datasets are mapped to. Our control datasets are mapped to the hg38 from [the UCSC repository](http://hgdownload.soe.ucsc.edu/goldenPath/hg38/bigZips/hg38.fa.gz). On the other hand, your bam file is probably mapped to a slightly differet version of the hg38 assembly or different ordering of chromosomes (a.k.a. non-lexicographic). For instance, if you download a bam file directly from the ENCODE website, it is mapped to a slightly different chromosome ordering of hg38. A recommended way of resolving this issue is to extract a fastq file from your bam file, go back to step 1, and remap it with bowtie2 using the UCSC hg38 assembly. `bedtools` provides a way to generate a `.fastq` file from your `.bam` file.  
- 
-*Example command:*  
-`bedtools bamtofastq  -i example.bam -fq example.fastq`  
+```
+bedtools bamtofastq  -i example.bam -fq example.fastq
+```  
 
 We will regularly update the control data when a new major version of the genome becomes available; however, covering for all versions with small changes to the existing version is not realistic.
    
-**Step 4: Download data files and locate them in the right places.**  
+### Step 4: Download data files and locate them in the right places.  
 As stated, AIControl requires you to download precomputed data files. Please download and extract them to the `./data` folder, or otherwise specify the location with `--ctrlfolder` option. Make sure to untar the files.    
 
-**Step 5: Run AIControl as julia script.**  
+### Step 5: Run AIControl as julia script. 
 You are almost there. If you clone this repo, you will find a julia script `aicontrolScript.jl` that uses AIControl functions to identifiy locations of peaks. Here is a sample command you can use.  
 
 `julia aicontrolScript.jl example.bam.sorted --ctrlfolder=/scratch/hiranumn/data --name=test`
 
 Do `julia aicontrolScript.jl --help` or `-h` for help.
 
-We currently support the following flags. 
+We support the following flags. 
 
 - `--dup`: using duplicate reads \[default:false\]
 - `--reduced`: using subsampled control datasets \[default:false\]
-- `--xtxfolder=[path]`: path to a folder with xtx.jld2 (cloned with this repo) \[default:./data\]
 - `--ctrlfolder=[path]`: path to a control folder \[default:./data\]
 - `--name=[string]`: prefix for output files \[default:bamfile_prefix\]
 - `--p=[float]`: pvalue threshold \[default:0.15\]
