@@ -112,10 +112,10 @@ chmod +x aicontrolScript.jl
 ```
 Please also place the downloaded control data files to the same folder, or otherwise specify their location with `--ctrlfolder` option.    
 ### Step 5: Run AIControl. 
-You are almost there. If you clone this repo, you will find a julia script `aicontrolScript.jl` that uses AIControl functions to identifiy locations of peaks. Here is a sample command you can use.  
-
-`julia aicontrolScript.jl example.bam.sorted --ctrlfolder=. --name=test`
-
+The command below will run AIControl. 
+```
+julia aicontrolScript.jl example.bam.sorted --ctrlfolder=. --name=test
+```
 Do `julia aicontrolScript.jl --help` or `-h` for help.
 
 We support the following flags. 
