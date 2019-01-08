@@ -64,7 +64,6 @@ tar xvjf forward.data100.nodup.tar.bz2
 wget https://dada.cs.washington.edu/aicontrol/reverse.data100.nodup.tar.bz2
 tar xvjf reverse.data100.nodup.tar.bz2
 ```
-
 You can also obtain the control files from [our data repository](https://dada.cs.washington.edu/aicontrol/) or [Google Drive](https://drive.google.com/open?id=1Xh6Fjah1LoRMmbaJA7_FzxYcbqmpNUPZ).
 
 ## Paper
@@ -79,12 +78,13 @@ They are also available at [our data repository](https://dada.cs.washington.edu/
 wget https://dada.cs.washington.edu/aicontrol/example.fastq
 ```
 
-### Step 1: Map your FASTQ file from ChIP-seq to the `hg38` assembly from the UCSC database. 
-We have validated our pipeline with `bowtie2`. You can download the genome assembly data from [the UCSC repository](http://hgdownload.soe.ucsc.edu/goldenPath/hg38/bigZips/hg38.fa.gz). In case you need the exact reference database that we used for bowtie2, they are available through our [Google Drive](https://drive.google.com/open?id=1Xh6Fjah1LoRMmbaJA7_FzxYcbqmpNUPZ) as a zip file named `bowtie2ref.zip`.  
+### Step 1: Map your FASTQ file from ChIP-seq to the `hg38` assembly from the UCSC database.
+The following commands will a) download and untar the reference database file for `bowtie2` and b) run `bowtie2` to map a `.fastq` file to the UCSC hg38 genome, which is available at [the UCSC repository](http://hgdownload.soe.ucsc.edu/goldenPath/hg38/bigZips/hg38.fa.gz). 
 ```
+wget https://dada.cs.washington.edu/aicontrol/bowtie2ref.tar.bz2
+tar xvjf bowtie2ref.tar.bz2
 bowtie2 -x bowtie2ref/hg38 -q -p 10 -U example.fastq -S example.sam
 ````  
-
 Unlike other peak callers, the core idea of AIControl is to leverage all available control datasets. This requires all data (your target and public control datasets) to be mapped to the exact same reference genome. Our control datasets are currently mapped to the hg38 assembly from [the UCSC repository]. **So please make sure that your data is also mapped to the same assembly**. Otherwise, our pipeline will report an error.
    
 ### Step 2: Convert the resulting sam file into a bam format.  
