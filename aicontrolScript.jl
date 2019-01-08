@@ -8,8 +8,7 @@ function printUsage()
     println("\t\t --dup: using duplicate reads [default:false]")
     println("\t\t --reduced: using subsampled control datasets [default:false]")
     println("\t\t --fused: fusing consecutive peaks [default:false]")
-    #println("\t\t --xtxfolder=[path]: path to a folder with xtx.jld2 [default:./data]")
-    println("\t\t --ctrlfolder=[path]: path to a control folder [default:./data]")
+    println("\t\t --ctrlfolder=[path]: path to a control folder [default:.]")
     println("\t\t --name=[string]: prefix for output files [default:bamfile_prefix]")
     println("\t\t --p=[float]: pvalue threshold [default:0.15]")
     println("")
@@ -66,7 +65,7 @@ try
         global name = split(temp[1], "=")[2]
     end
     
-    global ctrlfolder = "./data"
+    global ctrlfolder = "."
     temp = filter(x->occursin("--ctrlfolder", x), ARGS)
     if length(temp)>0
         global ctrlfolder = split(temp[1], "=")[2]
