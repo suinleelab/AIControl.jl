@@ -98,20 +98,23 @@ samtools sort -o example.bam.sorted example.bam
 ```  
 
 ### Step 3.1: If AIControl reports an error for a mismatch of genome assembly.
-You are likely here, because the AIControl script raised an error. The error is most likely caused by a mismatch of genome assembly that your dataset and control datasets are mapped to. Our control datasets are mapped to the hg38 from [the UCSC repository](http://hgdownload.soe.ucsc.edu/goldenPath/hg38/bigZips/hg38.fa.gz). On the other hand, your bam file is probably mapped to a slightly differet version of the hg38 assembly or different ordering of chromosomes (a.k.a. non-lexicographic). For instance, if you download a bam file directly from the ENCODE website, it is mapped to a slightly different chromosome ordering of hg38. A recommended way of resolving this issue is to extract a fastq file from your bam file, go back to step 1, and remap it with bowtie2 using the UCSC hg38 assembly. `bedtools` provides a way to generate a `.fastq` file from your `.bam` file.  
+You are likely here, because the AIControl script raised an error. The error is most likely caused by a mismatch of genome assembly that your dataset and control datasets are mapped to. Our control datasets are mapped to the hg38 from [the UCSC repository](http://hgdownload.soe.ucsc.edu/goldenPath/hg38/bigZips/hg38.fa.gz). On the other hand, your bam file is probably mapped to a slightly differet version of the hg38 assembly or different ordering of chromosomes (a.k.a. non-lexicographic). For instance, if you download a `.bam` file directly from the ENCODE website, it is mapped to a slightly different chromosome ordering of hg38. A recommended way of resolving this issue is to extract a `.fastq` file from your `.bam` file, go back to step 1, and remap it with `bowtie2` using the UCSC hg38 assembly. `bedtools` provides a way to generate a `.fastq` file from your `.bam` file.  
 ```
 bedtools bamtofastq  -i example.bam -fq example.fastq
 ```  
-
 We will regularly update the control data when a new major version of the genome becomes available; however, covering for all versions with small changes to the existing version is not realistic.
    
-### Step 4: Download data files and locate them in the right places.  
-As stated, AIControl requires you to download precomputed data files. Please download and extract them to the `./data` folder, or otherwise specify the location with `--ctrlfolder` option. Make sure to untar the files.    
-
-### Step 5: Run AIControl as julia script. 
+### Step 4: Download the AIControl julia script.
+The following command will download the AIControl julia script and make it executable.
+```
+wget https://github.com/hiranumn/AIControl.jl/raw/master/aicontrolScript.jl
+chmod +x aicontrolScript.jl
+```
+Please also place the downloaded control data files to the same folder, or otherwise specify their location with `--ctrlfolder` option.    
+### Step 5: Run AIControl. 
 You are almost there. If you clone this repo, you will find a julia script `aicontrolScript.jl` that uses AIControl functions to identifiy locations of peaks. Here is a sample command you can use.  
 
-`julia aicontrolScript.jl example.bam.sorted --ctrlfolder=/scratch/hiranumn/data --name=test`
+`julia aicontrolScript.jl example.bam.sorted --ctrlfolder=. --name=test`
 
 Do `julia aicontrolScript.jl --help` or `-h` for help.
 
