@@ -32,7 +32,7 @@ AIControl expects a sorted `.bam` file as an input and outputs a `.narrowpeak` f
 - bedtools: for converting a bam file back to a fastq file (OPTIONAL for Step 3.1)
 
 ### 1a. Installing Julia 1.0 for a Linux machine
-The commands below will install julia 1.0.3 on a linux machine. Please change the file names accordingly. You can also download julia [here](https://julialang.org/downloads/). **We highly recommend avoiding the conda version of julia** as it currently known to have a problem locating libLLVM.so in many environments.
+The commands below will install julia 1.0.3 on a linux machine. Please change the url accordingly. You can also download julia [here](https://julialang.org/downloads/). **We highly recommend avoiding the conda version of julia** as it currently known to have a problem locating libLLVM.so in many environments.
 ```
 cd
 wget https://julialang-s3.julialang.org/bin/linux/x64/1.0/julia-1.0.3-linux-x86_64.tar.gz
