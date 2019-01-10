@@ -38,11 +38,17 @@ cd
 wget https://julialang-s3.julialang.org/bin/linux/x64/1.0/julia-1.0.3-linux-x86_64.tar.gz
 tar xvzf julia-1.0.3-linux-x86_64.tar.gz
 echo  'export PATH=$PATH:~/julia-1.0.3/bin' >> ~/.bashrc
-source .bashrc
+source ~/.bashrc
 ```
 
 ### 1b. Installing Julia 1.0 for a mac OS machine
-To be filled.
+Please first download the `.dmg` file for mac OS from the [julia website](https://julialang.org/downloads/), double-click to open it, and drag the icon to the Applications folder. Then, the following command will put julia in your `PATH` and make it executable from command line.
+
+```
+echo 'export PATH="/Applications/Julia-1.0.app/Contents/Resources/julia/bin/:${PATH}"' >> ~/.bash_profile
+source ~/.bash_profile
+```
+See [this](https://en.wikibooks.org/wiki/Introducing_Julia/Getting_started#On_macOS_X) for more trouble shooting. 
 
 ### 2. Installing Julia Packages
 The command below will install required julia packages and AIControl.
