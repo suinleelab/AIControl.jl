@@ -32,7 +32,7 @@ AIControl expects a sorted `.bam` file as an input and outputs a `.narrowpeak` f
 - bedtools: for converting a bam file back to a fastq file (OPTIONAL for Step 3.1)
 
 ### 1a. Installing Julia 1.0 for a Linux machine
-The commands below will install julia 1.0.3 on a linux machine. Please change the url accordingly. You can also download julia [here](https://julialang.org/downloads/). **We highly recommend avoiding the conda version of julia** as it currently known to have a problem locating libLLVM.so in many environments.
+The terminal commands below will install julia 1.0.3 on a linux machine. Please change the url accordingly. You can also download julia [here](https://julialang.org/downloads/). **[CAUTION:]** We highly recommend avoiding the conda version of julia as it currently known to have a problem locating libLLVM.so in many environments.
 ```
 cd
 wget https://julialang-s3.julialang.org/bin/linux/x64/1.0/julia-1.0.3-linux-x86_64.tar.gz
@@ -42,7 +42,7 @@ source ~/.bashrc
 ```
 
 ### 1b. Installing Julia 1.0 for a mac OS machine
-Please first download the `.dmg` file for mac OS from the [julia website](https://julialang.org/downloads/), double-click to open it, and drag the icon to the Applications folder. Then, the following command will put julia in your `PATH` and make it executable from command line.
+Please first download the `.dmg` file for mac OS from the [julia website](https://julialang.org/downloads/), double-click to open it, and drag the icon to the Applications folder. Then, the following terminal command will put julia in your `PATH` and make it executable from command line.
 
 ```
 echo 'export PATH="/Applications/Julia-1.0.app/Contents/Resources/julia/bin/:${PATH}"' >> ~/.bash_profile
@@ -51,19 +51,19 @@ source ~/.bash_profile
 See [this](https://en.wikibooks.org/wiki/Introducing_Julia/Getting_started#On_macOS_X) for more trouble shooting. 
 
 ### 2. Installing Julia Packages
-The command below will install required julia packages and AIControl.
+The terminal command below will install required julia packages and AIControl.
 ```
 julia -e 'using Pkg; Pkg.add(["FileIO", "JLD2"]); Pkg.add(PackageSpec(url = "https://github.com/hiranumn/AIControl.jl"))'
 ```
 
 ### 3. Installing external softwares with miniconda
-Please download and install miniconda from [here](https://conda.io/miniconda.html). The command below will install required external softwares using conda package management system.
+Please download and install miniconda from [here](https://conda.io/miniconda.html). The terminal command below will install required external softwares using conda package management system.
 ```
 conda install -c bioconda bowtie2 samtools bedtools
 ```
 
-## Data files required for AIControl
-AIControl uses a massive amount of public control data for ChIP-seq (roughly 450 chip-seq runs). We have done our best to compress them so that you only need to download about **4.6GB**. These files require approximately **13GB** of free disk space to unfold. The following commands will download and decompress the compressed control data.
+## Control data files required for AIControl
+AIControl uses a massive amount of public control data for ChIP-seq (roughly 450 chip-seq runs). We have done our best to compress them so that you only need to download about **4.6GB**. These files require approximately **13GB** of free disk space to unfold. The following terminal commands will download and decompress the compressed control data.
 ```
 wget https://dada.cs.washington.edu/aicontrol/forward.data100.nodup.tar.bz2
 tar xvjf forward.data100.nodup.tar.bz2
@@ -78,14 +78,14 @@ We have an accompanying paper in BioRxiv evaluating and comparing the performanc
 ## Running AIControl (step by step)
 
 ### Step 0: Download a toy example.
-The command below will download a `.fastq` file that you may use as a toy example.  
+The terminal command below will download a `.fastq` file that you may use as a toy example.  
 They are also available at [our data repository](https://dada.cs.washington.edu/aicontrol/).
 ```
 wget https://dada.cs.washington.edu/aicontrol/example.fastq
 ```
 
 ### Step 1: Map your FASTQ file from ChIP-seq to the `hg38` assembly from the UCSC database.
-The following commands will a) download and untar the reference database file for `bowtie2` and b) run `bowtie2` to map a `.fastq` file to the UCSC hg38 genome, which is available at [the UCSC repository](http://hgdownload.soe.ucsc.edu/goldenPath/hg38/bigZips/hg38.fa.gz). 
+The following terminal commands will a) download and untar the reference database file for `bowtie2` and b) run `bowtie2` to map a `.fastq` file to the UCSC hg38 genome, which is available at [the UCSC repository](http://hgdownload.soe.ucsc.edu/goldenPath/hg38/bigZips/hg38.fa.gz). 
 ```
 wget https://dada.cs.washington.edu/aicontrol/bowtie2ref.tar.bz2
 tar xvjf bowtie2ref.tar.bz2
@@ -111,13 +111,13 @@ bedtools bamtofastq  -i example.bam -fq example.fastq
 We will regularly update the control data when a new major version of the genome becomes available; however, covering for all versions with small changes to the existing version is not realistic.
    
 ### Step 4: Download the AIControl julia script.
-The following command will download the AIControl julia script and make it executable. You can also find it within this github repository.
+The following terminal command will download the AIControl julia script and make it executable. You can also find it within this github repository.
 ```
 wget https://github.com/hiranumn/AIControl.jl/raw/master/aicontrolScript.jl
 ```
 Please also place the downloaded control data files to the same folder, or otherwise specify their location with `--ctrlfolder` option.    
 ### Step 5: Run AIControl. 
-The command below will run AIControl. 
+The terminal command below will run AIControl. 
 ```
 julia aicontrolScript.jl example.bam.sorted --ctrlfolder=. --name=test
 ```
