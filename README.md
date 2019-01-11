@@ -104,7 +104,9 @@ samtools sort -o example.bam.sorted example.bam
 ```  
 
 ### Step 3.1: If AIControl reports an error for a mismatch of genome assembly.
-You are likely here, because the AIControl script raised an error, otherwiser go to Step 4 below. 
+You are likely here, because the AIControl script raised an error, otherwiser go to Step 4 below.
+
+<img src="images/error3_1.png" alt="alt text" width="200"/>
 ![alt text](images/error3_1.png)
 
 The error is most likely caused by a mismatch of genome assembly that your dataset and control datasets are mapped to. Our control datasets are mapped to the hg38 from [the UCSC repository](http://hgdownload.soe.ucsc.edu/goldenPath/hg38/bigZips/hg38.fa.gz). On the other hand, your bam file is probably mapped to a slightly differet version of the hg38 assembly or different ordering of chromosomes (a.k.a. non-lexicographic). For instance, if you download a `.bam` file directly from the ENCODE website, it is mapped to a slightly different chromosome ordering of hg38. A recommended way of resolving this issue is to extract a `.fastq` file from your `.bam` file, go back to step 1, and remap it with `bowtie2` using the UCSC hg38 assembly. `bedtools` provides a way to generate a `.fastq` file from your `.bam` file.  
