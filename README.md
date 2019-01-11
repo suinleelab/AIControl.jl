@@ -118,7 +118,7 @@ We will regularly update the control data when a new major version of the genome
 ### Step 4: Download the AIControl julia script.
 The following terminal command will download the AIControl julia script and make it executable. You can also find it within this github repository.
 ```
-wget https://github.com/hiranumn/AIControl.jl/raw/master/aicontrolScript.jl
+wget https://raw.githubusercontent.com/hiranumn/AIControl.jl/master/aicontrolScript.jl
 ```
 Please also place the downloaded control data files to the same folder, or otherwise specify their location with `--ctrlfolder` option. mac OS users can use `curl` instead of `wget`.
 ### Step 5: Run AIControl. 
