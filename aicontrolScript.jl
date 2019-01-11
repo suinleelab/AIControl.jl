@@ -134,12 +134,9 @@ end
 println("Progress: ", progress)
 
 if !(isfile("$(name).fbin100") && isfile("$(name).fbin100"))
-    # Binning code
-    @everywhere function wrapper1(args)
-        write_binned(args[1], args[2], 100, args[3])
-    end
     println("Binning files ...")
-    pmap(wrapper1, [[bamfilepath, "$(name).fbin100", :forward], [bamfilepath, "$(name).rbin100", :reverse]])
+    write_binned(bamfilepath, "$(name).fbin100", 100, :forward)
+    write_binned(bamfilepath, "$(name).rbin100", 100, :reverse)
 end
 
 if progress < 1
