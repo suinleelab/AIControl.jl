@@ -42,7 +42,7 @@ source ~/.bashrc
 ```
 
 ### 1b. Installing Julia 1.0 for a mac OS machine
-Please first download the `.dmg` file for mac OS from the [julia website](https://julialang.org/downloads/), double-click to open it, and drag the icon to the Applications folder. Then, the following terminal command will put julia in your `PATH` and make it executable from command line.
+Please first download the `.dmg` file for mac OS from the [julia website](https://julialang.org/downloads/), double-click to open it, and drag the icon to the Applications folder. Then, the following terminal command will put julia in your `PATH` and make it executable from command line. **[CAUTION:] We highly recommend avoiding the conda version of julia** as it currently known to have a problem locating libLLVM.so in many environments.
 
 ```
 echo 'export PATH="/Applications/Julia-1.0.app/Contents/Resources/julia/bin/:${PATH}"' >> ~/.bash_profile
@@ -53,7 +53,7 @@ See [this](https://en.wikibooks.org/wiki/Introducing_Julia/Getting_started#On_ma
 ### 2. Installing Julia Packages
 The terminal command below will install required julia packages and AIControl.
 ```
-julia -e 'using Pkg; Pkg.add(["FileIO", "JLD2"]); Pkg.add(PackageSpec(url = "https://github.com/hiranumn/AIControl.jl"))'
+julia -e 'using Pkg; Pkg.add(["FileIO", "JLD2"]); Pkg.add(PackageSpec(url = "https://github.com/hiranumn/AIControl.jl")); using AIControl'
 ```
 
 ### 3. Installing external softwares with miniconda
