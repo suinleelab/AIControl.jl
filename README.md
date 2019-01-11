@@ -28,7 +28,7 @@ AIControl can be used on any **Linux** or **macOS** machine. While we tested and
 AIControl expects a sorted `.bam` file as an input and outputs a `.narrowpeak` file. Typically, for a brand new ChIP-seq experiment, you start with a `.fastq` file, and you will need some external softwares to convert the `.fastq` file to a sorted `.bam` file. Thus, the whole AIControl pipeline needs the following sets of programs and packages installed on your local machine. We will explain how to install them in sections below.
 - `Julia (Julia 1.0 and above)`
 - `bowtie2`: for aligning a `.fastq` file to the hg38 genome
-- `samtools`: for sorting an alinged bam file
+- `samtools`: for sorting an aligned bam file
 - `bedtools`: for converting a bam file back to a fastq file (OPTIONAL for Step 3.1)
 
 ### 1a. Installing Julia 1.0 for a Linux machine
@@ -42,13 +42,13 @@ source ~/.bashrc
 ```
 
 ### 1b. Installing Julia 1.0 for a mac OS machine
-Please first download the `.dmg` file for mac OS from the [julia website](https://julialang.org/downloads/), double-click to open it, and drag the icon to the Applications folder. Then, the following terminal command will put julia in your `PATH` and make it executable from command line. **[CAUTION:] We highly recommend avoiding the conda version of julia** as it currently known to have a problem locating libLLVM.so in many environments.
+Please first download the `.dmg` file for mac OS from the [julia website](https://julialang.org/downloads/), double-click to open it, and drag the icon to the Applications folder. Then, the following terminal command will put julia in your `PATH` and make it executable from the command line. **[CAUTION:] We highly recommend avoiding the conda version of julia** as it currently known to have a problem locating libLLVM.so in many environments.
 
 ```
 echo 'export PATH="/Applications/Julia-1.0.app/Contents/Resources/julia/bin/:${PATH}"' >> ~/.bash_profile
 source ~/.bash_profile
 ```
-See [this](https://en.wikibooks.org/wiki/Introducing_Julia/Getting_started#On_macOS_X) for more trouble shooting. 
+See [this](https://en.wikibooks.org/wiki/Introducing_Julia/Getting_started#On_macOS_X) for more troubleshooting. 
 
 ### 2. Installing Julia Packages
 The terminal command below will install required julia packages and AIControl.
@@ -63,7 +63,7 @@ conda install -c bioconda bowtie2 samtools bedtools
 ```
 
 ## Control data files required for AIControl
-AIControl uses a massive amount of public control data for ChIP-seq (roughly 450 chip-seq runs). We have done our best to compress them so that you only need to download about **4.6GB**. These files require approximately **13GB** of free disk space to unfold. The following terminal commands will download and decompress the compressed control data.
+AIControl uses a massive amount of public control data for ChIP-seq (roughly 450 chip-seq runs). We have done our best to compress them so that you only need to download about **4.6GB**. These files require approximately **13GB** of free disk space to decompress. The following terminal commands will download and decompress the compressed control data.
 ```
 wget https://dada.cs.washington.edu/aicontrol/forward.data100.nodup.tar.bz2
 tar xvjf forward.data100.nodup.tar.bz2
@@ -104,11 +104,11 @@ samtools sort -o example.bam.sorted example.bam
 ```  
 
 ### [Optional] Step 3.1: If AIControl reports an error for a mismatch of genome assembly.
-You are likely here, because the AIControl script raised an error that look like the screenshot below. Otherwise, please move on to Step 4.
+You are likely here because the AIControl script raised an error that looks like the screenshot below. Otherwise, please move on to Step 4.
 
 <img src="images/error3_1.png" alt="alt text" width="500"/>
 
-The error is most likely caused by a mismatch of genome assembly that your dataset and control datasets are mapped to. Our control datasets are mapped to the hg38 from [the UCSC repository](http://hgdownload.soe.ucsc.edu/goldenPath/hg38/bigZips/hg38.fa.gz). On the other hand, your bam file is probably mapped to a slightly differet version of the hg38 assembly or different ordering of chromosomes (a.k.a. non-lexicographic). For instance, if you download a `.bam` file directly from the ENCODE website, it is mapped to a slightly different chromosome ordering of hg38. A recommended way of resolving this issue is to extract a `.fastq` file from your `.bam` file, go back to step 1, and remap it with `bowtie2` using the UCSC hg38 assembly. `bedtools` provides a way to generate a `.fastq` file from your `.bam` file.  
+The error is most likely caused by a mismatch of genome assembly that your dataset and control datasets are mapped to. Our control datasets are mapped to the hg38 from [the UCSC repository](http://hgdownload.soe.ucsc.edu/goldenPath/hg38/bigZips/hg38.fa.gz). On the other hand, your bam file is probably mapped to a slightly different version of the hg38 assembly or different ordering of chromosomes (a.k.a. non-lexicographic). For instance, if you download a `.bam` file directly from the ENCODE website, it is mapped to a slightly different version of hg38. A recommended way of resolving this issue is to extract a `.fastq` file from your `.bam` file, go back to step 1, and remap it with `bowtie2` using the UCSC hg38 assembly. `bedtools` provides a way to generate a `.fastq` file from your `.bam` file.  
 ```
 bedtools bamtofastq  -i example.bam -fq example.fastq
 ```  
@@ -137,7 +137,7 @@ We support the following flags.
 
 If you would like to use the `--dup` or `--reduced` options, please download appropriate versions of compressed control data indicated with `.dup` or `.reduced`.
 
-## Simple trouble shooting
+## Simple troubleshooting
 Make sure that:
 - You are using Julia 1.0.
 - You downloaded necessary control files for `--reduced` or `--dup` if you are running with those flags.
@@ -148,4 +148,4 @@ Make sure that:
 - Ubuntu 18.04 
 - Windows 8.0
 
-If you have any question, please e-mail to hiranumn at cs dot washington dot edu.
+If you have any questions, please e-mail to hiranumn at cs dot washington dot edu.
