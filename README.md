@@ -86,42 +86,21 @@ wget https://dada.cs.washington.edu/aicontrol/example.fastq
 mac OS users can use `curl` instead of `wget`.
 
 ### Step 1: Map your FASTQ file from ChIP-seq to the `hg38` assembly from the UCSC database.
-The following terminal commands will a) download and untar the reference database file for `bowtie2` and b) run `bowtie2` to map a `.fastq` file to the UCSC hg38 genome, which is available at [the UCSC repository](http://hgdownload.soe.ucsc.edu/goldenPath/hg38/bigZips/hg38.fa.gz). 
+The following terminal commands will a) download and untar the reference database file for `bowtie2`, b) run `bowtie2` to map a `.fastq` file to the UCSC hg38 genome, which is available at [the UCSC repository](http://hgdownload.soe.ucsc.edu/goldenPath/hg38/bigZips/hg38.fa.gz), and c) sort the output. 
 ```
 wget https://dada.cs.washington.edu/aicontrol/bowtie2ref.tar.bz2
 tar xvjf bowtie2ref.tar.bz2
-bowtie2 -x bowtie2ref/hg38 -q -p 10 -U example.fastq -S example.sam
+bowtie2 -x bowtie2ref/hg38 -q -p 10 -U example.fastq | samtools view -bS | samtools sort -o example.sorted.bam
 ````  
 Unlike other peak callers, the core idea of AIControl is to leverage all available control datasets. This requires all data (your target and public control datasets) to be mapped to the exact same reference genome. Our control datasets are currently mapped to the hg38 assembly from [the UCSC repository](http://hgdownload.soe.ucsc.edu/goldenPath/hg38/bigZips/hg38.fa.gz). **So please make sure that your data is also mapped to the same assembly**. Otherwise, our pipeline will report an error.
    
-### Step 2: Convert the resulting sam file into a bam format.  
-```
-samtools view -Sb example.sam > example.bam
-```  
-   
-### Step 3: Sort the bam file in lexicographical order.
-```
-samtools sort -o example.bam.sorted example.bam
-```  
-
-### [Optional] Step 3.1: If AIControl reports an error for a mismatch of genome assembly.
-You are likely here because the AIControl script raised an error that looks like the screenshot below. Otherwise, please move on to Step 4.
-
-<img src="images/error3_1.png" alt="alt text" width="500"/>
-
-The error is most likely caused by a mismatch of genome assembly that your dataset and control datasets are mapped to. Our control datasets are mapped to the hg38 from [the UCSC repository](http://hgdownload.soe.ucsc.edu/goldenPath/hg38/bigZips/hg38.fa.gz). On the other hand, your bam file is probably mapped to a slightly different version of the hg38 assembly or different ordering of chromosomes (a.k.a. non-lexicographic). For instance, if you download a `.bam` file directly from the ENCODE website, it is mapped to a slightly different version of hg38. A recommended way of resolving this issue is to extract a `.fastq` file from your `.bam` file, go back to step 1, and remap it with `bowtie2` using the UCSC hg38 assembly. `bedtools` provides a way to generate a `.fastq` file from your `.bam` file.  
-```
-bedtools bamtofastq  -i example.bam -fq example.fastq
-```  
-We will regularly update the control data when a new major version of the genome becomes available; however, covering for all versions with small changes to the existing version is not realistic.
-   
-### Step 4: Download the AIControl julia script.
+### Step 2: Download the AIControl julia script.
 The following terminal command will download the AIControl julia script and make it executable. You can also find it within this github repository.
 ```
 wget https://raw.githubusercontent.com/hiranumn/AIControl.jl/master/aicontrolScript.jl
 ```
 Please also place the downloaded control data files to the same folder, or otherwise specify their location with `--ctrlfolder` option. mac OS users can use `curl` instead of `wget`.
-### Step 5: Run AIControl. 
+### Step 3: Run AIControl. 
 The terminal command below will run AIControl. 
 ```
 julia aicontrolScript.jl example.bam.sorted --ctrlfolder=. --name=test
@@ -137,6 +116,17 @@ We support the following flags.
 - `--p=[float]`: pvalue threshold \[default:0.15\]
 
 If you would like to use the `--dup` or `--reduced` options, please download appropriate versions of compressed control data indicated with `.dup` or `.reduced`.
+
+### [Optional] Step 3.1: If AIControl reports an error for a mismatch of genome assembly.
+You are likely here because the AIControl script raised an error that looks like the screenshot below. 
+
+<img src="images/error3_1.png" alt="alt text" width="500"/>
+
+The error is most likely caused by a mismatch of genome assembly that your dataset and control datasets are mapped to. Our control datasets are mapped to the hg38 from [the UCSC repository](http://hgdownload.soe.ucsc.edu/goldenPath/hg38/bigZips/hg38.fa.gz). On the other hand, your bam file is probably mapped to a slightly different version of the hg38 assembly or different ordering of chromosomes (a.k.a. non-lexicographic). For instance, if you download a `.bam` file directly from the ENCODE website, it is mapped to a slightly different version of hg38. A recommended way of resolving this issue is to extract a `.fastq` file from your `.bam` file, go back to step 1, and remap it with `bowtie2` using the UCSC hg38 assembly. `bedtools` provides a way to generate a `.fastq` file from your `.bam` file.  
+```
+bedtools bamtofastq  -i example.bam -fq example.fastq
+```  
+We will regularly update the control data when a new major version of the genome becomes available; however, covering for all versions with small changes to the existing version is not realistic.
 
 ## Simple troubleshooting
 Make sure that:
