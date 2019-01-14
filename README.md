@@ -103,7 +103,7 @@ Please also place the downloaded control data files to the same folder, or other
 ### Step 3: Run AIControl. 
 The terminal command below will run AIControl. 
 ```
-julia aicontrolScript.jl example.bam.sorted --ctrlfolder=. --name=test
+julia aicontrolScript.jl example.sorted.bam --ctrlfolder=. --name=test
 ```
 Do `julia aicontrolScript.jl --help` or `-h` for help.
 
