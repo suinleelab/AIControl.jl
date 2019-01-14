@@ -60,9 +60,11 @@ try
     end
 
     global name = split(split(bamfilepath, "/")[end], ".")[1]
+    global fileprefix = split(split(bamfilepath, "/")[end], ".")[1]
     temp = filter(x->occursin("--name", x), ARGS)
     if length(temp)>0
         global name = split(temp[1], "=")[2]
+        global fileprefix = split(split(temp[1], "=")[2], "/")[end]
     end
     
     global ctrlfolder = "."
@@ -116,10 +118,20 @@ using FileIO
 addprocs(2)
 @everywhere using AIControl
 
+# Making a directory
+# Check if there is a directory already
+if isdir("$(name)")
+    println(stderr, "A directory with name \"$(name)\" already exist.")
+    println(stderr, "AIControl will try to use intermediate files from the last run with the same name.")
+    println(stderr, "If this is not a desired behavior, please give a different name with the --name option.")
+else
+    mkdir("$(name)")
+end
+
 # Checking progress
 progress = 0
-if isfile("$(name).jld2")
-    tempdata = load("$(name).jld2")
+if isfile("$(name)/$(fileprefix).jld2")
+    tempdata = load("$(name)/$(fileprefix).jld2")
     if "offset" in keys(tempdata)
         progress = 4
     elseif "fold-r" in keys(tempdata)
@@ -133,10 +145,10 @@ end
 
 println("Progress: ", progress)
 
-if !(isfile("$(name).fbin100") && isfile("$(name).fbin100"))
+if !(isfile("$(name)/$(fileprefix).fbin100") && isfile("$(name)/$(fileprefix).fbin100"))
     println("Binning files ...")
-    write_binned(bamfilepath, "$(name).fbin100", 100, :forward)
-    write_binned(bamfilepath, "$(name).rbin100", 100, :reverse)
+    write_binned(bamfilepath, "$(name)/$(fileprefix).fbin100", 100, :forward)
+    write_binned(bamfilepath, "$(name)/$(fileprefix).rbin100", 100, :reverse)
 end
 
 if progress < 1
@@ -149,14 +161,14 @@ if progress < 1
     end
     println("Computing weights ...")
 
-    outcome = pmap(wrapper2, [["$(ctrlfolder)/forward.data100$(fullstring)$(dupstring)","$(name).fbin100","f", "xtxs$(fullstring)$(dupstring).jld2"],["$(ctrlfolder)/reverse.data100$(fullstring)$(dupstring)","$(name).rbin100","r", "xtxs$(fullstring)$(dupstring).jld2"]])
+    outcome = pmap(wrapper2, [["$(ctrlfolder)/forward.data100$(fullstring)$(dupstring)","$(name)/$(fileprefix).fbin100","f", "xtxs$(fullstring)$(dupstring).jld2"],["$(ctrlfolder)/reverse.data100$(fullstring)$(dupstring)","$(name)/$(fileprefix).rbin100","r", "xtxs$(fullstring)$(dupstring).jld2"]])
 
     tempdata = Dict()
     tempdata["w1-f"] = outcome[1][1]
     tempdata["w2-f"] = outcome[1][2]
     tempdata["w1-r"] = outcome[2][1]
     tempdata["w2-r"] = outcome[2][2] 
-    save("$(name).jld2", tempdata)
+    save("$(name)/$(fileprefix).jld2", tempdata)
 end
 
 if progress < 2
@@ -168,12 +180,12 @@ if progress < 2
     end
     println("Computing fits ...")
 
-    outcome = pmap(wrapper3, [["$(ctrlfolder)/forward.data100$(fullstring)$(dupstring)","f", "$(name).jld2"],["$(ctrlfolder)/reverse.data100$(fullstring)$(dupstring)","r", "$(name).jld2"]])
+    outcome = pmap(wrapper3, [["$(ctrlfolder)/forward.data100$(fullstring)$(dupstring)","f", "$(name)/$(fileprefix).jld2"],["$(ctrlfolder)/reverse.data100$(fullstring)$(dupstring)","r", "$(name)/$(fileprefix).jld2"]])
 
-    tempdata = load("$(name).jld2")
+    tempdata = load("$(name)/$(fileprefix).jld2")
     tempdata["fit-f"] = outcome[1]
     tempdata["fit-r"] = outcome[2]
-    save("$(name).jld2", tempdata)
+    save("$(name)/$(fileprefix).jld2", tempdata)
 end
 
 if progress < 3
@@ -186,23 +198,23 @@ if progress < 3
     end
     println("Calling peaks ...")
 
-    outcome = pmap(wrapper4, [["$(name).fbin100","f", "$(name).jld2"],["$(name).rbin100","r", "$(name).jld2"]])
+    outcome = pmap(wrapper4, [["$(name)/$(fileprefix).fbin100","f", "$(name)/$(fileprefix).jld2"],["$(name)/$(fileprefix).rbin100","r", "$(name)/$(fileprefix).jld2"]])
 
-    tempdata = load("$(name).jld2")
+    tempdata = load("$(name)/$(fileprefix).jld2")
     tempdata["p-f"] = outcome[1][1]
     tempdata["fold-f"] = outcome[1][2]
     tempdata["p-r"] = outcome[2][1]
     tempdata["fold-r"] = outcome[2][2]
-    save("$(name).jld2", tempdata)
+    save("$(name)/$(fileprefix).jld2", tempdata)
 end
 
 if progress < 4
     # Learning offset
     println("Estimating peak distance ...")
-    offset = estimateD("$(name).fbin100", "$(name).rbin100")
-    tempdata = load("$(name).jld2")
+    offset = estimateD("$(name)/$(fileprefix).fbin100", "$(name)/$(fileprefix).rbin100")
+    tempdata = load("$(name)/$(fileprefix).jld2")
     tempdata["offset"] = offset
-    save("$(name).jld2", tempdata)
+    save("$(name)/$(fileprefix).jld2", tempdata)
 end
 
 ###############
@@ -210,12 +222,12 @@ end
 ###############
 println("Writing peaks out ...")
 if !isFused
-    test = generateUnfusedPeakFile("$(name).jld2", String("$(name)"), th=mlog10p)
+    test = generateUnfusedPeakFile("$(name)/$(fileprefix).jld2", String("$(name)/$(fileprefix)"), th=mlog10p)
 else
-    test = generatePeakFile("$(name).jld2", String("$(name)"), th=mlog10p)
+    test = generatePeakFile("$(name)/$(fileprefix).jld2", String("$(name)/$(fileprefix)"), th=mlog10p)
 end
 
-println("Done. Peaks written to $(name).narrowPeak")
+println("Done. Peaks written to $(name)/$(fileprefix).narrowPeak")
 
 
 
