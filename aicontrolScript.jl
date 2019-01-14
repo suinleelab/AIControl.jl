@@ -7,13 +7,13 @@ function printUsage()
     println("julia aicontrolScript.jl [bamfile] [option1] [option2] ...")
     println("\t\t --ctrlfolder=[path]: path to a control folder [default:.]")
     println("\t\t --name=[string]: prefix for output files [default:bamfile_prefix]")
-    println("\t\t --p=[float]: -log10 pvalue threshold [default:1.5 = -log10(0.03)]")
+    println("\t\t --p=[float]: -log10 pvalue threshold [default: 0.03 (or -log10(0.03)=1.5)]")
     println("\t\t --disableParallel: a flag to disable parallel processing [default:false]")
     println("\t\t --dup: a flag to use duplicate reads [default:false]")
     println("\t\t --reduced: a flag to use subsampled control datasets [default:false]")
     println("\t\t --fused: a flag to fuse consecutive peaks [default:false]")
     println("")
-    println("Example: julia aicontrolScript.jl test.bam --ctrlfolder=/scratch --name=test")
+    println("julia aicontrolScript.jl example.sorted.bam --ctrlfolder=. --name=test")
 end
 
 if "--help" in ARGS || "--h" in ARGS || length(ARGS)==0
