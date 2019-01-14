@@ -109,11 +109,13 @@ Do `julia aicontrolScript.jl --help` or `-h` for help.
 
 We support the following flags. 
 
-- `--dup`: using duplicate reads \[default:false\]
-- `--reduced`: using subsampled control datasets \[default:false\]
-- `--ctrlfolder=[path]`: path to a control folder \[default:./data\]
+- `--ctrlfolder=[path]`: path to a control folder \[default:.\]
 - `--name=[string]`: prefix for output files \[default:bamfile_prefix\]
-- `--p=[float]`: pvalue threshold \[default:0.15\]
+- `--p=[float]`: pvalue threshold \[default: 0.03 (or -log10(0.03)=1.5)\]
+- `--disableParallel`: a flag to disable parallel processing \[default:false\]
+- `--dup`: a flag to use duplicate reads \[default:false\]
+- `--reduced`: a flag to use subsampled control datasets \[default:false\]
+- `--fused`: a flag to fuse consecutive peaks \[default:false\]
 
 If you would like to use the `--dup` or `--reduced` options, please download appropriate versions of compressed control data indicated with `.dup` or `.reduced`.
 
