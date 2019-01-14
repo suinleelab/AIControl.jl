@@ -5,12 +5,13 @@
 function printUsage()
     println("==================USAGE===================")
     println("julia aicontrolScript.jl [bamfile] [option1] [option2] ...")
-    println("\t\t --dup: using duplicate reads [default:false]")
-    println("\t\t --reduced: using subsampled control datasets [default:false]")
-    println("\t\t --fused: fusing consecutive peaks [default:false]")
     println("\t\t --ctrlfolder=[path]: path to a control folder [default:.]")
     println("\t\t --name=[string]: prefix for output files [default:bamfile_prefix]")
-    println("\t\t --p=[float]: pvalue threshold [default:0.15]")
+    println("\t\t --p=[float]: -log10 pvalue threshold [default:1.5 = -log10(0.03)]")
+    println("\t\t --disableParallel: a flag to disable parallel processing [default:false]")
+    println("\t\t --dup: a flag to use duplicate reads [default:false]")
+    println("\t\t --reduced: a flag to use subsampled control datasets [default:false]")
+    println("\t\t --fused: a flag to fuse consecutive peaks [default:false]")
     println("")
     println("Example: julia aicontrolScript.jl test.bam --ctrlfolder=/scratch --name=test")
 end
@@ -36,6 +37,8 @@ fullstring = ""
 
 isFused = false
 
+isParallelDisabled = false 
+
 name = ""
 #xtxfolder = ""
 ctrlfolder = ""
@@ -57,6 +60,10 @@ try
     if "--reduced" in ARGS
         global isFull = false
         global fullstring = ".reduced"
+    end
+    
+    if "--disableParallel" in ARGS
+        global isParallelDisabled = true
     end
 
     global name = split(split(bamfilepath, "/")[end], ".")[1]
@@ -85,13 +92,13 @@ catch
 end
 
 println("============PARAMETERS====================")
+println("path to control data: ", ctrlfolder)
+println("prefix: ", name)
+println("p-value (-log10)    : ", mlog10p)
+println("Parallel: ", isParallelDisabled)
 println("isDup : ", isDup)
 println("isFull: ", isFull)
 println("isFused: ", isFused)
-println("prefix: ", name)
-println("p-value (-log10)    : ", mlog10p)
-println("path to control data: ", ctrlfolder)
-#println("path to other data  : ", xtxfolder)
 println("=========================================")
 
 #check for file existance
@@ -115,7 +122,11 @@ end
 using Distributed
 using JLD2
 using FileIO
-addprocs(2)
+
+# Adding processes unless specifically told to disable parallel computing
+if !isParallelDisabled 
+    addprocs(2)
+end
 @everywhere using AIControl
 
 # Making a directory
