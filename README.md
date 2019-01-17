@@ -105,6 +105,7 @@ The terminal command below will run AIControl.
 ```
 julia aicontrolScript.jl example.sorted.bam --ctrlfolder=. --name=test
 ```
+The resulting `.narrowPeak` file will be written to a `./example` folder.  
 Do `julia aicontrolScript.jl --help` or `-h` for help.
 
 We support the following flags. 
