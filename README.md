@@ -143,8 +143,10 @@ Make sure that:
 - You sorted the input bam files according to the UCSC hg38 assembly as specified in Step 1 (and 3.1).
 
 ## We have tested our implementation on ...
-- macOS Sierra (2.5GHz Intel Core i5 & 8GB RAM)
-- Ubuntu 18.04 
+- macOS Sierra (a Laptop with 2.5GHz Intel Core i5 & 8GB RAM)
+- macOS Mojave
+- Ubuntu 18.04
+- Cent OS 7
 - Windows 8.0
 
 If you have any questions, please e-mail to hiranumn at cs dot washington dot edu.
