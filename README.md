@@ -107,16 +107,19 @@ The terminal command below will run AIControl.
 ```
 julia aicontrolScript.jl example.sorted.bam --ctrlfolder=. --name=test
 ```
-The resulting `.narrowPeak` file will be written to a `./example` folder.  
-Do `julia aicontrolScript.jl --help` or `-h` for help.
+If you are running this on a cluster machine or local laptop, you can use the `--disableParallel` flag in order to prevent AIControl from using 2 cores. Do `julia aicontrolScript.jl --help` or `-h` for help.
+
+The following files will be written to a `./example` folder.
+- `*.narrowPeak`: a resulting peak file in [.narrowPeak](http://genome.ucsc.edu/FAQ/FAQformat.html#format12) format.
+- `*.jld2`: a file that stores intermediate results. 
+- `*.fbin100` & `*.rbin100`: binned forward/reverse signals of your target ChIP experiment.
 
 We support the following flags. 
-
 - `--ctrlfolder=[path]`: path to a control folder \[default:.\]
 - `--name=[string]`: prefix for output files \[default:bamfile_prefix\]
 - `--p=[float]`: pvalue threshold \[default: 0.03 (or -log10(0.03)=1.5)\]
 - `--disableParallel`: a flag to disable parallel processing \[default:false\]
-- `--dup`: a flag to use duplicate reads \[default:false\]
+- `--dup`: a flag to use duplicate reads \[default:false\]. 
 - `--reduced`: a flag to use subsampled control datasets \[default:false\]
 - `--fused`: a flag to fuse consecutive peaks \[default:false\]
 
