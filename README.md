@@ -29,7 +29,7 @@ We have an accompanying paper in BioRxiv evaluating and comparing the performanc
 AIControl can be used on any **Linux** or **macOS** machine. While we tested and validated that AIControl works on **Windows** machines, we believe that it is easier for you to set up the AIControl pipeline on the Unix based systems.
 
 AIControl expects a sorted `.bam` file as an input and outputs a `.narrowpeak` file. Typically, for a brand new ChIP-seq experiment, you start with a `.fastq` file, and you will need some external softwares to convert the `.fastq` file to a sorted `.bam` file. Thus, the whole AIControl pipeline needs the following sets of programs and packages installed on your local machine. We will explain how to install them in sections below.
-- `Julia (v1.0.3)`
+- `Julia` (v1.0.3): for running Julia scripts
 - `bowtie2` (2.3.4.3): for aligning a `.fastq` file to the hg38 genome
 - `samtools` (1.9): for sorting an aligned bam file
 - `bedtools` (v2.27.1): for converting a bam file back to a fastq file (OPTIONAL for Step 3.1)
