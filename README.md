@@ -92,6 +92,8 @@ wget https://dada.cs.washington.edu/aicontrol/bowtie2ref.tar.bz2
 tar xvjf bowtie2ref.tar.bz2
 bowtie2 -x bowtie2ref/hg38 -q -p 10 -U example.fastq | samtools view -bS | samtools sort -o example.sorted.bam
 ````  
+If you are running this on a cluster machine or local laptop, you can remove the `-p 10` flag in order to let `bowtie2` use a single core rather than 10 cores. 
+
 Unlike other peak callers, the core idea of AIControl is to leverage all available control datasets. This requires all data (your target and public control datasets) to be mapped to the exact same reference genome. Our control datasets are currently mapped to the hg38 assembly from [the UCSC repository](http://hgdownload.soe.ucsc.edu/goldenPath/hg38/bigZips/hg38.fa.gz). **So please make sure that your data is also mapped to the same assembly**. Otherwise, our pipeline will report an error.
    
 ### Step 2: Download the AIControl julia script.
