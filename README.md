@@ -29,13 +29,13 @@ We have an accompanying paper in BioRxiv evaluating and comparing the performanc
 AIControl can be used on any **Linux** or **macOS** machine. While we tested and validated that AIControl works on **Windows** machines, we believe that it is easier for you to set up the AIControl pipeline on the Unix based systems.
 
 AIControl expects a sorted `.bam` file as an input and outputs a `.narrowpeak` file. Typically, for a brand new ChIP-seq experiment, you start with a `.fastq` file, and you will need some external softwares to convert the `.fastq` file to a sorted `.bam` file. Thus, the whole AIControl pipeline needs the following sets of programs and packages installed on your local machine. We will explain how to install them in sections below.
-- `Julia (Julia 1.0 and above)`
-- `bowtie2`: for aligning a `.fastq` file to the hg38 genome
-- `samtools`: for sorting an aligned bam file
-- `bedtools`: for converting a bam file back to a fastq file (OPTIONAL for Step 3.1)
+- `Julia (v1.0.3)`
+- `bowtie2` (2.3.4.3): for aligning a `.fastq` file to the hg38 genome
+- `samtools` (1.9): for sorting an aligned bam file
+- `bedtools` (v2.27.1): for converting a bam file back to a fastq file (OPTIONAL for Step 3.1)
 
 ### 1a. Installing Julia 1.0 for a Linux machine
-The terminal commands below will install julia 1.0.3 on a linux machine. Please change the url accordingly. You can also download julia [here](https://julialang.org/downloads/). **[CAUTION:] We highly recommend avoiding the conda version of julia** as it currently known to have a problem locating libLLVM.so in many environments.
+The terminal commands below will install julia 1.0.3 (Long-term support release) on a linux machine. Please change the url accordingly. You can also download julia [here](https://julialang.org/downloads/). **[CAUTION:] We highly recommend avoiding the conda version of julia** as it currently known to have a problem locating libLLVM.so in many environments.
 ```
 cd
 wget https://julialang-s3.julialang.org/bin/linux/x64/1.0/julia-1.0.3-linux-x86_64.tar.gz
@@ -45,7 +45,7 @@ source ~/.bashrc
 ```
 
 ### 1b. Installing Julia 1.0 for a mac OS machine
-Please first download the `.dmg` file for mac OS from the [julia website](https://julialang.org/downloads/), double-click to open it, and drag the icon to the Applications folder. Then, the following terminal command will put julia in your `PATH` and make it executable from the command line. **[CAUTION:] We highly recommend avoiding the conda version of julia** as it currently known to have a problem locating libLLVM.so in many environments.
+Please first download the `.dmg` file of julia 1.0.3 (Long-term support release) for mac OS from the [julia website](https://julialang.org/downloads/), double-click to open it, and drag the icon to the Applications folder. Then, the following terminal command will put julia in your `PATH` and make it executable from the command line. **[CAUTION:] We highly recommend avoiding the conda version of julia** as it currently known to have a problem locating libLLVM.so in many environments.
 
 ```
 echo 'export PATH="/Applications/Julia-1.0.app/Contents/Resources/julia/bin/:${PATH}"' >> ~/.bash_profile
