@@ -22,8 +22,9 @@ We have an accompanying paper in BioRxiv evaluating and comparing the performanc
 
 ## Major Updates
 - (12/14/2018) Cleared all deprecations. AIControl now works with Julia 1.0. Please delete the precompiled cache from the previous versions of AIControl. You may do so by deleting the `.julia` folder. 
-- (12/15/2018) Updated some error messages to better direct users (12/13/2018).
+- (12/15/2018) Updated some error messages to better direct users.
 - (1/7/2019) Made AIControl Pkg3 compatible for Julia 1.0.3
+- (1/24/2019) AIControl now writes everything to a folder by default. We also substatially improved the readme.md based on community feedback.
 
 ## Installation 
 AIControl can be used on any **Linux** or **macOS** machine. While we tested and validated that AIControl works on **Windows** machines, we believe that it is easier for you to set up the AIControl pipeline on the Unix based systems.
@@ -73,7 +74,7 @@ tar xvjf forward.data100.nodup.tar.bz2
 wget https://dada.cs.washington.edu/aicontrol/reverse.data100.nodup.tar.bz2
 tar xvjf reverse.data100.nodup.tar.bz2
 ```
-You can also obtain the control files from [our data repository](https://dada.cs.washington.edu/aicontrol/) or [Google Drive](https://drive.google.com/open?id=1Xh6Fjah1LoRMmbaJA7_FzxYcbqmpNUPZ). mac OS users can use `curl` instead of `wget`.
+You can also obtain the control files from [our data repository](https://dada.cs.washington.edu/aicontrol/) or [Google Drive](https://drive.google.com/open?id=1Xh6Fjah1LoRMmbaJA7_FzxYcbqmpNUPZ). mac OS users can use `curl -O output_file_name` instead of `wget`.
 
 ## Running AIControl (step by step)
 
@@ -83,7 +84,7 @@ They are also available at [our data repository](https://dada.cs.washington.edu/
 ```
 wget https://dada.cs.washington.edu/aicontrol/example.fastq
 ```
-mac OS users can use `curl` instead of `wget`.
+mac OS users can use `curl -O output_file_name` instead of `wget`.
 
 ### Step 1: Map your FASTQ file from ChIP-seq to the `hg38` assembly from the UCSC database.
 The following terminal commands will a) download and untar the reference database file for `bowtie2`, b) run `bowtie2` to map a `.fastq` file to the UCSC hg38 genome, which is available at [the UCSC repository](http://hgdownload.soe.ucsc.edu/goldenPath/hg38/bigZips/hg38.fa.gz), and c) sort the output. 
@@ -101,7 +102,8 @@ The following terminal command will download the AIControl julia script and make
 ```
 wget https://raw.githubusercontent.com/hiranumn/AIControl.jl/master/aicontrolScript.jl
 ```
-Please also place the downloaded control data files to the same folder, or otherwise specify their location with `--ctrlfolder` option. mac OS users can use `curl` instead of `wget`.
+Please also place the downloaded control data files to the same folder, or otherwise specify their location with `--ctrlfolder` option. mac OS users can use `curl -O output_file_name` instead of `wget`.
+
 ### Step 3: Run AIControl. 
 The terminal command below will run AIControl. 
 ```
