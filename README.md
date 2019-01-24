@@ -74,7 +74,8 @@ tar xvjf forward.data100.nodup.tar.bz2
 wget https://dada.cs.washington.edu/aicontrol/reverse.data100.nodup.tar.bz2
 tar xvjf reverse.data100.nodup.tar.bz2
 ```
-You can also obtain the control files from [our data repository](https://dada.cs.washington.edu/aicontrol/) or [Google Drive](https://drive.google.com/open?id=1Xh6Fjah1LoRMmbaJA7_FzxYcbqmpNUPZ). mac OS users can use `curl -O output_file_name` instead of `wget`.
+You can also obtain the control files from [our data repository](https://dada.cs.washington.edu/aicontrol/) or [Google Drive](https://drive.google.com/open?id=1Xh6Fjah1LoRMmbaJA7_FzxYcbqmpNUPZ).  
+mac OS users can use `curl -O output_file_name` instead of `wget`.
 
 ## Running AIControl (step by step)
 
