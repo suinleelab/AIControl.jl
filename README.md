@@ -61,8 +61,10 @@ julia -e 'using Pkg; Pkg.add(["FileIO", "JLD2"]); Pkg.add(PackageSpec(url = "htt
 ```
 
 ### 3. Installing external softwares with miniconda
-Please download and install miniconda from [here](https://conda.io/miniconda.html). The terminal command below will install required external softwares using conda package management system.
+Please download the bash installer of miniconda [here](https://conda.io/miniconda.html). The terminal commands below will a) make the bash installer executable, b)execute the bash installer, and c) install required external softwares using conda package management system.
 ```
+chmod +x Miniconda2-latest-Linux-x86_64.sh #Change file name accordingly
+./Miniconda2-latest-Linux-x86_64.sh  
 conda install -c bioconda bowtie2 samtools bedtools
 ```
 
