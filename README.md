@@ -99,7 +99,7 @@ If you are running this on a cluster machine or local laptop, you can remove the
 Unlike other peak callers, the core idea of AIControl is to leverage all available control datasets. This requires all data (your target and public control datasets) to be mapped to the exact same reference genome. Our control datasets are currently mapped to the hg38 assembly from [the UCSC repository](http://hgdownload.soe.ucsc.edu/goldenPath/hg38/bigZips/hg38.fa.gz). **So please make sure that your data is also mapped to the same assembly**. Otherwise, our pipeline will report an error.
    
 ### Step 2: Download the AIControl julia script.
-The following terminal command will download the AIControl julia script and make it executable. You can also find it within this github repository.
+The following terminal command will download the AIControl julia script. You can also find it within this github repository.
 ```
 wget https://raw.githubusercontent.com/hiranumn/AIControl.jl/master/aicontrolScript.jl
 ```
