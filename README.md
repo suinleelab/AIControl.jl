@@ -114,7 +114,7 @@ julia aicontrolScript.jl example.sorted.bam --ctrlfolder=. --name=test
 ```
 If you are running this on a cluster machine or local laptop, you can use the `--disableParallel` flag in order to prevent AIControl from using 2 cores. Do `julia aicontrolScript.jl --help` or `-h` for help.
 
-The following files will be written to a `./example` folder.
+The following files will be written to a `./test` folder.
 - `*.narrowPeak`: a resulting peak file in [.narrowPeak](http://genome.ucsc.edu/FAQ/FAQformat.html#format12) format.
 - `*.jld2`: a file that stores intermediate results. 
 - `*.fbin100` & `*.rbin100`: binned forward/reverse signals of your target ChIP experiment.
