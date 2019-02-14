@@ -142,10 +142,11 @@ bedtools bamtofastq  -i example.bam -fq example.fastq
 We will regularly update the control data when a new major version of the genome becomes available; however, covering for all versions with small changes to the existing version is not realistic.
 
 ## Simple troubleshooting
-Make sure that:
-- You are using Julia 1.0.
-- You downloaded necessary control files for `--reduced` or `--dup` if you are running with those flags.
-- You sorted the input bam files according to the UCSC hg38 assembly as specified in Step 1 (and 3.1).
+If you have trouble running AICotrol, please make sure that:
+- You are using Julia 1.0. and above.
+- You have your input target ChIP-seq file at the location you specified.
+- You have downloaded required control data files, untarred them, and placed them in the correct folder.
+- You sorted the input bam files according to the UCSC hg38 assembly as specified in Step 1. Please see Step 3.1 if you are starting with a bam file aligned to some other genome.  
 
 ## We have tested our implementation on ...
 - macOS Sierra (a Laptop with 2.5GHz Intel Core i5 & 8GB RAM)
