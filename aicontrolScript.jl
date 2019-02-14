@@ -106,7 +106,7 @@ println("=========================================")
 if !isfile("$(ctrlfolder)/forward.data100$(fullstring)$(dupstring)")
     println(stderr, "$(ctrlfolder)/forward.data100$(fullstring)$(dupstring) missing.")
     println(stderr, "Please specify its location by --ctrlfolder=[path to the folder]")
-    println(stderr, "Please read the step4 at https://github.com/hiranumn/AIControl.jl")
+    println(stderr, "Please read the step3 at https://github.com/hiranumn/AIControl.jl")
     printUsage()
     exit()
 end
@@ -114,7 +114,7 @@ end
 if !isfile("$(ctrlfolder)/reverse.data100$(fullstring)$(dupstring)")
     println(stderr, "$(ctrlfolder)/reverse.data100$(fullstring)$(dupstring) missing.")
     println(stderr, "Please specify its location by --ctrlfolder=[path to the folder]")
-    println(stderr, "Please read the step4 at https://github.com/hiranumn/AIControl.jl")
+    println(stderr, "Please read the step3 at https://github.com/hiranumn/AIControl.jl")
     printUsage()
     exit()
 end 
