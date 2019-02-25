@@ -1,6 +1,6 @@
 # AIControl.jl
 
-[![Build Status](https://travis-ci.org/hiranumn/AIControl.jl.svg?branch=master)](https://travis-ci.org/hiranumn/AIControl.jl)
+[![Build Status](https://travis-ci.org/suinleelab/AIControl.jl.svg?branch=master)](https://travis-ci.org/suinleelab/AIControl.jl)
 
 AIControl makes ChIP-seq assays **easier**, **cheaper**, and **more accurate** by imputing background data from a massive amount of publicly available control data.
 
