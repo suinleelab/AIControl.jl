@@ -25,6 +25,7 @@ We have an accompanying paper in BioRxiv evaluating and comparing the performanc
 - (12/15/2018) Updated some error messages to better direct users.
 - (1/7/2019) Made AIControl Pkg3 compatible for Julia 1.0.3
 - (1/24/2019) AIControl now writes everything to a folder by default. We also substatially improved the readme.md based on community feedback.
+- (2/22/2019) Moved ownership to suinleelab from hiranumn
 
 ## Installation 
 AIControl can be used on any **Linux** or **macOS** machine. While we tested and validated that AIControl works on **Windows** machines, we believe that it is easier for you to set up the AIControl pipeline on the Unix based systems.
@@ -57,7 +58,7 @@ See [this](https://en.wikibooks.org/wiki/Introducing_Julia/Getting_started#On_ma
 ### 2. Installing Julia Packages
 The terminal command below will install required julia packages and AIControl.
 ```
-julia -e 'using Pkg; Pkg.add(["FileIO", "JLD2"]); Pkg.add(PackageSpec(url = "https://github.com/hiranumn/AIControl.jl")); using AIControl'
+julia -e 'using Pkg; Pkg.add(["FileIO", "JLD2"]); Pkg.add(PackageSpec(url = "https://github.com/suinleelab/AIControl.jl")); using AIControl'
 ```
 
 ### 3. Installing external softwares with miniconda
@@ -103,7 +104,7 @@ Unlike other peak callers, the core idea of AIControl is to leverage all availab
 ### Step 2: Download the AIControl julia script.
 The following terminal command will download the AIControl julia script. You can also find it within this github repository.
 ```
-wget https://raw.githubusercontent.com/hiranumn/AIControl.jl/master/aicontrolScript.jl
+wget https://raw.githubusercontent.com/suinleelab/AIControl.jl/master/aicontrolScript.jl
 ```
 Please also place the downloaded control data files to the same folder, or otherwise specify their location with `--ctrlfolder` option. mac OS users can use `curl -O output_file_name` instead of `wget`.
 
