@@ -1,6 +1,6 @@
 name = "AIControl"
 uuid = "3868d828-178d-56af-83e1-d523478a73cd"
-version = "0.0.2"
+version = "0.0.3"
 
 [deps]
 CSV = "336ed68f-0bac-5ca0-87d4-7b16caf5d00b"
